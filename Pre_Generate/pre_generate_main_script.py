@@ -1,5 +1,5 @@
 import pandas as pd
-
+import sys
 
 class PreGenerateMainScript:
     """This file controls the processes occurring prior to generating latex files. Raw data -> Processed data."""
@@ -43,7 +43,15 @@ class PreGenerateMainScript:
             8) percrecovery: the percentage recovery of ibuprofen.
             9) type: Blank, QC, or analyte.
             """
-        raw_xml_data = pd.read_excel(self.data_xml_file,)
+
+        try:
+            raw_xml_data = pd.read_excel(self.data_xml_file,)
+        except FileNotFoundError:
+            print("ERROR: XML FILE NOT FOUND")
+            print(str(self.data_xml_file) + " cannot be found. Either the path to the xml_data_files folder is " +
+                  "wrong, or the file doesn't exist.")
+            print("SCRIPT EXITING.")
+            sys.exit()
         self.raw_xml_data_frame = pd.DataFrame(raw_xml_data,
                                                columns=['id15',
                                                         'sampleid',
