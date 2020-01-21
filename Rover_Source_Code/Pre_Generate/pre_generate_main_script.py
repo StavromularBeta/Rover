@@ -20,11 +20,13 @@ class PreGenerateMainScript:
         3. raw_xml_data_frame = the first DataFrame produced from the xml file. At this point, the data is not
         manipulated in any way.
         4. percentage_data_frame = changes: analytical concentration converted to percentage concentration.
-        5. self.blank_data_frame = changes: only information from blanks.
-        6. self.qc_data_frame = changes: only information from standards.
-        7. self.samples_data_frame = changes: only information from samples and their dilutions.
+        5. blank_data_frame = changes: only information from blanks.
+        6. qc_data_frame = changes: only information from standards.
+        7. samples_data_frame = changes: only information from samples and their dilutions.
         8. best_recovery_qc_data_frame = changes: all the standard data has been analyzed, and the best recoveries for
-        each analyte have been selected for the new data frame, which consists of one samples' worth of rows."""
+        each analyte have been selected for the new data frame, which consists of one samples' worth of rows.
+        9. min_value_blank_data_frame = changes: one axis data frame with the minimum value of each analyte from the
+        blank_data_frame."""
 
         self.data_xml_file = data_xml_file
         self.raw_xml_data_frame = pd.DataFrame()
@@ -33,6 +35,7 @@ class PreGenerateMainScript:
         self.qc_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
         self.best_recovery_qc_data_frame = pd.DataFrame()
+        self.min_value_blank_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -71,6 +74,7 @@ class PreGenerateMainScript:
         self.convert_analytical_concentration_to_percentage_concentration()
         self.split_into_blank_qc_and_sample_data_frame()
         self.combine_qc_into_one_data_set_with_highest_recovery_values()
+        self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -128,6 +132,12 @@ class PreGenerateMainScript:
         tem = self.qc_data_frame.groupby(['id17'])['percrecovery'].transform(max) == self.qc_data_frame['percrecovery']
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
+
+    def combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values(self):
+        """ produces a single axis data frame with one min value for each analyte, with the analytes being identified by
+        id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. """
+
+        self.min_value_blank_data_frame = self.blank_data_frame.groupby(['id17'])['percentage_concentration'].min()
 
 
 pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
