@@ -15,14 +15,16 @@ class PreGenerateMainScript:
     def __init__(self, data_xml_file):
         """The main init function.
 
-        data_xml_file = the raw xml data file produced by TargetLynx. This must be manually placed in the datafiles
-        folder to be read by Rover. The name of it is passed to init.
-        raw_xml_data_frame = the first DataFrame produced from the xml file. At this point, the data is not
+        1. data_xml_file = the raw xml data file produced by TargetLynx. This must be manually placed in the datafiles
+        2. folder to be read by Rover. The name of it is passed to init.
+        3. raw_xml_data_frame = the first DataFrame produced from the xml file. At this point, the data is not
         manipulated in any way.
-        percentage_data_frame = changes: analytical concentration converted to percentage concentration.
-        self.blank_data_frame = changes: only information from blanks.
-        self.qc_data_frame = changes: only information from standards.
-        self.samples_data_frame = changes: only information from samples and their dilutions."""
+        4. percentage_data_frame = changes: analytical concentration converted to percentage concentration.
+        5. self.blank_data_frame = changes: only information from blanks.
+        6. self.qc_data_frame = changes: only information from standards.
+        7. self.samples_data_frame = changes: only information from samples and their dilutions.
+        8. best_recovery_qc_data_frame = changes: all the standard data has been analyzed, and the best recoveries for
+        each analyte have been selected for the new data frame, which consists of one samples' worth of rows."""
 
         self.data_xml_file = data_xml_file
         self.raw_xml_data_frame = pd.DataFrame()
@@ -30,6 +32,7 @@ class PreGenerateMainScript:
         self.blank_data_frame = pd.DataFrame()
         self.qc_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
+        self.best_recovery_qc_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -54,26 +57,35 @@ class PreGenerateMainScript:
                                          17: [110, 20391, 'CBLA'],
                                          18: [100, 12482, 'CBCA']}
 
+#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
+#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
+
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', -1)
+
     def pre_generate_controller(self):
         """The main controller function. To run the methods that make up this class, this function is called."""
         self.collect_data_from_xml_file()
         self.convert_analytical_concentration_to_percentage_concentration()
         self.split_into_blank_qc_and_sample_data_frame()
+        self.combine_qc_into_one_data_set_with_highest_recovery_values()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
 
-        the columns of the raw DataFrame are as follows:
-            1) id15: the id in the batch. First standard/blank/sample is 1, second is 2, etc.
-            2) sampleid: the sample number, or the name of the standard/blank.
-            3) id17: the id of the particular analyte for the row.
-            4) name20: the name of the particular analyte for the row.
-            5) initamount: the mass, in grams, of the sample.
-            6) area: the peak area of the analyte from the chromatogram.
-            7) analconc: the concentration calculated by TargetLynx. This will improve after analyst peak integration.
-            8) percrecovery: the percentage recovery of ibuprofen.
-            9) type: Blank, QC, or analyte.
-            """
+        1. id15: the id in the batch. First standard/blank/sample is 1, second is 2, etc.
+        2. sampleid: the sample number, or the name of the standard/blank.
+        3. id17: the id of the particular analyte for the row.
+        4. name20: the name of the particular analyte for the row.
+        5. initamount: the mass, in grams, of the sample.
+        6. area: the peak area of the analyte from the chromatogram.
+        7. analconc: the concentration calculated by TargetLynx. This will improve after analyst peak integration.
+        8. percrecovery: the percentage recovery of ibuprofen.
+        9. type: Blank, QC, or analyte.
+
+        there is a try/except statement that will catch an incorrect path/filename."""
 
         try:
             raw_xml_data = pd.read_excel(self.data_xml_file,)
@@ -105,6 +117,17 @@ class PreGenerateMainScript:
         self.blank_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Blank"]
         self.qc_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "QC"]
         self.samples_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Analyte"]
+
+    def combine_qc_into_one_data_set_with_highest_recovery_values(self):
+        """groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
+
+        note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
+        change 'highest recovery' to 'closest recovery to 100%'. This code was taken from the following StackOverflow
+        question: https://stackoverflow.com/questions/31361599. Specifically, the answer given by Padraic Cunningham."""
+
+        tem = self.qc_data_frame.groupby(['id17'])['percrecovery'].transform(max) == self.qc_data_frame['percrecovery']
+        self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
+        self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
 
 
 pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
