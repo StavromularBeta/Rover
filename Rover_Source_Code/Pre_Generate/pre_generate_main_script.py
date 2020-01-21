@@ -1,5 +1,13 @@
 import pandas as pd
 import sys
+import os, sys, inspect
+# below 3 lines add the parent directory to the path, so that SQL_functions can be found.
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+
 
 class PreGenerateMainScript:
     """This file controls the processes occurring prior to generating latex files. Raw data -> Processed data."""
@@ -7,11 +15,14 @@ class PreGenerateMainScript:
     def __init__(self, data_xml_file):
         """The main init function.
 
-            data_xml_file = the raw xml data file produced by TargetLynx. This must be manually placed in the datafiles
+        data_xml_file = the raw xml data file produced by TargetLynx. This must be manually placed in the datafiles
         folder to be read by Rover. The name of it is passed to init.
-            raw_xml_data_frame = the first DataFrame produced from the xml file. At this point, the data is not
+        raw_xml_data_frame = the first DataFrame produced from the xml file. At this point, the data is not
         manipulated in any way.
-            percentage_data_frame = changes: analytical concentration converted to percentage concentration."""
+        percentage_data_frame = changes: analytical concentration converted to percentage concentration.
+        self.blank_data_frame = changes: only information from blanks.
+        self.qc_data_frame = changes: only information from standards.
+        self.samples_data_frame = changes: only information from samples and their dilutions."""
 
         self.data_xml_file = data_xml_file
         self.raw_xml_data_frame = pd.DataFrame()
@@ -20,14 +31,34 @@ class PreGenerateMainScript:
         self.qc_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
 
+#       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
+#       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
+#       the corresponding value from the dilution.
+        self.range_checker_dictionary = {0: [3065, 44880, 'ibuprofen'],
+                                         1: [127, 94400, 'CBDV'],
+                                         2: [64, 16896, 'CBDVA'],
+                                         3: [259, 103785, 'THCV'],
+                                         4: [259, 103785, 'CBGVA'],  # copying THCV for now
+                                         5: [100, 160995, 'CBD'],
+                                         6: [117, 80956, 'CBG'],
+                                         7: [100, 170668, 'CBDA'],
+                                         8: [100, 27050, 'CBN'],
+                                         9: [100, 22440, 'CBGA'],
+                                         10: [100, 15440, 'THCVA'],
+                                         11: [133.9, 203125, 'd9_THC'],
+                                         12: [163, 84959, 'd8_THC'],
+                                         13: [86.4, 82725, 'CBL'],
+                                         14: [100, 14365, 'CBC'],
+                                         15: [131, 24365, 'CBNA'],
+                                         16: [100, 170391, 'THCA'],
+                                         17: [110, 20391, 'CBLA'],
+                                         18: [100, 12482, 'CBCA']}
+
     def pre_generate_controller(self):
         """The main controller function. To run the methods that make up this class, this function is called."""
         self.collect_data_from_xml_file()
         self.convert_analytical_concentration_to_percentage_concentration()
         self.split_into_blank_qc_and_sample_data_frame()
-        print(self.blank_data_frame)
-        print(self.qc_data_frame)
-        print(self.samples_data_frame)
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
