@@ -40,29 +40,36 @@ class PreGenerateMainScript:
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
 #       the corresponding value from the dilution.
-        self.range_checker_dictionary = {0: [3065, 44880, 'ibuprofen'],
-                                         1: [127, 94400, 'CBDV'],
-                                         2: [64, 16896, 'CBDVA'],
-                                         3: [259, 103785, 'THCV'],
-                                         4: [259, 103785, 'CBGVA'],  # copying THCV for now
-                                         5: [100, 160995, 'CBD'],
-                                         6: [117, 80956, 'CBG'],
-                                         7: [100, 170668, 'CBDA'],
-                                         8: [100, 27050, 'CBN'],
-                                         9: [100, 22440, 'CBGA'],
-                                         10: [100, 15440, 'THCVA'],
-                                         11: [133.9, 203125, 'd9_THC'],
-                                         12: [163, 84959, 'd8_THC'],
-                                         13: [86.4, 82725, 'CBL'],
-                                         14: [100, 14365, 'CBC'],
-                                         15: [131, 24365, 'CBNA'],
-                                         16: [100, 170391, 'THCA'],
-                                         17: [110, 20391, 'CBLA'],
-                                         18: [100, 12482, 'CBCA']}
+        self.range_checker_dictionary = {1: [3065, 44880, 'ibuprofen'],
+                                         2: [127, 94400, 'CBDV'],
+                                         3: [64, 16896, 'CBDVA'],
+                                         4: [259, 103785, 'THCV'],
+                                         5: [259, 103785, 'CBGVA'],  # copying THCV for now
+                                         6: [100, 160995, 'CBD'],
+                                         7: [117, 80956, 'CBG'],
+                                         8: [100, 170668, 'CBDA'],
+                                         9: [100, 27050, 'CBN'],
+                                         10: [100, 22440, 'CBGA'],
+                                         11: [100, 15440, 'THCVA'],
+                                         12: [133.9, 203125, 'd9_THC'],
+                                         13: [163, 84959, 'd8_THC'],
+                                         14: [86.4, 82725, 'CBL'],
+                                         15: [100, 14365, 'CBC'],
+                                         16: [131, 24365, 'CBNA'],
+                                         17: [100, 170391, 'THCA'],
+                                         18: [110, 20391, 'CBLA'],
+                                         19: [100, 12482, 'CBCA']}
+
+#       This DataFrame is so we can join the calibration curve data to the samples DataFrame in order to flag the
+#       samples for being over the curve.
+        self.over_curve_data = {'id17': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+                                'max_value': [44880, 94400, 16896, 103785, 103785, 160995, 80956, 170668,
+                                              27050, 22440, 15440, 203125, 84959, 82725, 14365, 24365,
+                                              170391, 20391, 12482]}
+        self.over_curve_data_frame = pd.DataFrame(self.over_curve_data, columns=['id17', 'max_value'])
 
 #       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
 #       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
-
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
@@ -70,11 +77,14 @@ class PreGenerateMainScript:
 
     def pre_generate_controller(self):
         """The main controller function. To run the methods that make up this class, this function is called."""
+
         self.collect_data_from_xml_file()
         self.convert_analytical_concentration_to_percentage_concentration()
         self.split_into_blank_qc_and_sample_data_frame()
         self.combine_qc_into_one_data_set_with_highest_recovery_values()
         self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
+        self.join_over_curve_df_to_samples_df()
+        self.assign_high_flag_to_sample_data()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -113,11 +123,13 @@ class PreGenerateMainScript:
 
     def convert_analytical_concentration_to_percentage_concentration(self):
         """converts the analytical concentration to a percent concentration. Saves as a new DataFrame."""
+
         self.percentage_data_frame = self.raw_xml_data_frame
         self.percentage_data_frame['percentage_concentration'] = self.percentage_data_frame['analconc']/10000
 
     def split_into_blank_qc_and_sample_data_frame(self):
         """splits the percentage DataFrame into blank, qc, and sample DataFrames, based on the 'type' column."""
+
         self.blank_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Blank"]
         self.qc_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "QC"]
         self.samples_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Analyte"]
@@ -138,6 +150,23 @@ class PreGenerateMainScript:
         id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. """
 
         self.min_value_blank_data_frame = self.blank_data_frame.groupby(['id17'])['percentage_concentration'].min()
+
+    def join_over_curve_df_to_samples_df(self):
+        """ joins the upper limits on areas for given analytes (based on calibration curve) to the samples DataFrame.
+        These values are used to assign flags that indicate whether a given peak area is out of calibration range."""
+        self.samples_data_frame = pd.merge(left=self.samples_data_frame,
+                                           right=self.over_curve_data_frame,
+                                           how='left',
+                                           left_on='id17',
+                                           right_on='id17')
+
+    def assign_high_flag_to_sample_data(self):
+        """assigns a flag to indicate whether a peak area is over the calibration curve range. the over_curve column
+        will have a blank string if the area is not over, and will say 'over' if the area is over."""
+        self.samples_data_frame = self.samples_data_frame.assign(over_curve='')
+        self.samples_data_frame.loc[self.samples_data_frame['area'] >
+                                    self.samples_data_frame['max_value'],
+                                    'over_curve'] = 'over'
 
 
 pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
