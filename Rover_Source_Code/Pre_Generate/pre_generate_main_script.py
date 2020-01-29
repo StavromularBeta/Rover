@@ -36,6 +36,7 @@ class PreGenerateMainScript:
         self.samples_data_frame = pd.DataFrame()
         self.best_recovery_qc_data_frame = pd.DataFrame()
         self.min_value_blank_data_frame = pd.DataFrame()
+        self.sample_dilutions_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -85,6 +86,7 @@ class PreGenerateMainScript:
         self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
         self.join_over_curve_df_to_samples_df()
         self.assign_high_flag_to_sample_data()
+        self.split_samples_data_frame_into_dilutions_and_samples()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -168,6 +170,16 @@ class PreGenerateMainScript:
                                     self.samples_data_frame['max_value'],
                                     'over_curve'] = 'over'
 
+    def split_samples_data_frame_into_dilutions_and_samples(self):
+        """Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
+        samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
+        conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
+        (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample"""
+        self.sample_dilutions_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() > 9]
+        self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() <= 9]
+
 
 pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
 pre_generate.pre_generate_controller()
+print(pre_generate.samples_data_frame)
+print(pre_generate.sample_dilutions_data_frame)

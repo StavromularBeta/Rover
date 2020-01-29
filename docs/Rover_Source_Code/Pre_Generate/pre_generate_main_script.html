@@ -62,6 +62,7 @@ class PreGenerateMainScript:
         self.samples_data_frame = pd.DataFrame()
         self.best_recovery_qc_data_frame = pd.DataFrame()
         self.min_value_blank_data_frame = pd.DataFrame()
+        self.sample_dilutions_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -111,6 +112,7 @@ class PreGenerateMainScript:
         self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
         self.join_over_curve_df_to_samples_df()
         self.assign_high_flag_to_sample_data()
+        self.split_samples_data_frame_into_dilutions_and_samples()
 
     def collect_data_from_xml_file(self):
         &#34;&#34;&#34;Reads the xml data, saves it to a Pandas DataFrame.
@@ -194,9 +196,19 @@ class PreGenerateMainScript:
                                     self.samples_data_frame[&#39;max_value&#39;],
                                     &#39;over_curve&#39;] = &#39;over&#39;
 
+    def split_samples_data_frame_into_dilutions_and_samples(self):
+        &#34;&#34;&#34;Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
+        samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
+        conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
+        (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample&#34;&#34;&#34;
+        self.sample_dilutions_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &gt; 9]
+        self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &lt;= 9]
+
 
 pre_generate = PreGenerateMainScript(r&#39;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx&#39;)
-pre_generate.pre_generate_controller()</code></pre>
+pre_generate.pre_generate_controller()
+print(pre_generate.samples_data_frame)
+print(pre_generate.sample_dilutions_data_frame)</code></pre>
 </details>
 </section>
 <section>
@@ -260,6 +272,7 @@ blank_data_frame.</li>
         self.samples_data_frame = pd.DataFrame()
         self.best_recovery_qc_data_frame = pd.DataFrame()
         self.min_value_blank_data_frame = pd.DataFrame()
+        self.sample_dilutions_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -309,6 +322,7 @@ blank_data_frame.</li>
         self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
         self.join_over_curve_df_to_samples_df()
         self.assign_high_flag_to_sample_data()
+        self.split_samples_data_frame_into_dilutions_and_samples()
 
     def collect_data_from_xml_file(self):
         &#34;&#34;&#34;Reads the xml data, saves it to a Pandas DataFrame.
@@ -390,7 +404,15 @@ blank_data_frame.</li>
         self.samples_data_frame = self.samples_data_frame.assign(over_curve=&#39;&#39;)
         self.samples_data_frame.loc[self.samples_data_frame[&#39;area&#39;] &gt;
                                     self.samples_data_frame[&#39;max_value&#39;],
-                                    &#39;over_curve&#39;] = &#39;over&#39;</code></pre>
+                                    &#39;over_curve&#39;] = &#39;over&#39;
+
+    def split_samples_data_frame_into_dilutions_and_samples(self):
+        &#34;&#34;&#34;Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
+        samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
+        conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
+        (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample&#34;&#34;&#34;
+        self.sample_dilutions_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &gt; 9]
+        self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &lt;= 9]</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -565,7 +587,8 @@ These values are used to assign flags that indicate whether a given peak area is
     self.combine_qc_into_one_data_set_with_highest_recovery_values()
     self.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values()
     self.join_over_curve_df_to_samples_df()
-    self.assign_high_flag_to_sample_data()</code></pre>
+    self.assign_high_flag_to_sample_data()
+    self.split_samples_data_frame_into_dilutions_and_samples()</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_into_blank_qc_and_sample_data_frame"><code class="name flex">
@@ -583,6 +606,27 @@ These values are used to assign flags that indicate whether a given peak area is
     self.blank_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == &#34;Blank&#34;]
     self.qc_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == &#34;QC&#34;]
     self.samples_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == &#34;Analyte&#34;]</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_samples_data_frame_into_dilutions_and_samples"><code class="name flex">
+<span>def <span class="ident">split_samples_data_frame_into_dilutions_and_samples</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
+samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
+conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
+(xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def split_samples_data_frame_into_dilutions_and_samples(self):
+    &#34;&#34;&#34;Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
+    samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
+    conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
+    (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample&#34;&#34;&#34;
+    self.sample_dilutions_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &gt; 9]
+    self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() &lt;= 9]</code></pre>
 </details>
 </dd>
 </dl>
@@ -614,6 +658,7 @@ These values are used to assign flags that indicate whether a given peak area is
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.join_over_curve_df_to_samples_df" href="#Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.join_over_curve_df_to_samples_df">join_over_curve_df_to_samples_df</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.pre_generate_controller" href="#Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.pre_generate_controller">pre_generate_controller</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_into_blank_qc_and_sample_data_frame" href="#Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_into_blank_qc_and_sample_data_frame">split_into_blank_qc_and_sample_data_frame</a></code></li>
+<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_samples_data_frame_into_dilutions_and_samples" href="#Rover_Source_Code.Pre_Generate.pre_generate_main_script.PreGenerateMainScript.split_samples_data_frame_into_dilutions_and_samples">split_samples_data_frame_into_dilutions_and_samples</a></code></li>
 </ul>
 </li>
 </ul>
