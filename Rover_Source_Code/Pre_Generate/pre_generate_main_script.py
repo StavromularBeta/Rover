@@ -33,10 +33,11 @@ class PreGenerateMainScript:
         self.percentage_data_frame = pd.DataFrame()
         self.blank_data_frame = pd.DataFrame()
         self.qc_data_frame = pd.DataFrame()
-        self.samples_data_frame = pd.DataFrame()
+        self.samples_and_dilutions_data_frame = pd.DataFrame()
         self.best_recovery_qc_data_frame = pd.DataFrame()
         self.min_value_blank_data_frame = pd.DataFrame()
         self.sample_dilutions_data_frame = pd.DataFrame()
+        self.samples_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -87,6 +88,7 @@ class PreGenerateMainScript:
         self.join_over_curve_df_to_samples_df()
         self.assign_high_flag_to_sample_data()
         self.split_samples_data_frame_into_dilutions_and_samples()
+        self.swap_out_out_of_range_values()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -134,7 +136,7 @@ class PreGenerateMainScript:
 
         self.blank_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Blank"]
         self.qc_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "QC"]
-        self.samples_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Analyte"]
+        self.samples_and_dilutions_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Analyte"]
 
     def combine_qc_into_one_data_set_with_highest_recovery_values(self):
         """groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
@@ -156,30 +158,40 @@ class PreGenerateMainScript:
     def join_over_curve_df_to_samples_df(self):
         """ joins the upper limits on areas for given analytes (based on calibration curve) to the samples DataFrame.
         These values are used to assign flags that indicate whether a given peak area is out of calibration range."""
-        self.samples_data_frame = pd.merge(left=self.samples_data_frame,
-                                           right=self.over_curve_data_frame,
-                                           how='left',
-                                           left_on='id17',
-                                           right_on='id17')
+        self.samples_and_dilutions_data_frame = pd.merge(left=self.samples_and_dilutions_data_frame,
+                                                         right=self.over_curve_data_frame,
+                                                         how='left',
+                                                         left_on='id17',
+                                                         right_on='id17')
 
     def assign_high_flag_to_sample_data(self):
         """assigns a flag to indicate whether a peak area is over the calibration curve range. the over_curve column
         will have a blank string if the area is not over, and will say 'over' if the area is over."""
-        self.samples_data_frame = self.samples_data_frame.assign(over_curve='')
-        self.samples_data_frame.loc[self.samples_data_frame['area'] >
-                                    self.samples_data_frame['max_value'],
-                                    'over_curve'] = 'over'
+        self.samples_and_dilutions_data_frame = self.samples_and_dilutions_data_frame.assign(over_curve='')
+        self.samples_and_dilutions_data_frame.loc[self.samples_and_dilutions_data_frame['area'] >
+                                                  self.samples_and_dilutions_data_frame['max_value'],
+                                                  'over_curve'] = 'over'
 
     def split_samples_data_frame_into_dilutions_and_samples(self):
         """Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
         samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
         conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
         (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample"""
-        self.sample_dilutions_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() > 9]
-        self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.sampleid.str.len() <= 9]
+        self.sample_dilutions_data_frame = self.samples_and_dilutions_data_frame[self.samples_and_dilutions_data_frame.sampleid.str.len() > 9]
+        self.samples_data_frame = self.samples_and_dilutions_data_frame[self.samples_and_dilutions_data_frame.sampleid.str.len() <= 9]
+
+    def swap_out_out_of_range_values(self):
+        """swaps the out of range values in samples_data_frame with in range ones from sample_dilutions_data_frame.
+        Looks for the 'over' flag, and then gets the row that has the sampleid from the sample contained in its
+        sampleid (if that makes sense) and the correct id17. It then replaces percentage_concentration, and changes
+         the flag from 'over' to 'Corrected: new area = (area from dilution)'. """
+        for index, row in self.samples_data_frame.iterrows():
+            if row['over_curve'] == 'over':
+                dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame['id17'] == row['id17'])
+                                                                & (self.sample_dilutions_data_frame['sampleid'].str.contains(row['sampleid']))]
+                self.samples_data_frame.loc[index, 'percentage_concentration'] = dilution.iloc[0, 9]
+                self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
 
 
 pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
 pre_generate.pre_generate_controller()
-print(pre_generate.samples_data_frame)
-print(pre_generate.sample_dilutions_data_frame)
