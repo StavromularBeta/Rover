@@ -4,7 +4,17 @@ import sys
 
 
 class PreGenerateHeaderParsing:
-    """This file finds the correct header information for the samples in the batch being processed and parses them."""
+    """This file finds the correct header information for the samples in the batch being processed and parses them.
+
+    1. samples_data_frame = samples_data_frame created by pre_generate_data_manipulation.
+    2. current_month_directory = the directory, in U drive, where header text files are stored for the current
+    month.
+    3. last_month_directory = the directory, in U drive, where header text files are stored for the previous
+    month.
+    4. jobs_in_batch = a list of the unique jobs in the batch. There can be multiple samples per job.
+    5. header_contents_dictionary = a dictionary where the keys are the unique job numbers and the values are the
+    parsed header information for the respective jobs, in list form. The list structure can be seen at the bottom
+    of the header_parser method."""
 
     def __init__(self, samples_data_frame):
         self.samples_data_frame = samples_data_frame
@@ -175,5 +185,4 @@ class PreGenerateHeaderParsing:
                                   lengthlist,
                                   sample_information]
         return parsed_header_contents
-
 
