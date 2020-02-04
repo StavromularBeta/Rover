@@ -1,14 +1,15 @@
 import pandas as pd
 import sys
 import os, sys, inspect
-from pre_generate_data_manipulation import PreGenerateDataManipulation
-from pre_generate_header_parsing import PreGenerateHeaderParsing
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 parentdir = os.path.dirname(parentdir)
 parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
+from pre_generate_data_manipulation import PreGenerateDataManipulation
+from pre_generate_header_parsing import PreGenerateHeaderParsing
 
 
 class PreGenerateController:

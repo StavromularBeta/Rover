@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
-<title>Rover_Source_Code.Pre_Generate API documentation</title>
-<meta name="description" content="This module contains all of the code that runs prior to the generation of Latex Files. It is responsible for reading
-xml data, parsing out blank and …" />
+<title>Rover_Source_Code.Pre_Generate.pre_generate_controller API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -18,45 +17,74 @@ xml data, parsing out blank and …" />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Rover_Source_Code.Pre_Generate</code></h1>
+<h1 class="title">Module <code>Rover_Source_Code.Pre_Generate.pre_generate_controller</code></h1>
 </header>
 <section id="section-intro">
-<p>This module contains all of the code that runs prior to the generation of Latex Files. It is responsible for reading
-xml data, parsing out blank and standard recovery information, parsing out the individual samples and swapping
-out-of-calibration data with in-calibration data from sample dilutions. It also parses header information and combines
-this information with the appropriate samples.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;This module contains all of the code that runs prior to the generation of Latex Files. It is responsible for reading
-xml data, parsing out blank and standard recovery information, parsing out the individual samples and swapping
-out-of-calibration data with in-calibration data from sample dilutions. It also parses header information and combines
-this information with the appropriate samples.&#34;&#34;&#34;</code></pre>
+<pre><code class="python">import pandas as pd
+import sys
+import os, sys, inspect
+# below 3 lines add the parent directory to the path, so that SQL_functions can be found.
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
+from pre_generate_data_manipulation import PreGenerateDataManipulation
+from pre_generate_header_parsing import PreGenerateHeaderParsing
+
+
+class PreGenerateController:
+    &#34;&#34;&#34;This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
+     the header_parsing routines.&#34;&#34;&#34;
+
+    def __init__(self):
+        self.target_file = r&#39;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_7.xlsx&#39;
+        self.dm = PreGenerateDataManipulation(self.target_file)
+        self.dm.data_manipulation_controller()
+        self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
+        self.hp.header_parsing_controller()
+
+
+batch = PreGenerateController()</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller" href="pre_generate_controller.html">Rover_Source_Code.Pre_Generate.pre_generate_controller</a></code></dt>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController"><code class="flex name class">
+<span>class <span class="ident">PreGenerateController</span></span>
+</code></dt>
 <dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation" href="pre_generate_data_manipulation.html">Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="Rover_Source_Code.Pre_Generate.pre_generate_header_parsing" href="pre_generate_header_parsing.html">Rover_Source_Code.Pre_Generate.pre_generate_header_parsing</a></code></dt>
-<dd>
-<section class="desc"></section>
+<section class="desc"><p>This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
+the header_parsing routines.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PreGenerateController:
+    &#34;&#34;&#34;This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
+     the header_parsing routines.&#34;&#34;&#34;
+
+    def __init__(self):
+        self.target_file = r&#39;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_7.xlsx&#39;
+        self.dm = PreGenerateDataManipulation(self.target_file)
+        self.dm.data_manipulation_controller()
+        self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
+        self.hp.header_parsing_controller()</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
 </section>
 </article>
 <nav id="sidebar">
@@ -67,14 +95,14 @@ this information with the appropriate samples.&#34;&#34;&#34;</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Rover_Source_Code" href="../index.html">Rover_Source_Code</a></code></li>
+<li><code><a title="Rover_Source_Code.Pre_Generate" href="index.html">Rover_Source_Code.Pre_Generate</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
-<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller" href="pre_generate_controller.html">Rover_Source_Code.Pre_Generate.pre_generate_controller</a></code></li>
-<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation" href="pre_generate_data_manipulation.html">Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation</a></code></li>
-<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_header_parsing" href="pre_generate_header_parsing.html">Rover_Source_Code.Pre_Generate.pre_generate_header_parsing</a></code></li>
+<li>
+<h4><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController" href="#Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController">PreGenerateController</a></code></h4>
+</li>
 </ul>
 </li>
 </ul>
