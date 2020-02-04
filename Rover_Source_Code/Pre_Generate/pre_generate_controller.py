@@ -1,7 +1,6 @@
 import pandas as pd
 import sys
 import os, sys, inspect
-# below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 parentdir = os.path.dirname(parentdir)

@@ -23,11 +23,13 @@ class PreGenerateDataManipulation:
         4. percentage_data_frame = changes: analytical concentration converted to percentage concentration.
         5. blank_data_frame = changes: only information from blanks.
         6. qc_data_frame = changes: only information from standards.
-        7. samples_data_frame = changes: only information from samples and their dilutions.
+        7. samples_and_dilutions_data_frame = changes: only information from samples and their dilutions.
         8. best_recovery_qc_data_frame = changes: all the standard data has been analyzed, and the best recoveries for
         each analyte have been selected for the new data frame, which consists of one samples' worth of rows.
         9. min_value_blank_data_frame = changes: one axis data frame with the minimum value of each analyte from the
-        blank_data_frame."""
+        blank_data_frame.
+        10. sample_dilutions_data_frame = changes: only information from dilutions
+        11. samples_data_frame = changes: samples with out of range values switched out with the appropriate dil."""
 
         self.data_xml_file = data_xml_file
         self.raw_xml_data_frame = pd.DataFrame()
