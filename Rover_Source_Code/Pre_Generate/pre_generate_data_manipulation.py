@@ -9,8 +9,9 @@ parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 
 
-class PreGenerateMainScript:
-    """This file controls the processes occurring prior to generating latex files. Raw data -> Processed data."""
+class PreGenerateDataManipulation:
+    """This file controls the data manipulation processes occurring prior to generating latex files.
+     Raw data -> Processed data."""
 
     def __init__(self, data_xml_file):
         """The main init function.
@@ -77,7 +78,7 @@ class PreGenerateMainScript:
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
 
-    def pre_generate_controller(self):
+    def data_manipulation_controller(self):
         """The main controller function. To run the methods that make up this class, this function is called."""
 
         self.collect_data_from_xml_file()
@@ -191,7 +192,3 @@ class PreGenerateMainScript:
                                                                 & (self.sample_dilutions_data_frame['sampleid'].str.contains(row['sampleid']))]
                 self.samples_data_frame.loc[index, 'percentage_concentration'] = dilution.iloc[0, 9]
                 self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
-
-
-pre_generate = PreGenerateMainScript(r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_6.xlsx')
-pre_generate.pre_generate_controller()
