@@ -30,7 +30,17 @@ import sys
 
 
 class PreGenerateHeaderParsing:
-    &#34;&#34;&#34;This file finds the correct header information for the samples in the batch being processed and parses them.&#34;&#34;&#34;
+    &#34;&#34;&#34;This file finds the correct header information for the samples in the batch being processed and parses them.
+
+    1. samples_data_frame = samples_data_frame created by pre_generate_data_manipulation.
+    2. current_month_directory = the directory, in U drive, where header text files are stored for the current
+    month.
+    3. last_month_directory = the directory, in U drive, where header text files are stored for the previous
+    month.
+    4. jobs_in_batch = a list of the unique jobs in the batch. There can be multiple samples per job.
+    5. header_contents_dictionary = a dictionary where the keys are the unique job numbers and the values are the
+    parsed header information for the respective jobs, in list form. The list structure can be seen at the bottom
+    of the header_parser method.&#34;&#34;&#34;
 
     def __init__(self, samples_data_frame):
         self.samples_data_frame = samples_data_frame
@@ -217,13 +227,34 @@ class PreGenerateHeaderParsing:
 <span>(</span><span>samples_data_frame)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>This file finds the correct header information for the samples in the batch being processed and parses them.</p></section>
+<section class="desc"><p>This file finds the correct header information for the samples in the batch being processed and parses them.</p>
+<ol>
+<li>samples_data_frame = samples_data_frame created by pre_generate_data_manipulation.</li>
+<li>current_month_directory = the directory, in U drive, where header text files are stored for the current
+month.</li>
+<li>last_month_directory = the directory, in U drive, where header text files are stored for the previous
+month.</li>
+<li>jobs_in_batch = a list of the unique jobs in the batch. There can be multiple samples per job.</li>
+<li>header_contents_dictionary = a dictionary where the keys are the unique job numbers and the values are the
+parsed header information for the respective jobs, in list form. The list structure can be seen at the bottom
+of the header_parser method.</li>
+</ol></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class PreGenerateHeaderParsing:
-    &#34;&#34;&#34;This file finds the correct header information for the samples in the batch being processed and parses them.&#34;&#34;&#34;
+    &#34;&#34;&#34;This file finds the correct header information for the samples in the batch being processed and parses them.
+
+    1. samples_data_frame = samples_data_frame created by pre_generate_data_manipulation.
+    2. current_month_directory = the directory, in U drive, where header text files are stored for the current
+    month.
+    3. last_month_directory = the directory, in U drive, where header text files are stored for the previous
+    month.
+    4. jobs_in_batch = a list of the unique jobs in the batch. There can be multiple samples per job.
+    5. header_contents_dictionary = a dictionary where the keys are the unique job numbers and the values are the
+    parsed header information for the respective jobs, in list form. The list structure can be seen at the bottom
+    of the header_parser method.&#34;&#34;&#34;
 
     def __init__(self, samples_data_frame):
         self.samples_data_frame = samples_data_frame

@@ -24,9 +24,8 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import pandas as pd
-import sys
-import os, sys, inspect
+<pre><code class="python">import os, sys, inspect
+import pandas as pd
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
 parentdir = os.path.dirname(parentdir)
@@ -47,6 +46,25 @@ class PreGenerateController:
         self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
         self.hp.header_parsing_controller()
+
+#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
+#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
+        pd.set_option(&#39;display.max_rows&#39;, None)
+        pd.set_option(&#39;display.max_columns&#39;, None)
+        pd.set_option(&#39;display.width&#39;, None)
+        pd.set_option(&#39;display.max_colwidth&#39;, -1)
+        self.print_pre_generate_data_and_headers()
+
+    def print_pre_generate_data_and_headers(self):
+        print(&#39;RECOVERY&#39;)
+        print(self.dm.best_recovery_qc_data_frame)
+        print(&#39;BLANK&#39;)
+        print(self.dm.min_value_blank_data_frame)
+        print(&#39;HEADERS&#39;)
+        for item in self.hp.header_contents_dictionary.values():
+            print(item)
+        print(&#39;SAMPLES&#39;)
+        print(self.dm.samples_data_frame)
 
 
 batch = PreGenerateController()</code></pre>
@@ -80,8 +98,51 @@ the header_parsing routines.</p></section>
         self.dm = PreGenerateDataManipulation(self.target_file)
         self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
-        self.hp.header_parsing_controller()</code></pre>
+        self.hp.header_parsing_controller()
+
+#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
+#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
+        pd.set_option(&#39;display.max_rows&#39;, None)
+        pd.set_option(&#39;display.max_columns&#39;, None)
+        pd.set_option(&#39;display.width&#39;, None)
+        pd.set_option(&#39;display.max_colwidth&#39;, -1)
+        self.print_pre_generate_data_and_headers()
+
+    def print_pre_generate_data_and_headers(self):
+        print(&#39;RECOVERY&#39;)
+        print(self.dm.best_recovery_qc_data_frame)
+        print(&#39;BLANK&#39;)
+        print(self.dm.min_value_blank_data_frame)
+        print(&#39;HEADERS&#39;)
+        for item in self.hp.header_contents_dictionary.values():
+            print(item)
+        print(&#39;SAMPLES&#39;)
+        print(self.dm.samples_data_frame)</code></pre>
 </details>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers"><code class="name flex">
+<span>def <span class="ident">print_pre_generate_data_and_headers</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_pre_generate_data_and_headers(self):
+    print(&#39;RECOVERY&#39;)
+    print(self.dm.best_recovery_qc_data_frame)
+    print(&#39;BLANK&#39;)
+    print(self.dm.min_value_blank_data_frame)
+    print(&#39;HEADERS&#39;)
+    for item in self.hp.header_contents_dictionary.values():
+        print(item)
+    print(&#39;SAMPLES&#39;)
+    print(self.dm.samples_data_frame)</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -101,6 +162,9 @@ the header_parsing routines.</p></section>
 <ul>
 <li>
 <h4><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController" href="#Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController">PreGenerateController</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers" href="#Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers">print_pre_generate_data_and_headers</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

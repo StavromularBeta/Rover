@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_basic_report_percentage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_deluxe_report_percentage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_controller.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_controller.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_data_manipulation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_header_parsing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
