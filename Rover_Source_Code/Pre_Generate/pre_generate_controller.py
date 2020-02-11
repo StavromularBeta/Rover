@@ -27,7 +27,7 @@ class PreGenerateController:
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
-        self.print_pre_generate_data_and_headers()
+#       self.print_pre_generate_data_and_headers()
 
     def print_pre_generate_data_and_headers(self):
         print('RECOVERY')
