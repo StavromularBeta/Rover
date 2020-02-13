@@ -24,7 +24,81 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import pandas as pd</code></pre>
+<pre><code class="python">import os, sys, inspect
+import pandas as pd
+
+# below is disgusting, the author of this code needs to better understand how the python PATH works.
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
+
+from Pre_Generate.pre_generate_controller import PreGenerateController as cont
+
+
+class PostGenerateDeluxeReportPercentage:
+    &#34;&#34;&#34;This file writes deluxe percentage reports. if multi=True, there will be multiple samples displayed per page. If
+    multi=False, there will be only one sample displayed per page. &#34;&#34;&#34;
+
+    def __init__(self, multi=True):
+        &#34;&#34;&#34;The main init function.
+
+        1. cont = an initialization of the PreGenerateController class. All of the data for the report comes from here.
+        2. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+        value = latex headers, customer information only..
+        3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+        added.&#34;&#34;&#34;
+        self.cont = cont()
+        self.latex_header_dictionary = {}
+        self.latex_header_and_sample_list_dictionary = {}
+        self.latex_header_sample_list_footer_dictionary = {}
+
+    def deluxe_report_percentage_controller(self):
+        &#34;&#34;&#34;This is the controller function for the class. &#34;&#34;&#34;
+        self.generate_job_latex_headers()
+        self.generate_samples_list()
+
+    def generate_job_latex_headers(self):
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
+        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            header_string = r&#34;&#34;&#34;
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{siunitx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
+\renewcommand{\headrulewidth}{0pt}
+\setlength\headheight{60pt}
+\begin{document}&#34;&#34;&#34;
+            self.latex_header_dictionary[key] = header_string
+
+    def generate_samples_list(self):
+        &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            samples_string = r&#34;&#34;&#34;
+\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\newline
+\newline
+\hline
+&#34;&#34;&#34;
+            self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string
+
+
+latex = PostGenerateDeluxeReportPercentage()
+latex.deluxe_report_percentage_controller()</code></pre>
 </details>
 </section>
 <section>
@@ -34,6 +108,158 @@
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage"><code class="flex name class">
+<span>class <span class="ident">PostGenerateDeluxeReportPercentage</span></span>
+<span>(</span><span>multi=True)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This file writes deluxe percentage reports. if multi=True, there will be multiple samples displayed per page. If
+multi=False, there will be only one sample displayed per page. </p>
+<p>The main init function.</p>
+<ol>
+<li>cont = an initialization of the PreGenerateController class. All of the data for the report comes from here.</li>
+<li>latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+value = latex headers, customer information only..</li>
+<li>Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+added.</li>
+</ol></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PostGenerateDeluxeReportPercentage:
+    &#34;&#34;&#34;This file writes deluxe percentage reports. if multi=True, there will be multiple samples displayed per page. If
+    multi=False, there will be only one sample displayed per page. &#34;&#34;&#34;
+
+    def __init__(self, multi=True):
+        &#34;&#34;&#34;The main init function.
+
+        1. cont = an initialization of the PreGenerateController class. All of the data for the report comes from here.
+        2. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+        value = latex headers, customer information only..
+        3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+        added.&#34;&#34;&#34;
+        self.cont = cont()
+        self.latex_header_dictionary = {}
+        self.latex_header_and_sample_list_dictionary = {}
+        self.latex_header_sample_list_footer_dictionary = {}
+
+    def deluxe_report_percentage_controller(self):
+        &#34;&#34;&#34;This is the controller function for the class. &#34;&#34;&#34;
+        self.generate_job_latex_headers()
+        self.generate_samples_list()
+
+    def generate_job_latex_headers(self):
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
+        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            header_string = r&#34;&#34;&#34;
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{siunitx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
+\renewcommand{\headrulewidth}{0pt}
+\setlength\headheight{60pt}
+\begin{document}&#34;&#34;&#34;
+            self.latex_header_dictionary[key] = header_string
+
+    def generate_samples_list(self):
+        &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            samples_string = r&#34;&#34;&#34;
+\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\newline
+\newline
+\hline
+&#34;&#34;&#34;
+            self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller"><code class="name flex">
+<span>def <span class="ident">deluxe_report_percentage_controller</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This is the controller function for the class.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deluxe_report_percentage_controller(self):
+    &#34;&#34;&#34;This is the controller function for the class. &#34;&#34;&#34;
+    self.generate_job_latex_headers()
+    self.generate_samples_list()</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers"><code class="name flex">
+<span>def <span class="ident">generate_job_latex_headers</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
+there will be fewer headers than samples if jobs contain more than one sample.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def generate_job_latex_headers(self):
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
+        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            header_string = r&#34;&#34;&#34;
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{siunitx}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
+\renewcommand{\headrulewidth}{0pt}
+\setlength\headheight{60pt}
+\begin{document}&#34;&#34;&#34;
+            self.latex_header_dictionary[key] = header_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list"><code class="name flex">
+<span>def <span class="ident">generate_samples_list</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>iterates through the parsed header contents dictionary and produces the sample list for each job.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def generate_samples_list(self):
+        &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
+        for key, item in self.cont.hp.header_contents_dictionary.items():
+            samples_string = r&#34;&#34;&#34;
+\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\newline
+\newline
+\hline
+&#34;&#34;&#34;
+            self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -45,6 +271,18 @@
 <li><h3>Super-module</h3>
 <ul>
 <li><code><a title="Rover_Source_Code.Post_Generate" href="index.html">Rover_Source_Code.Post_Generate</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage">PostGenerateDeluxeReportPercentage</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller">deluxe_report_percentage_controller</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers">generate_job_latex_headers</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list">generate_samples_list</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
