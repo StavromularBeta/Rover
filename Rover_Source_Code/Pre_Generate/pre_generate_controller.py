@@ -14,8 +14,10 @@ class PreGenerateController:
     """This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
      the header_parsing routines."""
 
-    def __init__(self):
-        self.target_file = r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\data_7.xlsx'
+    def __init__(self, target_file):
+
+        self.file_folder_location = r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\ '
+        self.target_file = self.file_folder_location[:-1] + target_file + '.xlsx'
         self.dm = PreGenerateDataManipulation(self.target_file)
         self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
@@ -27,7 +29,7 @@ class PreGenerateController:
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
-#       self.print_pre_generate_data_and_headers()
+        self.print_pre_generate_data_and_headers()
 
     def print_pre_generate_data_and_headers(self):
         print('RECOVERY')
@@ -40,5 +42,3 @@ class PreGenerateController:
         print('SAMPLES')
         print(self.dm.samples_data_frame)
 
-
-batch = PreGenerateController()

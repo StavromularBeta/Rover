@@ -8,5 +8,5 @@ class BannerWindow(Tk.Frame):
         self.banner_font = tkFont.Font(size=48, weight='bold')
 
     def make_banner(self):
-        main_banner = Tk.Label(self, text="Rover", font=self.banner_font, bg='#60992d', fg='#613a3a')
-        main_banner.grid()
+        main_banner = Tk.Label(self, text="Rover", font=self.banner_font, width=31)
+        main_banner.grid(sticky=Tk.W)
