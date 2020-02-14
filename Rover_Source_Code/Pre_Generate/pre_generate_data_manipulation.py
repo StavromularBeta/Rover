@@ -156,7 +156,7 @@ class PreGenerateDataManipulation:
         """ produces a single axis data frame with one min value for each analyte, with the analytes being identified by
         id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. """
 
-        self.min_value_blank_data_frame = self.blank_data_frame.groupby(['id17'])['percentage_concentration'].min()
+        self.min_value_blank_data_frame = self.blank_data_frame.groupby(['name20'])['percentage_concentration'].min()
 
     def join_over_curve_df_to_samples_df(self):
         """ joins the upper limits on areas for given analytes (based on calibration curve) to the samples DataFrame.

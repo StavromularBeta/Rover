@@ -28,6 +28,8 @@ class HomepageWindow(Tk.Frame):
         batch_filename_button.grid()
 
     def start_data_processing(self, file_name):
-        cont(file_name)
+        batch = cont(file_name)
+        self.parent.display_batchpage(batch)
+
 
 
