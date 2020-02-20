@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
-<title>Rover_Source_Code.Pre_Generate.pre_generate_controller API documentation</title>
+<title>Rover_Source_Code.GUI.MainWindow API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,56 +17,48 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Rover_Source_Code.Pre_Generate.pre_generate_controller</code></h1>
+<h1 class="title">Module <code>Rover_Source_Code.GUI.MainWindow</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import os, sys, inspect
-import pandas as pd
+<pre><code class="python">import tkinter as Tk
+import os, sys, inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+sys.path.insert(0, currentdir)
 parentdir = os.path.dirname(currentdir)
-parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
 parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
-sys.path.insert(0, currentdir)
-from pre_generate_data_manipulation import PreGenerateDataManipulation
-from pre_generate_header_parsing import PreGenerateHeaderParsing
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+from MainWindows import HomepageWindow as Hpw
+from MainWindows import BatchWindow as Btw
 
 
-class PreGenerateController:
-    &#34;&#34;&#34;This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
-     the header_parsing routines.&#34;&#34;&#34;
+class MainWindow(Tk.Frame):
+    def __init__(self, parent, **kwargs):
+        Tk.Frame.__init__(self, parent, **kwargs)
+        self.HomepageWindow = Hpw.HomepageWindow(self)
+        self.BatchWindow = Btw.BatchWindow(self)
 
-    def __init__(self, target_file):
+    def clear_main_window(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.HomepageWindow = Hpw.HomepageWindow(self)
+        self.BatchWindow = Btw.BatchWindow(self)
 
-        self.file_folder_location = r&#39;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\ &#39;
-        self.target_file = self.file_folder_location[:-1] + target_file + &#39;.xlsx&#39;
-        self.dm = PreGenerateDataManipulation(self.target_file)
-        self.dm.data_manipulation_controller()
-        self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
-        self.hp.header_parsing_controller()
+    def display_homepage(self):
+        self.clear_main_window()
+        self.HomepageWindow.homepage()
+        self.HomepageWindow.grid()
 
-#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
-#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
-        pd.set_option(&#39;display.max_rows&#39;, None)
-        pd.set_option(&#39;display.max_columns&#39;, None)
-        pd.set_option(&#39;display.width&#39;, None)
-        pd.set_option(&#39;display.max_colwidth&#39;, -1)
-        self.print_pre_generate_data_and_headers()
-
-    def print_pre_generate_data_and_headers(self):
-        print(&#39;RECOVERY&#39;)
-        print(self.dm.best_recovery_qc_data_frame)
-        print(&#39;BLANK&#39;)
-        print(self.dm.min_value_blank_data_frame)
-        print(&#39;HEADERS&#39;)
-        for item in self.hp.header_contents_dictionary.values():
-            print(item)
-        print(&#39;SAMPLES&#39;)
-        print(self.dm.samples_data_frame)</code></pre>
+    def display_batchpage(self, data):
+        self.clear_main_window()
+        self.BatchWindow.batch(data)
+        self.BatchWindow.grid()</code></pre>
 </details>
 </section>
 <section>
@@ -78,53 +70,56 @@ class PreGenerateController:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController"><code class="flex name class">
-<span>class <span class="ident">PreGenerateController</span></span>
-<span>(</span><span>target_file)</span>
+<dt id="Rover_Source_Code.GUI.MainWindow.MainWindow"><code class="flex name class">
+<span>class <span class="ident">MainWindow</span></span>
+<span>(</span><span>parent, **kwargs)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
-the header_parsing routines.</p></section>
+<section class="desc"><p>Frame widget which may contain other widgets and can have a 3D border.</p>
+<p>Construct a frame widget with the parent MASTER.</p>
+<p>Valid resource names: background, bd, bg, borderwidth, class,
+colormap, container, cursor, height, highlightbackground,
+highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class PreGenerateController:
-    &#34;&#34;&#34;This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
-     the header_parsing routines.&#34;&#34;&#34;
+<pre><code class="python">class MainWindow(Tk.Frame):
+    def __init__(self, parent, **kwargs):
+        Tk.Frame.__init__(self, parent, **kwargs)
+        self.HomepageWindow = Hpw.HomepageWindow(self)
+        self.BatchWindow = Btw.BatchWindow(self)
 
-    def __init__(self, target_file):
+    def clear_main_window(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.HomepageWindow = Hpw.HomepageWindow(self)
+        self.BatchWindow = Btw.BatchWindow(self)
 
-        self.file_folder_location = r&#39;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\ &#39;
-        self.target_file = self.file_folder_location[:-1] + target_file + &#39;.xlsx&#39;
-        self.dm = PreGenerateDataManipulation(self.target_file)
-        self.dm.data_manipulation_controller()
-        self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
-        self.hp.header_parsing_controller()
+    def display_homepage(self):
+        self.clear_main_window()
+        self.HomepageWindow.homepage()
+        self.HomepageWindow.grid()
 
-#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
-#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
-        pd.set_option(&#39;display.max_rows&#39;, None)
-        pd.set_option(&#39;display.max_columns&#39;, None)
-        pd.set_option(&#39;display.width&#39;, None)
-        pd.set_option(&#39;display.max_colwidth&#39;, -1)
-        self.print_pre_generate_data_and_headers()
-
-    def print_pre_generate_data_and_headers(self):
-        print(&#39;RECOVERY&#39;)
-        print(self.dm.best_recovery_qc_data_frame)
-        print(&#39;BLANK&#39;)
-        print(self.dm.min_value_blank_data_frame)
-        print(&#39;HEADERS&#39;)
-        for item in self.hp.header_contents_dictionary.values():
-            print(item)
-        print(&#39;SAMPLES&#39;)
-        print(self.dm.samples_data_frame)</code></pre>
+    def display_batchpage(self, data):
+        self.clear_main_window()
+        self.BatchWindow.batch(data)
+        self.BatchWindow.grid()</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tkinter.Frame</li>
+<li>tkinter.Widget</li>
+<li>tkinter.BaseWidget</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Pack</li>
+<li>tkinter.Place</li>
+<li>tkinter.Grid</li>
+</ul>
 <h3>Methods</h3>
 <dl>
-<dt id="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers"><code class="name flex">
-<span>def <span class="ident">print_pre_generate_data_and_headers</span></span>(<span>self)</span>
+<dt id="Rover_Source_Code.GUI.MainWindow.MainWindow.clear_main_window"><code class="name flex">
+<span>def <span class="ident">clear_main_window</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -132,16 +127,41 @@ the header_parsing routines.</p></section>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def print_pre_generate_data_and_headers(self):
-    print(&#39;RECOVERY&#39;)
-    print(self.dm.best_recovery_qc_data_frame)
-    print(&#39;BLANK&#39;)
-    print(self.dm.min_value_blank_data_frame)
-    print(&#39;HEADERS&#39;)
-    for item in self.hp.header_contents_dictionary.values():
-        print(item)
-    print(&#39;SAMPLES&#39;)
-    print(self.dm.samples_data_frame)</code></pre>
+<pre><code class="python">def clear_main_window(self):
+    for widget in self.winfo_children():
+        widget.destroy()
+    self.HomepageWindow = Hpw.HomepageWindow(self)
+    self.BatchWindow = Btw.BatchWindow(self)</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.GUI.MainWindow.MainWindow.display_batchpage"><code class="name flex">
+<span>def <span class="ident">display_batchpage</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_batchpage(self, data):
+    self.clear_main_window()
+    self.BatchWindow.batch(data)
+    self.BatchWindow.grid()</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.GUI.MainWindow.MainWindow.display_homepage"><code class="name flex">
+<span>def <span class="ident">display_homepage</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_homepage(self):
+    self.clear_main_window()
+    self.HomepageWindow.homepage()
+    self.HomepageWindow.grid()</code></pre>
 </details>
 </dd>
 </dl>
@@ -157,15 +177,17 @@ the header_parsing routines.</p></section>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Rover_Source_Code.Pre_Generate" href="index.html">Rover_Source_Code.Pre_Generate</a></code></li>
+<li><code><a title="Rover_Source_Code.GUI" href="index.html">Rover_Source_Code.GUI</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController" href="#Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController">PreGenerateController</a></code></h4>
+<h4><code><a title="Rover_Source_Code.GUI.MainWindow.MainWindow" href="#Rover_Source_Code.GUI.MainWindow.MainWindow">MainWindow</a></code></h4>
 <ul class="">
-<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers" href="#Rover_Source_Code.Pre_Generate.pre_generate_controller.PreGenerateController.print_pre_generate_data_and_headers">print_pre_generate_data_and_headers</a></code></li>
+<li><code><a title="Rover_Source_Code.GUI.MainWindow.MainWindow.clear_main_window" href="#Rover_Source_Code.GUI.MainWindow.MainWindow.clear_main_window">clear_main_window</a></code></li>
+<li><code><a title="Rover_Source_Code.GUI.MainWindow.MainWindow.display_batchpage" href="#Rover_Source_Code.GUI.MainWindow.MainWindow.display_batchpage">display_batchpage</a></code></li>
+<li><code><a title="Rover_Source_Code.GUI.MainWindow.MainWindow.display_homepage" href="#Rover_Source_Code.GUI.MainWindow.MainWindow.display_homepage">display_homepage</a></code></li>
 </ul>
 </li>
 </ul>

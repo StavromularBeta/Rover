@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
-<title>Rover_Source_Code.GUI API documentation</title>
-<meta name="description" content="This module runs the GUI that allows analysts to add modifiers to reports and to double check/change header data.
-There is no way to change the actual …" />
+<title>Rover_Source_Code.GUI.MainWindows.BatchWindow API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -18,49 +17,111 @@ There is no way to change the actual …" />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Rover_Source_Code.GUI</code></h1>
+<h1 class="title">Module <code>Rover_Source_Code.GUI.MainWindows.BatchWindow</code></h1>
 </header>
 <section id="section-intro">
-<p>This module runs the GUI that allows analysts to add modifiers to reports and to double check/change header data.
-There is no way to change the actual data from the GUI, only header information (which is almost never parsed 100%
-correctly, currently - Feb 11, 2020). The analyst can also pick which of the 6 types of reports they want, and can enter
-additional information (mass of a gummy/cookie/capsule, density values) that report type needs to be produced.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;This module runs the GUI that allows analysts to add modifiers to reports and to double check/change header data.
-There is no way to change the actual data from the GUI, only header information (which is almost never parsed 100%
-correctly, currently - Feb 11, 2020). The analyst can also pick which of the 6 types of reports they want, and can enter
-additional information (mass of a gummy/cookie/capsule, density values) that report type needs to be produced. &#34;&#34;&#34;</code></pre>
+<pre><code class="python">import tkinter as Tk
+
+
+class BatchWindow(Tk.Frame):
+    def __init__(self, parent, **kwargs):
+        Tk.Frame.__init__(self, parent, **kwargs)
+        self.parent = parent
+
+    def batch(self, data):
+        recovery_label = Tk.Label(self, text=&#34;Blank Data&#34;)
+        recovery_label.grid(row=0, column=0)
+        recovery_text = Tk.Text(self, width=18, height=20)
+        recovery_text.insert(Tk.END, data.dm.min_value_blank_data_frame.to_string())
+        recovery_text.grid(row=1, column=0)
+        recovery_label = Tk.Label(self, text=&#34;Standard Recovery Data&#34;)
+        recovery_label.grid(row=0, column=1)
+        recovery_text = Tk.Text(self, width=120, height=20)
+        recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
+        recovery_text.grid(row=1, column=1)</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="Rover_Source_Code.GUI.BannerWindow" href="BannerWindow.html">Rover_Source_Code.GUI.BannerWindow</a></code></dt>
+<dt id="Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow"><code class="flex name class">
+<span>class <span class="ident">BatchWindow</span></span>
+<span>(</span><span>parent, **kwargs)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Frame widget which may contain other widgets and can have a 3D border.</p>
+<p>Construct a frame widget with the parent MASTER.</p>
+<p>Valid resource names: background, bd, bg, borderwidth, class,
+colormap, container, cursor, height, highlightbackground,
+highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class BatchWindow(Tk.Frame):
+    def __init__(self, parent, **kwargs):
+        Tk.Frame.__init__(self, parent, **kwargs)
+        self.parent = parent
+
+    def batch(self, data):
+        recovery_label = Tk.Label(self, text=&#34;Blank Data&#34;)
+        recovery_label.grid(row=0, column=0)
+        recovery_text = Tk.Text(self, width=18, height=20)
+        recovery_text.insert(Tk.END, data.dm.min_value_blank_data_frame.to_string())
+        recovery_text.grid(row=1, column=0)
+        recovery_label = Tk.Label(self, text=&#34;Standard Recovery Data&#34;)
+        recovery_label.grid(row=0, column=1)
+        recovery_text = Tk.Text(self, width=120, height=20)
+        recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
+        recovery_text.grid(row=1, column=1)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tkinter.Frame</li>
+<li>tkinter.Widget</li>
+<li>tkinter.BaseWidget</li>
+<li>tkinter.Misc</li>
+<li>tkinter.Pack</li>
+<li>tkinter.Place</li>
+<li>tkinter.Grid</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow.batch"><code class="name flex">
+<span>def <span class="ident">batch</span></span>(<span>self, data)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="Rover_Source_Code.GUI.MainWindow" href="MainWindow.html">Rover_Source_Code.GUI.MainWindow</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="Rover_Source_Code.GUI.MainWindows" href="MainWindows/index.html">Rover_Source_Code.GUI.MainWindows</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="Rover_Source_Code.GUI.RoverGUI" href="RoverGUI.html">Rover_Source_Code.GUI.RoverGUI</a></code></dt>
-<dd>
-<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def batch(self, data):
+    recovery_label = Tk.Label(self, text=&#34;Blank Data&#34;)
+    recovery_label.grid(row=0, column=0)
+    recovery_text = Tk.Text(self, width=18, height=20)
+    recovery_text.insert(Tk.END, data.dm.min_value_blank_data_frame.to_string())
+    recovery_text.grid(row=1, column=0)
+    recovery_label = Tk.Label(self, text=&#34;Standard Recovery Data&#34;)
+    recovery_label.grid(row=0, column=1)
+    recovery_text = Tk.Text(self, width=120, height=20)
+    recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
+    recovery_text.grid(row=1, column=1)</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -71,15 +132,17 @@ additional information (mass of a gummy/cookie/capsule, density values) that rep
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Rover_Source_Code" href="../index.html">Rover_Source_Code</a></code></li>
+<li><code><a title="Rover_Source_Code.GUI.MainWindows" href="index.html">Rover_Source_Code.GUI.MainWindows</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
-<li><code><a title="Rover_Source_Code.GUI.BannerWindow" href="BannerWindow.html">Rover_Source_Code.GUI.BannerWindow</a></code></li>
-<li><code><a title="Rover_Source_Code.GUI.MainWindow" href="MainWindow.html">Rover_Source_Code.GUI.MainWindow</a></code></li>
-<li><code><a title="Rover_Source_Code.GUI.MainWindows" href="MainWindows/index.html">Rover_Source_Code.GUI.MainWindows</a></code></li>
-<li><code><a title="Rover_Source_Code.GUI.RoverGUI" href="RoverGUI.html">Rover_Source_Code.GUI.RoverGUI</a></code></li>
+<li>
+<h4><code><a title="Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow" href="#Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow">BatchWindow</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow.batch" href="#Rover_Source_Code.GUI.MainWindows.BatchWindow.BatchWindow.batch">batch</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

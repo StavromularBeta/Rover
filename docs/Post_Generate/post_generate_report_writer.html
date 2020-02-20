@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
-<title>Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage API documentation</title>
+<title>Rover_Source_Code.Post_Generate.post_generate_report_writer API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage</code></h1>
+<h1 class="title">Module <code>Rover_Source_Code.Post_Generate.post_generate_report_writer</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -97,8 +97,8 @@ class PostGenerateDeluxeReportPercentage:
             self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string
 
 
-latex = PostGenerateDeluxeReportPercentage()
-latex.deluxe_report_percentage_controller()</code></pre>
+#latex = PostGenerateDeluxeReportPercentage()
+#latex.deluxe_report_percentage_controller()</code></pre>
 </details>
 </section>
 <section>
@@ -110,7 +110,7 @@ latex.deluxe_report_percentage_controller()</code></pre>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage"><code class="flex name class">
+<dt id="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage"><code class="flex name class">
 <span>class <span class="ident">PostGenerateDeluxeReportPercentage</span></span>
 <span>(</span><span>multi=True)</span>
 </code></dt>
@@ -187,7 +187,7 @@ added.</li>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller"><code class="name flex">
+<dt id="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller"><code class="name flex">
 <span>def <span class="ident">deluxe_report_percentage_controller</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -202,7 +202,7 @@ added.</li>
     self.generate_samples_list()</code></pre>
 </details>
 </dd>
-<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers"><code class="name flex">
+<dt id="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_job_latex_headers"><code class="name flex">
 <span>def <span class="ident">generate_job_latex_headers</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -236,7 +236,7 @@ there will be fewer headers than samples if jobs contain more than one sample.</
             self.latex_header_dictionary[key] = header_string</code></pre>
 </details>
 </dd>
-<dt id="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list"><code class="name flex">
+<dt id="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_samples_list"><code class="name flex">
 <span>def <span class="ident">generate_samples_list</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -276,11 +276,11 @@ there will be fewer headers than samples if jobs contain more than one sample.</
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage">PostGenerateDeluxeReportPercentage</a></code></h4>
+<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage" href="#Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage">PostGenerateDeluxeReportPercentage</a></code></h4>
 <ul class="">
-<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller">deluxe_report_percentage_controller</a></code></li>
-<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_job_latex_headers">generate_job_latex_headers</a></code></li>
-<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list" href="#Rover_Source_Code.Post_Generate.post_generate_deluxe_report_percentage.PostGenerateDeluxeReportPercentage.generate_samples_list">generate_samples_list</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller" href="#Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.deluxe_report_percentage_controller">deluxe_report_percentage_controller</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_job_latex_headers" href="#Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_job_latex_headers">generate_job_latex_headers</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_samples_list" href="#Rover_Source_Code.Post_Generate.post_generate_report_writer.PostGenerateDeluxeReportPercentage.generate_samples_list">generate_samples_list</a></code></li>
 </ul>
 </li>
 </ul>

@@ -25,7 +25,6 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import pandas as pd
-import sys
 import os, sys, inspect
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -168,21 +167,34 @@ class PreGenerateDataManipulation:
         self.samples_and_dilutions_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == &#34;Analyte&#34;]
 
     def combine_qc_into_one_data_set_with_highest_recovery_values(self):
-        &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
+        &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the best recoveries for each analyte.
 
-        note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
-        change &#39;highest recovery&#39; to &#39;closest recovery to 100%&#39;. This code was taken from the following StackOverflow
-        question: https://stackoverflow.com/questions/31361599. Specifically, the answer given by Padraic Cunningham.&#34;&#34;&#34;
+        This code was taken from the following StackOverflow question: https://stackoverflow.com/questions/31361599.
+        Specifically, the answer given by Padraic Cunningham. Some modifications were made.
 
-        tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;percrecovery&#39;].transform(max) == self.qc_data_frame[&#39;percrecovery&#39;]
+        first, a new column is created in the qc_data_frame that measures the distance from 100 (%) in absolute terms
+        for each recovery value. Then, we do the groupby and transformation based on the indexes with the smallest
+        distance from 100 %. We make our &#39;best recovery&#39; DataFrame based on that. The final DataFrame that is spat out
+        has unnecessary columns removed.
+
+        Note: almost how we want this function. Initially, we had max recovery. Now, we have closest recovery to 100.
+        What we want in the end is closest recovery to 100, but not over 100. &#34;&#34;&#34;
+
+        self.qc_data_frame[&#39;distance_from_100&#39;] = abs(self.percentage_data_frame[&#39;percrecovery&#39;]-100)
+        tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;distance_from_100&#39;].transform(min) == self.qc_data_frame[&#39;distance_from_100&#39;]
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
+        self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                             &#39;sampleid&#39;,
+                                                                             &#39;name20&#39;,
+                                                                             &#39;area&#39;,
+                                                                             &#39;percrecovery&#39;]].copy()
 
     def combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values(self):
         &#34;&#34;&#34; produces a single axis data frame with one min value for each analyte, with the analytes being identified by
         id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. &#34;&#34;&#34;
 
-        self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;id17&#39;])[&#39;percentage_concentration&#39;].min()
+        self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;name20&#39;])[&#39;percentage_concentration&#39;].min()
 
     def join_over_curve_df_to_samples_df(self):
         &#34;&#34;&#34; joins the upper limits on areas for given analytes (based on calibration curve) to the samples DataFrame.
@@ -392,21 +404,34 @@ blank_data_frame.</li>
         self.samples_and_dilutions_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == &#34;Analyte&#34;]
 
     def combine_qc_into_one_data_set_with_highest_recovery_values(self):
-        &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
+        &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the best recoveries for each analyte.
 
-        note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
-        change &#39;highest recovery&#39; to &#39;closest recovery to 100%&#39;. This code was taken from the following StackOverflow
-        question: https://stackoverflow.com/questions/31361599. Specifically, the answer given by Padraic Cunningham.&#34;&#34;&#34;
+        This code was taken from the following StackOverflow question: https://stackoverflow.com/questions/31361599.
+        Specifically, the answer given by Padraic Cunningham. Some modifications were made.
 
-        tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;percrecovery&#39;].transform(max) == self.qc_data_frame[&#39;percrecovery&#39;]
+        first, a new column is created in the qc_data_frame that measures the distance from 100 (%) in absolute terms
+        for each recovery value. Then, we do the groupby and transformation based on the indexes with the smallest
+        distance from 100 %. We make our &#39;best recovery&#39; DataFrame based on that. The final DataFrame that is spat out
+        has unnecessary columns removed.
+
+        Note: almost how we want this function. Initially, we had max recovery. Now, we have closest recovery to 100.
+        What we want in the end is closest recovery to 100, but not over 100. &#34;&#34;&#34;
+
+        self.qc_data_frame[&#39;distance_from_100&#39;] = abs(self.percentage_data_frame[&#39;percrecovery&#39;]-100)
+        tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;distance_from_100&#39;].transform(min) == self.qc_data_frame[&#39;distance_from_100&#39;]
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
+        self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                             &#39;sampleid&#39;,
+                                                                             &#39;name20&#39;,
+                                                                             &#39;area&#39;,
+                                                                             &#39;percrecovery&#39;]].copy()
 
     def combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values(self):
         &#34;&#34;&#34; produces a single axis data frame with one min value for each analyte, with the analytes being identified by
         id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. &#34;&#34;&#34;
 
-        self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;id17&#39;])[&#39;percentage_concentration&#39;].min()
+        self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;name20&#39;])[&#39;percentage_concentration&#39;].min()
 
     def join_over_curve_df_to_samples_df(self):
         &#34;&#34;&#34; joins the upper limits on areas for given analytes (based on calibration curve) to the samples DataFrame.
@@ -537,31 +562,49 @@ id17 (could also do name20 here). To access the min value for each analyte, use 
     &#34;&#34;&#34; produces a single axis data frame with one min value for each analyte, with the analytes being identified by
     id17 (could also do name20 here). To access the min value for each analyte, use df.iloc[n], with n= row. &#34;&#34;&#34;
 
-    self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;id17&#39;])[&#39;percentage_concentration&#39;].min()</code></pre>
+    self.min_value_blank_data_frame = self.blank_data_frame.groupby([&#39;name20&#39;])[&#39;percentage_concentration&#39;].min()</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.combine_qc_into_one_data_set_with_highest_recovery_values"><code class="name flex">
 <span>def <span class="ident">combine_qc_into_one_data_set_with_highest_recovery_values</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.</p>
-<p>note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
-change 'highest recovery' to 'closest recovery to 100%'. This code was taken from the following StackOverflow
-question: <a href="https://stackoverflow.com/questions/31361599.">https://stackoverflow.com/questions/31361599.</a> Specifically, the answer given by Padraic Cunningham.</p></section>
+<section class="desc"><p>groups the qc_data_frame and creates a new DataFrame with only the best recoveries for each analyte.</p>
+<p>This code was taken from the following StackOverflow question: <a href="https://stackoverflow.com/questions/31361599.">https://stackoverflow.com/questions/31361599.</a>
+Specifically, the answer given by Padraic Cunningham. Some modifications were made.</p>
+<p>first, a new column is created in the qc_data_frame that measures the distance from 100 (%) in absolute terms
+for each recovery value. Then, we do the groupby and transformation based on the indexes with the smallest
+distance from 100 %. We make our 'best recovery' DataFrame based on that. The final DataFrame that is spat out
+has unnecessary columns removed.</p>
+<p>Note: almost how we want this function. Initially, we had max recovery. Now, we have closest recovery to 100.
+What we want in the end is closest recovery to 100, but not over 100.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def combine_qc_into_one_data_set_with_highest_recovery_values(self):
-    &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
+    &#34;&#34;&#34;groups the qc_data_frame and creates a new DataFrame with only the best recoveries for each analyte.
 
-    note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
-    change &#39;highest recovery&#39; to &#39;closest recovery to 100%&#39;. This code was taken from the following StackOverflow
-    question: https://stackoverflow.com/questions/31361599. Specifically, the answer given by Padraic Cunningham.&#34;&#34;&#34;
+    This code was taken from the following StackOverflow question: https://stackoverflow.com/questions/31361599.
+    Specifically, the answer given by Padraic Cunningham. Some modifications were made.
 
-    tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;percrecovery&#39;].transform(max) == self.qc_data_frame[&#39;percrecovery&#39;]
+    first, a new column is created in the qc_data_frame that measures the distance from 100 (%) in absolute terms
+    for each recovery value. Then, we do the groupby and transformation based on the indexes with the smallest
+    distance from 100 %. We make our &#39;best recovery&#39; DataFrame based on that. The final DataFrame that is spat out
+    has unnecessary columns removed.
+
+    Note: almost how we want this function. Initially, we had max recovery. Now, we have closest recovery to 100.
+    What we want in the end is closest recovery to 100, but not over 100. &#34;&#34;&#34;
+
+    self.qc_data_frame[&#39;distance_from_100&#39;] = abs(self.percentage_data_frame[&#39;percrecovery&#39;]-100)
+    tem = self.qc_data_frame.groupby([&#39;id17&#39;])[&#39;distance_from_100&#39;].transform(min) == self.qc_data_frame[&#39;distance_from_100&#39;]
     self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
-    self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)</code></pre>
+    self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
+    self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                         &#39;sampleid&#39;,
+                                                                         &#39;name20&#39;,
+                                                                         &#39;area&#39;,
+                                                                         &#39;percrecovery&#39;]].copy()</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.convert_analytical_concentration_to_percentage_concentration"><code class="name flex">

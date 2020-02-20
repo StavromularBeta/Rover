@@ -1,5 +1,4 @@
 import pandas as pd
-import sys
 import os, sys, inspect
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -142,15 +141,28 @@ class PreGenerateDataManipulation:
         self.samples_and_dilutions_data_frame = self.percentage_data_frame[self.percentage_data_frame.type == "Analyte"]
 
     def combine_qc_into_one_data_set_with_highest_recovery_values(self):
-        """groups the qc_data_frame and creates a new DataFrame with only the highest recoveries for each analyte.
+        """groups the qc_data_frame and creates a new DataFrame with only the best recoveries for each analyte.
 
-        note: this is different than the best recovery, which is the value closest to 100. Will need to do more work to
-        change 'highest recovery' to 'closest recovery to 100%'. This code was taken from the following StackOverflow
-        question: https://stackoverflow.com/questions/31361599. Specifically, the answer given by Padraic Cunningham."""
+        This code was taken from the following StackOverflow question: https://stackoverflow.com/questions/31361599.
+        Specifically, the answer given by Padraic Cunningham. Some modifications were made.
 
-        tem = self.qc_data_frame.groupby(['id17'])['percrecovery'].transform(max) == self.qc_data_frame['percrecovery']
+        first, a new column is created in the qc_data_frame that measures the distance from 100 (%) in absolute terms
+        for each recovery value. Then, we do the groupby and transformation based on the indexes with the smallest
+        distance from 100 %. We make our 'best recovery' DataFrame based on that. The final DataFrame that is spat out
+        has unnecessary columns removed.
+
+        Note: almost how we want this function. Initially, we had max recovery. Now, we have closest recovery to 100.
+        What we want in the end is closest recovery to 100, but not over 100. """
+
+        self.qc_data_frame['distance_from_100'] = abs(self.percentage_data_frame['percrecovery']-100)
+        tem = self.qc_data_frame.groupby(['id17'])['distance_from_100'].transform(min) == self.qc_data_frame['distance_from_100']
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
+        self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[['id15',
+                                                                             'sampleid',
+                                                                             'name20',
+                                                                             'area',
+                                                                             'percrecovery']].copy()
 
     def combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values(self):
         """ produces a single axis data frame with one min value for each analyte, with the analytes being identified by
