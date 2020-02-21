@@ -12,6 +12,11 @@ class BatchWindow(Tk.Frame):
         self.recovery_data_frame = Tk.Frame(self.sub_display_frame)
         self.headers_data_frame = Tk.Frame(self.sub_display_frame)
         self.samples_list_frame = Tk.Frame(self.sub_display_frame)
+        self.samples_checklist_frame = Tk.Frame(self.sub_display_frame)
+        self.sample_type_option_list = []
+        self.updated_sample_type_option_list = []
+        self.report_type_option_list = []
+        self.updated_report_type_option_list = []
 
     def batch(self, data):
         self.create_scrollable_window()
@@ -19,10 +24,12 @@ class BatchWindow(Tk.Frame):
         self.recovery_data_frame.grid(row=0, column=1)
         self.headers_data_frame.grid(row=1, column=0, columnspan=2)
         self.samples_list_frame.grid(row=2, column=0, columnspan=2)
+        self.samples_checklist_frame.grid(row=3, column=0, columnspan=2)
         self.create_blank_frame(data)
         self.create_recovery_frame(data)
         self.create_header_frames(data)
         self.create_sample_list_frame(data)
+        self.create_samples_checklist_option_frame(data)
 
     def create_scrollable_window(self):
         display_all_jobs_canvas = Tk.Canvas(self.master_display_frame,
@@ -152,5 +159,36 @@ class BatchWindow(Tk.Frame):
             counter += 1
             samples_list_text.grid(row=counter, column=0)
             counter += 1
+
+    def create_samples_checklist_option_frame(self, data):
+        counter = 1
+        Tk.Label(self.samples_checklist_frame, text="Samples in the batch").grid(row=0, column=0)
+        for item in data.dm.unique_sample_id_list:
+            Tk.Label(self.samples_checklist_frame, text=item).grid(row=counter, column=0)
+            sample_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
+            sample_type_choices = {'Percent', 'mg/mL', 'mg/g', 'per unit'}
+            sample_type_string_variable.set('Percent')
+            sample_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                             sample_type_string_variable,
+                                             *sample_type_choices)
+            sample_type_menu.grid(row=counter, column=1)
+            self.sample_type_option_list.append((item, sample_type_menu, sample_type_string_variable))
+            report_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
+            report_type_choices = {'Basic', 'Deluxe'}
+            report_type_string_variable.set('Basic')
+            report_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                             report_type_string_variable,
+                                             *report_type_choices)
+            report_type_menu.grid(row=counter, column=2)
+            self.report_type_option_list.append((item, report_type_menu, report_type_string_variable))
+            counter += 1
+        Tk.Button(self.samples_checklist_frame,
+                  text="Generate Batch",
+                  command=self.generate_batch).grid(row=counter, column=0)
+
+    def generate_batch(self):
+        self.updated_sample_type_option_list = [var.get() for item, menu, var in self.sample_type_option_list]
+        self.updated_report_type_option_list = [var.get() for item, menu, var in self.report_type_option_list]
+
 
 
