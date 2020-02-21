@@ -17,6 +17,10 @@ class BatchWindow(Tk.Frame):
         self.updated_sample_type_option_list = []
         self.report_type_option_list = []
         self.updated_report_type_option_list = []
+        self.header_information_list = []
+        self.update_header_information_list = []
+        self.sample_information_list = []
+        self.updated_sample_information_list = []
 
     def batch(self, data):
         self.create_scrollable_window()
@@ -149,6 +153,21 @@ class BatchWindow(Tk.Frame):
             counter += 1
             counter = 0
             column_counter += 1
+            self.header_information_list.append((key, [header_name_entry,
+                                                       date_entry,
+                                                       time_entry,
+                                                       job_entry,
+                                                       address_entry,
+                                                       address_entry_2,
+                                                       address_entry_3,
+                                                       sample_type_entry_1,
+                                                       sample_type_entry_2,
+                                                       number_of_samples_entry,
+                                                       receive_temp,
+                                                       additional_info_1,
+                                                       additional_info_2,
+                                                       additional_info_3,
+                                                       payment_info]))
 
     def create_sample_list_frame(self, data):
         counter = 0
@@ -159,6 +178,7 @@ class BatchWindow(Tk.Frame):
             counter += 1
             samples_list_text.grid(row=counter, column=0)
             counter += 1
+            self.sample_information_list.append((key, samples_list_text))
 
     def create_samples_checklist_option_frame(self, data):
         counter = 1
@@ -189,6 +209,13 @@ class BatchWindow(Tk.Frame):
     def generate_batch(self):
         self.updated_sample_type_option_list = [var.get() for item, menu, var in self.sample_type_option_list]
         self.updated_report_type_option_list = [var.get() for item, menu, var in self.report_type_option_list]
+        self.update_header_information_list = [var.get()
+                                               for key, variables in self.header_information_list for var in variables]
+        self.updated_sample_information_list = [var.get("1.0", Tk.END) for item, var in self.sample_information_list]
+        print(self.updated_sample_type_option_list)
+        print(self.updated_report_type_option_list)
+        print(self.update_header_information_list)
+        print(self.updated_sample_information_list)
 
 
 
