@@ -40,6 +40,7 @@ class PreGenerateDataManipulation:
         self.min_value_blank_data_frame = pd.DataFrame()
         self.sample_dilutions_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
+        self.condensed_samples_data_frame = pd.DataFrame()
         self.samples_list_data_frame = pd.DataFrame()
         self.unique_sample_id_list = []
 
@@ -94,6 +95,7 @@ class PreGenerateDataManipulation:
         self.split_samples_data_frame_into_dilutions_and_samples()
         self.swap_out_out_of_range_values()
         self.create_list_of_unique_samples()
+        self.create_condensed_sample_list_data_frame_for_gui()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -209,6 +211,13 @@ class PreGenerateDataManipulation:
                                                                 & (self.sample_dilutions_data_frame['sampleid'].str.contains(row['sampleid']))]
                 self.samples_data_frame.loc[index, 'percentage_concentration'] = dilution.iloc[0, 9]
                 self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
+
+    def create_condensed_sample_list_data_frame_for_gui(self):
+        self.condensed_samples_data_frame = self.samples_data_frame[['sampleid',
+                                                                     'name20',
+                                                                     'percentage_concentration',
+                                                                     'area',
+                                                                     'over_curve']]
 
     def create_list_of_unique_samples(self):
         """This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
