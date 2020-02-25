@@ -44,7 +44,8 @@ class ReportWriter:
         self.generate_job_latex_headers()
         self.generate_samples_list()
         self.split_samples_into_single_or_multi()
-        self.create_mg_g_column()
+        self.create_alternate_sample_type_columns()
+        self.generate_single_sample_reports()
 
     def generate_job_latex_headers(self):
         """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
@@ -98,9 +99,113 @@ class ReportWriter:
         for x, y in self.multiple_reports_dictionary.items():
             print(x, y)
 
-    def create_mg_g_column(self):
+    def create_alternate_sample_type_columns(self):
         self.sample_data.samples_data_frame['mg_g'] =\
             self.sample_data.samples_data_frame['percentage_concentration'] * 10
+
+    def generate_single_sample_reports(self):
+        for key, value in self.single_reports_dictionary.items():
+            if value[0] == 'Percent' and value[1] == 'Basic':
+                self.generate_single_percent_basic_report(key)
+            elif value[0] == 'Percent' and value[1] == 'Deluxe':
+                self.generate_single_percent_deluxe_report(key)
+            elif value[0] == 'mg/g' and value[1] == 'Basic':
+                self.generate_single_mg_g_basic_report(key)
+            elif value[0] == 'mg/g' and value[1] == 'Deluxe':
+                self.generate_single_mg_g_deluxe_report(key)
+            else:
+                self.generate_single_percent_deluxe_report(key)
+
+    def generate_single_percent_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
+                                                                   == sample_id]
+        print(self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame, 'Percent', 'Basic'))
+
+    def generate_single_mg_g_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
+                                                                   == sample_id]
+        print(self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame, 'mg_g', 'Basic'))
+
+    def generate_single_percent_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
+                                                                   == sample_id]
+        print(self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame, 'Percent', 'Deluxe'))
+
+    def generate_single_mg_g_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
+                                                                   == sample_id]
+        print(self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame, 'mg_g', 'Deluxe'))
+
+    def get_relevant_values_and_recoveries_for_single_reports(self, temporary_data_frame, sample_type, report_type):
+        if sample_type == 'Percent':
+            sample_column_type = 'percentage_concentration'
+        elif sample_type == 'mg_g':
+            sample_column_type = 'mg_g'
+        else:
+            sample_column_type = 'percentage_concentration'
+        ibu_recovery_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 1.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbdv_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 2.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbdva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 3.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcv_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbgva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbd_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbg_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 7.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbda_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 8.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbn_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 9.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbga_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 10.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 11.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d9_thc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 12.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d8_thc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 13.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbl_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 14.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 15.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbna_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 16.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thca_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 17.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbla_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 18.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbca_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 19.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        if report_type == 'Deluxe':
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbn_value, d9_thc_value, thca_value]
 
 
 
