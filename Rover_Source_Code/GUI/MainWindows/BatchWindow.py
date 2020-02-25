@@ -1,5 +1,15 @@
 import tkinter as Tk
 from tkinter import ttk
+import os, sys, inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
+from Post_Generate.post_generate_report_writer import ReportWriter as report
 
 
 class BatchWindow(Tk.Frame):
@@ -18,10 +28,13 @@ class BatchWindow(Tk.Frame):
         self.updated_sample_type_option_list = []
         self.report_type_option_list = []
         self.updated_report_type_option_list = []
+        self.single_or_multi_list = []
+        self.updated_single_or_multi_list = []
         self.header_information_list = []
         self.update_header_information_list = []
         self.sample_information_list = []
         self.updated_sample_information_list = []
+        self.updated_dictionary = {}
 
     def batch(self, data):
         self.create_scrollable_window()
@@ -204,10 +217,18 @@ class BatchWindow(Tk.Frame):
                                              *report_type_choices)
             report_type_menu.grid(row=counter, column=2)
             self.report_type_option_list.append((item, report_type_menu, report_type_string_variable))
+            multi_or_single_variable = Tk.StringVar(self.samples_checklist_frame)
+            multi_or_single_choices = {'Multi', 'Single'}
+            multi_or_single_variable.set('Multi')
+            multi_single_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                              multi_or_single_variable,
+                                              *multi_or_single_choices)
+            multi_single_menu.grid(row=counter, column=3)
+            self.single_or_multi_list.append((item, multi_single_menu, multi_or_single_variable))
             counter += 1
         Tk.Button(self.samples_checklist_frame,
                   text="Generate Batch",
-                  command=self.generate_batch).grid(row=counter, column=0)
+                  command=lambda x=data: self.generate_batch(x)).grid(row=counter, column=0)
 
     def display_sample_data(self, data):
         samples_label = Tk.Label(self.display_sample_data_frame, text="Samples")
@@ -217,16 +238,24 @@ class BatchWindow(Tk.Frame):
         samples_text.config(state="disabled")
         samples_text.grid(row=1, column=0)
 
-    def generate_batch(self):
+    def generate_batch(self, data):
         self.updated_sample_type_option_list = [var.get() for item, menu, var in self.sample_type_option_list]
         self.updated_report_type_option_list = [var.get() for item, menu, var in self.report_type_option_list]
+        self.updated_single_or_multi_list = [var.get() for item, menu, var in self.single_or_multi_list]
         self.update_header_information_list = [var.get()
                                                for key, variables in self.header_information_list for var in variables]
         self.updated_sample_information_list = [var.get("1.0", Tk.END) for item, var in self.sample_information_list]
-        print(self.updated_sample_type_option_list)
-        print(self.updated_report_type_option_list)
-        print(self.update_header_information_list)
-        print(self.updated_sample_information_list)
+        self.updated_dictionary['sample type'] = self.updated_sample_type_option_list
+        self.updated_dictionary['report type'] = self.updated_report_type_option_list
+        self.updated_dictionary['single multi'] = self.updated_single_or_multi_list
+        self.updated_dictionary['headers'] = self.update_header_information_list
+        self.updated_dictionary['samples'] = self.updated_sample_information_list
+        self.post_generate_controller(data.dm, data.hp)
+
+    def post_generate_controller(self, sample_data, header_data):
+        batch_report = report(sample_data, header_data, self.updated_dictionary)
+        batch_report.deluxe_report_percentage_controller()
+
 
 
 
