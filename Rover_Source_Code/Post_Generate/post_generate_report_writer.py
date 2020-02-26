@@ -38,6 +38,7 @@ class ReportWriter:
         self.generate_samples_list()
         self.split_samples_into_single_or_multi()
         self.create_alternate_sample_type_columns()
+        self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
 
@@ -78,7 +79,6 @@ class ReportWriter:
     def split_samples_into_single_or_multi(self):
         counter = 0
         for item in self.updates['single multi']:
-            print(item)
             if item == 'Single':
                 self.single_reports_dictionary[self.sample_data.unique_sample_id_list[counter]] = \
                     [self.updates['sample type'][counter],
@@ -88,14 +88,12 @@ class ReportWriter:
                     [self.updates['sample type'][counter],
                      self.updates['report type'][counter]]
             counter += 1
-        for x, y in self.single_reports_dictionary.items():
-            print(x, y)
-        for x, y in self.multiple_reports_dictionary.items():
-            print(x, y)
 
     def create_alternate_sample_type_columns(self):
         self.sample_data.samples_data_frame['mg_g'] =\
             self.sample_data.samples_data_frame['percentage_concentration'] * 10
+
+# SINGLE SAMPLE PER PAGE CODE
 
     def generate_single_sample_reports(self):
         for key, value in self.single_reports_dictionary.items():
@@ -330,6 +328,70 @@ Cannabinol (CBN) & """ + data[2] + r""" &   ND & 101 & 0.003\\
 \end{table}
 """
         return basic_potency_table_string
+
+# MULTIPLE SAMPLES PER PAGE CODE
+
+    def generate_multi_sample_reports(self):
+        multi_tuple_list = []
+        for key in self.header_data.header_contents_dictionary.keys():
+            matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
+            multi_tuple_list.append(matching)
+        for item in multi_tuple_list:
+            self.determine_number_of_pages_for_multi_reports(item)
+
+    def determine_number_of_pages_for_multi_reports(self, tuple_list):
+        number_of_samples = len(tuple_list)
+        if number_of_samples == 1:
+            self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
+        elif 5 >= number_of_samples > 1:
+            self.single_page_multi_table(tuple_list)
+        else:
+            self.multiple_page_multi_table(tuple_list)
+
+    def single_page_multi_table(self, tuple_list):
+        table_header_string = self.generate_single_page_multi_table_header(tuple_list)
+        print(table_header_string)
+
+    def generate_single_page_multi_table_header(self, tuple_list):
+        table_header_1 = r"""
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""
+        header_slot_modifier = 0.490 / len(tuple_list)
+        header_slot_line = r"""p{\dimexpr""" +\
+                           str(header_slot_modifier) +\
+                           r"""\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""
+        for i in range(len(tuple_list)):
+            table_header_1 += header_slot_line
+        table_header_2 = r"""
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+                \textbf{Cannabinoids} & """
+        table_header_1 += table_header_2
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == 'Percent':
+                unit = r"""\%"""
+            elif item[1][0] == 'mg/g':
+                unit = r"""mg/g"""
+            else:
+                unit = r"""\%"""
+            sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""} (""" + unit + r""")  &"""
+            table_header_1 += sampleid_slot_line
+        table_header_3 = r"""\textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
+\hline
+\hline
+"""
+        table_header_1 += table_header_3
+        return table_header_1
+
+    def multiple_page_multi_table(self, tuple_list):
+        print(tuple_list)
+
+# FOOTER AND WRITING TO FILE CODE
 
     def generate_footer(self):
         footer_string = r"""
