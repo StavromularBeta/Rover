@@ -211,6 +211,7 @@ class PreGenerateDataManipulation:
                                                                 & (self.sample_dilutions_data_frame['sampleid'].str.contains(row['sampleid']))]
                 self.samples_data_frame.loc[index, 'percentage_concentration'] = dilution.iloc[0, 9]
                 self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
+        self.samples_data_frame.fillna(0, inplace=True)
 
     def create_condensed_sample_list_data_frame_for_gui(self):
         self.condensed_samples_data_frame = self.samples_data_frame[['sampleid',

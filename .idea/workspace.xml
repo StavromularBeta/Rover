@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.aux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.bbl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.blg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-1_raw.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.aux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.bbl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.blg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-2_raw.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-3_raw.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reports/ 152097/152097-4_raw.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_report_writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_report_writer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
