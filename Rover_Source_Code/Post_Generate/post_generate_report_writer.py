@@ -15,7 +15,7 @@ class ReportWriter:
         2. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
         value = latex headers, customer information only..
         3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
-        added."""
+        added. """
         self.sample_data = sample_data
         self.header_data = header_data
         self.updates = updates
@@ -31,6 +31,27 @@ class ReportWriter:
         pd.set_option('display.max_columns', None)
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
+
+#       This cannabinoid dictionary is used for making the multi-tables.
+        self.cannabinoid_dictionary = {1: (r"$\Delta^{9}$-THC &", 12.0),
+                                       2: (r"$\Delta^{9}$-THC Acid &", 17.0),
+                                       3: (r"$\Delta^{8}$THC &", 13.0),
+                                       4: (r"Cannabidiol (CBC) &", 15.0),
+                                       5: (r"Cannabidiol Acid &", 19.0),
+                                       6: (r"Cannabidiol (CBD) &", 6.0),
+                                       7: (r"Cannabidiol Acid &", 8.0),
+                                       8: (r"Cannabigerol (CBG) &", 7.0),
+                                       9: (r"Cannabigerol Acid &", 10.0),
+                                       10: (r"Cannabicyclol (CBL) &", 14.0),
+                                       11: (r"Cannabicyclol Acid &", 18.0),
+                                       12: (r"Cannabidivarin (CBDV) &", 2.0),
+                                       13: (r"Cannabidivarin Acid &", 3.0),
+                                       14: (r"$\Delta^{9}$ THCV &", 4.0),
+                                       15: (r"$\Delta^{9}$ THCV Acid &", 11.0),
+                                       16: (r"Cannabinol (CBN) &", 9.0),
+                                       17: (r"Cannabinol Acid &", 16.0),
+                                       18: (r"Cannabigerivarin Acid &", 5.0)
+        }
 
     def deluxe_report_percentage_controller(self):
         """This is the controller function for the class. """
@@ -344,13 +365,28 @@ Cannabinol (CBN) & """ + data[2] + r""" &   ND & 101 & 0.003\\
         if number_of_samples == 1:
             self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
         elif 5 >= number_of_samples > 1:
-            self.single_page_multi_table(tuple_list)
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_string = self.single_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            report = header + table_string + footer
+            self.finished_reports_dictionary[sample_id] = report
         else:
             self.multiple_page_multi_table(tuple_list)
 
     def single_page_multi_table(self, tuple_list):
         table_header_string = self.generate_single_page_multi_table_header(tuple_list)
-        print(table_header_string)
+        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
+        end_string = r"""
+\hline
+\hline
+\textbf{Moisture} & 0.00  &   &  &\\
+\hline
+\hline
+\end{tabular}
+\end{table}"""
+        main_table_string += end_string
+        return main_table_string
 
     def generate_single_page_multi_table_header(self, tuple_list):
         table_header_1 = r"""
@@ -387,6 +423,51 @@ Cannabinol (CBN) & """ + data[2] + r""" &   ND & 101 & 0.003\\
 """
         table_header_1 += table_header_3
         return table_header_1
+
+    def generate_single_page_multi_table(self, tuple_list, table_header_string):
+        table_header_string += self.generate_single_page_multi_table_line(1, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(2, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(3, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(4, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(5, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(6, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(7, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(8, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(9, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(10, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(11, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(12, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(13, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(14, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(15, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(16, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(17, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(18, tuple_list)
+        return table_header_string
+
+    def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
+        cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
+        cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == 'Percent':
+                data_column = 'percentage_concentration'
+            elif item[1][0] == 'mg/g':
+                data_column = r"""mg_g"""
+            else:
+                data_column = 'percentage_concentration'
+            if item[1][1] == 'Basic' and cannabinoid in [3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]:
+                data_value = '-'
+            else:
+                data_value = "{0:.3f}".format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                        [data_column]].iloc[0][data_column])
+            data_value = data_value + " &"
+            cannabinoid_latex_string += data_value
+        cannabinoid_latex_string += r"""ND & 100 & 0.003\\"""
+        return cannabinoid_latex_string
 
     def multiple_page_multi_table(self, tuple_list):
         print(tuple_list)

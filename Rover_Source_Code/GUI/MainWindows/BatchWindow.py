@@ -34,6 +34,8 @@ class BatchWindow(Tk.Frame):
         self.update_header_information_list = []
         self.sample_information_list = []
         self.updated_sample_information_list = []
+        self.density_unit_weight_list = []
+        self.density_unit_weight_option_list = []
         self.updated_dictionary = {}
 
     def batch(self, data):
@@ -225,6 +227,17 @@ class BatchWindow(Tk.Frame):
                                               *multi_or_single_choices)
             multi_single_menu.grid(row=counter, column=3)
             self.single_or_multi_list.append((item, multi_single_menu, multi_or_single_variable))
+            unit_or_density_entry = Tk.Entry(self.samples_checklist_frame)
+            unit_or_density_entry.grid(row=counter, column=4)
+            self.density_unit_weight_list.append((item, unit_or_density_entry))
+            density_or_unit_variable = Tk.StringVar(self.samples_checklist_frame)
+            density_or_unit_choices = {'density', 'unit'}
+            density_or_unit_variable.set('density')
+            density_unit_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                              density_or_unit_variable,
+                                              *density_or_unit_choices)
+            density_unit_menu.grid(row=counter, column=5)
+            self.density_unit_weight_option_list.append((item, density_unit_menu, density_or_unit_variable))
             counter += 1
         Tk.Button(self.samples_checklist_frame,
                   text="Generate Batch",
@@ -245,11 +258,15 @@ class BatchWindow(Tk.Frame):
         self.update_header_information_list = [var.get()
                                                for key, variables in self.header_information_list for var in variables]
         self.updated_sample_information_list = [var.get("1.0", Tk.END) for item, var in self.sample_information_list]
+        self.density_unit_weight_list = [var.get() for item, var in self.density_unit_weight_list]
+        self.density_unit_weight_option_list = [var.get() for item, menu, var in self.density_unit_weight_option_list]
         self.updated_dictionary['sample type'] = self.updated_sample_type_option_list
         self.updated_dictionary['report type'] = self.updated_report_type_option_list
         self.updated_dictionary['single multi'] = self.updated_single_or_multi_list
         self.updated_dictionary['headers'] = self.update_header_information_list
         self.updated_dictionary['samples'] = self.updated_sample_information_list
+        self.updated_dictionary['density_unit'] = self.density_unit_weight_list
+        self.updated_dictionary['density_unit_option'] = self.density_unit_weight_option_list
         self.post_generate_controller(data.dm, data.hp)
 
     def post_generate_controller(self, sample_data, header_data):
