@@ -62,6 +62,7 @@ class ReportWriter:
         self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
+        print(self.sample_data.samples_data_frame)
 
     def generate_job_latex_headers(self):
         """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
@@ -103,16 +104,34 @@ class ReportWriter:
             if item == 'Single':
                 self.single_reports_dictionary[self.sample_data.unique_sample_id_list[counter]] = \
                     [self.updates['sample type'][counter],
-                     self.updates['report type'][counter]]
+                     self.updates['report type'][counter],
+                     self.updates['density_unit'][counter],
+                     self.updates['density_unit_option'][counter]]
             else:
                 self.multiple_reports_dictionary[self.sample_data.unique_sample_id_list[counter]] = \
                     [self.updates['sample type'][counter],
-                     self.updates['report type'][counter]]
+                     self.updates['report type'][counter],
+                     self.updates['density_unit'][counter],
+                     self.updates['density_unit_option'][counter]]
             counter += 1
 
     def create_alternate_sample_type_columns(self):
         self.sample_data.samples_data_frame['mg_g'] =\
             self.sample_data.samples_data_frame['percentage_concentration'] * 10
+        for key, value in self.single_reports_dictionary.items():
+            sample_id = key
+            if value[3] == 'density':
+                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
+                                                        sample_id,
+                                                        'mg_ml'] = \
+                    self.sample_data.samples_data_frame['percentage_concentration'] * float(value[2])
+        for key, value in self.multiple_reports_dictionary.items():
+            sample_id = key
+            if value[3] == 'density':
+                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
+                                                        sample_id,
+                                                        'mg_ml'] = \
+                    self.sample_data.samples_data_frame['percentage_concentration'] * float(value[2])
 
 # SINGLE SAMPLE PER PAGE CODE
 
