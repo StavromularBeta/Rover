@@ -124,14 +124,26 @@ class ReportWriter:
                 self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
                                                         sample_id,
                                                         'mg_ml'] = \
-                    self.sample_data.samples_data_frame['percentage_concentration'] * float(value[2])
+                    self.sample_data.samples_data_frame['mg_g'] * float(value[2])
+            elif value[3] == 'unit':
+                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
+                                                        sample_id,
+                                                        'mg_unit'] = \
+                    self.sample_data.samples_data_frame['mg_g'] * \
+                    float(value[2])
         for key, value in self.multiple_reports_dictionary.items():
             sample_id = key
             if value[3] == 'density':
                 self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
                                                         sample_id,
                                                         'mg_ml'] = \
-                    self.sample_data.samples_data_frame['percentage_concentration'] * float(value[2])
+                    self.sample_data.samples_data_frame['mg_g'] * float(value[2])
+            elif value[3] == 'unit':
+                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
+                                                        sample_id,
+                                                        'mg_unit'] = \
+                    self.sample_data.samples_data_frame['mg_g'] * \
+                    float(value[2])
 
 # SINGLE SAMPLE PER PAGE CODE
 

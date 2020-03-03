@@ -55,7 +55,7 @@ class BatchWindow(Tk.Frame):
 
     def create_scrollable_window(self):
         display_all_jobs_canvas = Tk.Canvas(self.master_display_frame,
-                                            width=1080,
+                                            width=1280,
                                             height=700,
                                             scrollregion=(0, 0, 0, 15000))
         all_entries_scroll = Tk.Scrollbar(self.master_display_frame,
