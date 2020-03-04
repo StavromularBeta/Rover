@@ -333,7 +333,7 @@ class ReportWriter:
                     cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
                     cbna_value, thca_value, cbla_value, cbca_value]
         else:
-            return [ibu_recovery_value, cbd_value, cbn_value, d9_thc_value, thca_value]
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value, d8_thc_value]
 
     def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type):
         ibu_recovery_value = "{0:.3f}".format(
@@ -457,8 +457,9 @@ class ReportWriter:
                     [cbna_value, cbna_value_u], [thca_value, thca_value_u], [cbla_value, cbla_value_u],
                     [cbca_value, cbca_value_u]]
         else:
-            return [ibu_recovery_value, [cbd_value, cbd_value_u], [cbn_value, cbn_value_u],
-                    [d9_thc_value, d9_thc_value_u], [thca_value, thca_value_u]]
+            return [ibu_recovery_value, [cbd_value, cbd_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                    [cbna_value, cbna_value_u], [d9_thc_value, d9_thc_value_u], [thca_value, thca_value_u],
+                    [d8_thc_value, d8_thc_value_u]]
 
     def create_single_deluxe_table(self, data, sample_type):
         if sample_type == 'Percent':
@@ -612,12 +613,18 @@ Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND
 \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[3] + r""" & ND & 94.4 & 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[4] + r""" & ND & 96.6& 0.003\\
+$\Delta^{9}$-THC & """ + data[5] + r""" & ND & 94.4 & 0.003\\
+$\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & 96.6& 0.003\\
+\hline
+$\Delta^{8}$-THC & """ + data[7] + r""" & ND & 94.4 & 0.003\\
+$\Delta^{8}$-THC Acid & 0.00 & ND & 96.6& 0.003\\
 \hline
 Cannabidiol (CBD) &""" + data[1] + r""" &  ND & 92.3 & 0.003\\
+Cannabidiol Acid &""" + data[2] + r""" &  ND & 92.3 & 0.003\\
 \hline
-Cannabinol (CBN) & """ + data[2] + r""" &   ND & 101 & 0.003\\
+\hline
+Cannabinol (CBN) & """ + data[3] + r""" &   ND & 101 & 0.003\\
+Cannabinol Acid & """ + data[4] + r""" &   ND & 101 & 0.003\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -644,12 +651,17 @@ Cannabinol (CBN) & """ + data[2] + r""" &   ND & 101 & 0.003\\
 \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g) & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & 98.3 & 0.003\\
-$\Delta^{9}$ THCV Acid &  """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & 100  & 0.003\\
+$\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & 98.3 & 0.003\\
+$\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & 100  & 0.003\\
+\hline
+$\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & 98.3 & 0.003\\
+$\Delta^{8}$ THC Acid &  0.00  &  0.00 &  ND & 100  & 0.003\\
 \hline
 Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & 92.3 & 0.003\\
+Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & 92.3 & 0.003\\
 \hline
-Cannabinol (CBN) & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &   ND & 101 & 0.003\\
+Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & 101 & 0.003\\
+Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & 101 & 0.003\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -723,6 +735,8 @@ Cannabinol (CBN) & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &   ND & 1
                 unit = r"""\%"""
             elif item[1][0] == 'mg/g':
                 unit = r"""mg/g"""
+            elif item[1][0] == 'mg/mL':
+                unit = r"""mg/mL"""
             else:
                 unit = r"""\%"""
             sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""} (""" + unit + r""")  &"""
@@ -764,6 +778,8 @@ Cannabinol (CBN) & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &   ND & 1
                 data_column = 'percentage_concentration'
             elif item[1][0] == 'mg/g':
                 data_column = r"""mg_g"""
+            elif item[1][0] == 'mg/mL':
+                data_column = r"""mg_ml"""
             else:
                 data_column = 'percentage_concentration'
             if item[1][1] == 'Basic' and cannabinoid in [3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]:
