@@ -838,5 +838,3 @@ H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilode
         """ Open "path" for writing, creating any parent directories as needed. """
         self.mkdir_p(os.path.dirname(path))
         return open(path, 'w')
-
-
