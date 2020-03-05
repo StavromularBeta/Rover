@@ -62,7 +62,7 @@ class ReportWriter:
         self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
-        print(self.sample_data.samples_data_frame)
+        print(self.sample_data.best_recovery_qc_data_frame)
 
     def generate_job_latex_headers(self):
         """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
@@ -261,6 +261,72 @@ class ReportWriter:
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
+        #####
+    def get_standard_recovery_values(self, report_type):
+        temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
+        ibu_recovery_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 1.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbdv_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 2.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbdva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 3.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        thcv_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbgva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbd_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbg_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 7.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbda_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 8.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbn_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 9.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbga_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 10.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        thcva_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 11.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        d9_thc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 12.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        d8_thc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 13.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbl_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 14.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbc_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 15.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbna_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 16.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        thca_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 17.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbla_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 18.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        cbca_value = "{0:.3f}".format(
+            temporary_data_frame.loc[temporary_data_frame['id17'] == 19.0,
+                                     ['percrecovery']].iloc[0]['percrecovery'])
+        if report_type == 'Deluxe':
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value, d8_thc_value]
 
     def get_relevant_values_and_recoveries_for_single_reports(self, temporary_data_frame, sample_type, report_type):
         if sample_type == 'Percent':
@@ -462,6 +528,7 @@ class ReportWriter:
                     [d8_thc_value, d8_thc_value_u]]
 
     def create_single_deluxe_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values('Deluxe')
         if sample_type == 'Percent':
             sample_type = r'\%'
         elif sample_type == 'mg_g':
@@ -483,42 +550,42 @@ class ReportWriter:
 \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[11] + r""" & ND & 94.4 & 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[16] + r""" & ND & 96.6& 0.003\\
+$\Delta^{9}$-THC & """ + data[11] + r""" & ND & """ + recov_data[11] + r"""& 0.003\\
+$\Delta^{9}$-THC Acid & """ + data[16] + r""" & ND & """ + recov_data[16] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Total THC*} &  \textbf{""" + str(float(data[11]) + (float(data[16]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-$\Delta^{8}$THC & """ + data[12] + r""" & ND & 72.5& 0.003\\
-$\Delta^{8}$THC Acid & ND & ND & 96.6 & 0.003\\
+$\Delta^{8}$THC & """ + data[12] + r""" & ND & """ + recov_data[12] + r"""& 0.003\\
+$\Delta^{8}$THC Acid & N/A & N/A & N/A & N/A \\
 \hline
-Cannabidiol (CBC) & """ + data[14] + r"""  & ND & 65.7 & 0.003\\
-Cannabidiol Acid & """ + data[18] + r"""  & ND & 97.6 & 0.003\\
+Cannabidiol (CBC) & """ + data[14] + r"""  & ND& """ + recov_data[14] + r"""& 0.003\\
+Cannabidiol Acid & """ + data[18] + r"""  & ND & """ + recov_data[18] + r"""& 0.003\\
 \hline
-Cannabidiol (CBD) &""" + data[5] + r""" &  ND & 92.3 & 0.003\\
-Cannabidiol Acid & """ + data[7] + r""" &  ND & 112 & 0.003\\
+Cannabidiol (CBD) &""" + data[5] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
+Cannabidiol Acid & """ + data[7] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Total CBD**} &  \textbf{""" + str(float(data[5]) + (float(data[7]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-Cannabigerol (CBG) & """ + data[6] + r""" & ND & 94.1 & 0.003\\
-Cannabigerol Acid & """ + data[9] + r""" & ND & 96.8 & 0.003\\
+Cannabigerol (CBG) & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
+Cannabigerol Acid & """ + data[9] + r""" & ND & """ + recov_data[9] + r"""& 0.003\\
 \hline
-Cannabicyclol (CBL) & """ + data[13] + r""" &  ND & 77.4 & 0.003\\
-Cannabicyclol Acid & """ + data[17] + r""" &  ND & 91.6 & 0.003\\
+Cannabicyclol (CBL) & """ + data[13] + r""" &  ND & """ + recov_data[13] + r"""& 0.003\\
+Cannabicyclol Acid & """ + data[17] + r""" &  ND & """ + recov_data[17] + r"""& 0.003\\
 \hline
-Cannabidivarin (CBDV) & """ + data[1] + r""" &  ND & 93.2 & 0.003\\
-Cannabidivarin Acid & """ + data[2] + r""" &  ND & 93.2  & 0.003\\
+Cannabidivarin (CBDV) & """ + data[1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
+Cannabidivarin Acid & """ + data[2] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
 \hline
-$\Delta^{9}$ THCV & """ + data[3] + r""" &  ND & 98.3 & 0.003\\
-$\Delta^{9}$ THCV Acid &  """ + data[10] + r""" &  ND & 100  & 0.003\\
+$\Delta^{9}$ THCV & """ + data[3] + r""" &  ND& """ + recov_data[3] + r"""& 0.003\\
+$\Delta^{9}$ THCV Acid &  """ + data[10] + r""" &  ND & """ + recov_data[10] + r"""& 0.003\\
 \hline
-Cannabinol (CBN) & """ + data[8] + r""" &   ND & 101 & 0.003\\
-Cannabinol Acid & """ + data[15] + r""" &  ND & 78.7 & 0.003 \\
+Cannabinol (CBN) & """ + data[8] + r""" &   ND & """ + recov_data[8] + r"""& 0.003\\
+Cannabinol Acid & """ + data[15] + r""" &  ND & """ + recov_data[15] + r"""& 0.003 \\
 \hline
-Cannabigerivarin Acid & """ + data[4] + r""" &  ND & 92.0 & 0.003 \\
+Cannabigerivarin Acid & """ + data[4] + r""" &  ND & """ + recov_data[4] + r"""& 0.003 \\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -530,6 +597,7 @@ Cannabigerivarin Acid & """ + data[4] + r""" &  ND & 92.0 & 0.003 \\
         return deluxe_potency_table_string
 
     def create_single_deluxe_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values('Deluxe')
         sample_type = 'mg/unit'
         deluxe_potency_table_string = r"""
 \newline
@@ -545,45 +613,45 @@ Cannabigerivarin Acid & """ + data[4] + r""" &  ND & 92.0 & 0.003 \\
 \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g)  & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[11][0] + r""" &  """ + data[11][1] + r""" & ND & 94.4 & 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & 96.6& 0.003\\
+$\Delta^{9}$-THC & """ + data[11][0] + r""" &  """ + data[11][1] + r""" & ND & """ + recov_data[11] + r"""& 0.003\\
+$\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & """ + recov_data[16] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Total THC*} &  \textbf{""" + str(float(data[11][0]) + (float(data[16][0]) * 0.877)) + r"""} & \textbf{ """ + str(float(data[11][1]) + (float(data[16][1]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-$\Delta^{8}$THC & """ + data[12][0] + r""" &  """ + data[12][1] + r""" & ND & 72.5& 0.003\\
+$\Delta^{8}$THC & """ + data[12][0] + r""" &  """ + data[12][1] + r""" & ND & """ + recov_data[12] + r"""& 0.003\\
 $\Delta^{8}$THC Acid & ND & ND & 96.6 & 0.003\\
 \hline
-Cannabidiol (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & 65.7 & 0.003\\
-Cannabidiol Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & 97.6 & 0.003\\
+Cannabidiol (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & """ + recov_data[14] + r"""& 0.003\\
+Cannabidiol Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & """ + recov_data[18] + r"""& 0.003\\
 \hline
-Cannabidiol (CBD) &""" + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & 92.3 & 0.003\\
-Cannabidiol Acid & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & 112 & 0.003\\
+Cannabidiol (CBD) &""" + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
+Cannabidiol Acid & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Total CBD**} &  \textbf{""" + str(float(data[5][0]) + (float(data[7][0]) * 0.877)) + r"""} & \textbf{ """ + str(float(data[5][0]) + (float(data[7][0]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-Cannabigerol (CBG) & """ + data[6][0] + r""" &  """ + data[6][1] + r""" & ND & 94.1 & 0.003\\
-Cannabigerol Acid & """ + data[9][0] + r""" &  """ + data[9][1] + r""" & ND & 96.8 & 0.003\\
+Cannabigerol (CBG) & """ + data[6][0] + r""" &  """ + data[6][1] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
+Cannabigerol Acid & """ + data[9][0] + r""" &  """ + data[9][1] + r""" & ND & """ + recov_data[9] + r"""& 0.003\\
 \hline
-Cannabicyclol (CBL) & """ + data[13][0] + r""" &  """ + data[13][1] + r""" &  ND & 77.4 & 0.003\\
-Cannabicyclol Acid & """ + data[17][0] + r""" &  """ + data[17][1] + r""" &  ND & 91.6 & 0.003\\
+Cannabicyclol (CBL) & """ + data[13][0] + r""" &  """ + data[13][1] + r""" &  ND & """ + recov_data[13] + r"""& 0.003\\
+Cannabicyclol Acid & """ + data[17][0] + r""" &  """ + data[17][1] + r""" &  ND & """ + recov_data[17] + r"""& 0.003\\
 \hline
-Cannabidivarin (CBDV) & """ + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & 93.2 & 0.003\\
-Cannabidivarin Acid & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & 93.2  & 0.003\\
+Cannabidivarin (CBDV) & """ + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
+Cannabidivarin Acid & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
 \hline
-$\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & 98.3 & 0.003\\
-$\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & 100  & 0.003\\
+$\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & """ + recov_data[3] + r"""& 0.003\\
+$\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & """ + recov_data[10] + r"""& 0.003\\
 \hline
-Cannabinol (CBN) & """ + data[8][0] + r""" &  """ + data[8][1] + r""" &   ND & 101 & 0.003\\
-Cannabinol Acid & """ + data[15][0] + r""" &  """ + data[15][1] + r""" &  ND & 78.7 & 0.003 \\
+Cannabinol (CBN) & """ + data[8][0] + r""" &  """ + data[8][1] + r""" &   ND & """ + recov_data[8] + r"""& 0.003\\
+Cannabinol Acid & """ + data[15][0] + r""" &  """ + data[15][1] + r""" &  ND & """ + recov_data[15] + r"""& 0.003 \\
 \hline
-Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & 92.0 & 0.003 \\
+Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & """ + recov_data[4] + r"""& 0.003 \\
 \hline
 \hline
-\textbf{Moisture} & 0.00  &   &  &\\
+\textbf{Moisture} & 0.00  &   &  & \\
 \hline
 \hline
 \end{tabular}
@@ -592,6 +660,7 @@ Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND
         return deluxe_potency_table_string
 
     def create_single_basic_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values('Basic')
         if sample_type == 'Percent':
             sample_type = r'\%'
         elif sample_type == 'mg_g':
@@ -613,18 +682,18 @@ Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND
 \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[5] + r""" & ND & 94.4 & 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & 96.6& 0.003\\
+$\Delta^{9}$-THC & """ + data[5] + r""" & ND & """ + recov_data[5] + r"""& 0.003\\
+$\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
 \hline
-$\Delta^{8}$-THC & """ + data[7] + r""" & ND & 94.4 & 0.003\\
-$\Delta^{8}$-THC Acid & 0.00 & ND & 96.6& 0.003\\
+$\Delta^{8}$-THC & """ + data[7] + r""" & ND & """ + recov_data[7] + r"""& 0.003\\
+$\Delta^{8}$-THC Acid & 0.00 & N/A & N/A & N/A \\
 \hline
-Cannabidiol (CBD) &""" + data[1] + r""" &  ND & 92.3 & 0.003\\
-Cannabidiol Acid &""" + data[2] + r""" &  ND & 92.3 & 0.003\\
+Cannabidiol (CBD) &""" + data[1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
+Cannabidiol Acid &""" + data[2] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
 \hline
 \hline
-Cannabinol (CBN) & """ + data[3] + r""" &   ND & 101 & 0.003\\
-Cannabinol Acid & """ + data[4] + r""" &   ND & 101 & 0.003\\
+Cannabinol (CBN) & """ + data[3] + r""" &   ND & """ + recov_data[3] + r"""& 0.003\\
+Cannabinol Acid & """ + data[4] + r""" &   ND & """ + recov_data[4] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -636,6 +705,7 @@ Cannabinol Acid & """ + data[4] + r""" &   ND & 101 & 0.003\\
         return basic_potency_table_string
 
     def create_single_basic_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values('Basic')
         sample_type = 'mg/unit'
         basic_potency_table_string = r"""
 \newline
@@ -651,17 +721,17 @@ Cannabinol Acid & """ + data[4] + r""" &   ND & 101 & 0.003\\
 \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g) & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & 98.3 & 0.003\\
-$\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & 100  & 0.003\\
+$\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
+$\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & """ + recov_data[6] + r"""& 0.003\\
 \hline
-$\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & 98.3 & 0.003\\
+$\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
 $\Delta^{8}$ THC Acid &  0.00  &  0.00 &  ND & 100  & 0.003\\
 \hline
-Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & 92.3 & 0.003\\
-Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & 92.3 & 0.003\\
+Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
+Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
 \hline
-Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & 101 & 0.003\\
-Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & 101 & 0.003\\
+Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & """ + recov_data[3] + r"""& 0.003\\
+Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & """ + recov_data[4] + r"""& 0.003\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -796,7 +866,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & 10
         return cannabinoid_latex_string
 
     def multiple_page_multi_table(self, tuple_list):
-        print(tuple_list)
+        pass
 
 # FOOTER AND WRITING TO FILE CODE
 

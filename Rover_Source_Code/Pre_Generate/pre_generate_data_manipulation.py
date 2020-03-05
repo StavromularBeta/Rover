@@ -164,6 +164,7 @@ class PreGenerateDataManipulation:
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
         self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[['id15',
+                                                                             'id17',
                                                                              'sampleid',
                                                                              'name20',
                                                                              'area',
