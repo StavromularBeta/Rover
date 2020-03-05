@@ -852,7 +852,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
                 data_column = r"""mg_ml"""
             else:
                 data_column = 'percentage_concentration'
-            if item[1][1] == 'Basic' and cannabinoid in [3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18]:
+            if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
             else:
                 data_value = "{0:.3f}".format(
@@ -862,7 +862,11 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
                         [data_column]].iloc[0][data_column])
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
-        cannabinoid_latex_string += r"""ND & 100 & 0.003\\"""
+        cannabinoid_recovery_value = "{0:.3f}".format(self.sample_data.best_recovery_qc_data_frame.loc[
+                                                      self.sample_data.best_recovery_qc_data_frame['id17'] ==
+                                                      cannabinoid_id_17,
+                                                      ['percrecovery']].iloc[0]['percrecovery'])
+        cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""& 0.003\\"""
         return cannabinoid_latex_string
 
     def multiple_page_multi_table(self, tuple_list):
