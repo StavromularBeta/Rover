@@ -53,6 +53,28 @@ class ReportWriter:
                                        18: (r"Cannabigerivarin Acid &", 5.0)
         }
 
+#       This dictionary is for containing the LOQ's. keys match the list indices at the table writing step.
+
+        self.loq_dictionary = {1: '0.030',
+                               2: '0.003',
+                               3: '0.003',
+                               4: '0.003',
+                               5: '0.003',
+                               6: '0.003',
+                               7: '0.003',
+                               8: '0.003',
+                               9: '0.030',
+                               10: '0.003',
+                               11: '0.003',
+                               12: '0.003',
+                               13: '0.003',
+                               14: '0.003',
+                               15: '0.003',
+                               16: '0.003',
+                               17: '0.003',
+                               18: '0.003',
+                               }
+
     def deluxe_report_percentage_controller(self):
         """This is the controller function for the class. """
         self.generate_job_latex_headers()
@@ -62,7 +84,6 @@ class ReportWriter:
         self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
-        print(self.sample_data.best_recovery_qc_data_frame)
 
     def generate_job_latex_headers(self):
         """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
@@ -261,7 +282,7 @@ class ReportWriter:
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
-        #####
+
     def get_standard_recovery_values(self, report_type):
         temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
         ibu_recovery_value = "{0:.3f}".format(
@@ -550,42 +571,42 @@ class ReportWriter:
 \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[11] + r""" & ND & """ + recov_data[11] + r"""& 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[16] + r""" & ND & """ + recov_data[16] + r"""& 0.003\\
+$\Delta^{9}$-THC & """ + data[11] + r""" & ND & """ + recov_data[11] + r"""& """ + self.loq_dictionary[11] + r"""\\
+$\Delta^{9}$-THC Acid & """ + data[16] + r""" & ND & """ + recov_data[16] + r"""& """ + self.loq_dictionary[16] + r"""\\
 \hline
 \hline
 \textbf{Total THC*} &  \textbf{""" + str(float(data[11]) + (float(data[16]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-$\Delta^{8}$THC & """ + data[12] + r""" & ND & """ + recov_data[12] + r"""& 0.003\\
+$\Delta^{8}$THC & """ + data[12] + r""" & ND & """ + recov_data[12] + r"""& """ + self.loq_dictionary[12] + r"""\\
 $\Delta^{8}$THC Acid & N/A & N/A & N/A & N/A \\
 \hline
-Cannabidiol (CBC) & """ + data[14] + r"""  & ND& """ + recov_data[14] + r"""& 0.003\\
-Cannabidiol Acid & """ + data[18] + r"""  & ND & """ + recov_data[18] + r"""& 0.003\\
+Cannabidiol (CBC) & """ + data[14] + r"""  & ND& """ + recov_data[14] + r"""& """ + self.loq_dictionary[14] + r"""\\
+Cannabidiol Acid & """ + data[18] + r"""  & ND & """ + recov_data[18] + r"""& """ + self.loq_dictionary[18] + r"""\\
 \hline
-Cannabidiol (CBD) &""" + data[5] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
-Cannabidiol Acid & """ + data[7] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
+Cannabidiol (CBD) &""" + data[5] + r""" &  ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
+Cannabidiol Acid & """ + data[7] + r""" &  ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
 \hline
 \hline
 \textbf{Total CBD**} &  \textbf{""" + str(float(data[5]) + (float(data[7]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-Cannabigerol (CBG) & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
-Cannabigerol Acid & """ + data[9] + r""" & ND & """ + recov_data[9] + r"""& 0.003\\
+Cannabigerol (CBG) & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& """ + self.loq_dictionary[6] + r"""\\
+Cannabigerol Acid & """ + data[9] + r""" & ND & """ + recov_data[9] + r"""& """ + self.loq_dictionary[9] + r"""\\
 \hline
-Cannabicyclol (CBL) & """ + data[13] + r""" &  ND & """ + recov_data[13] + r"""& 0.003\\
-Cannabicyclol Acid & """ + data[17] + r""" &  ND & """ + recov_data[17] + r"""& 0.003\\
+Cannabicyclol (CBL) & """ + data[13] + r""" &  ND & """ + recov_data[13] + r"""& """ + self.loq_dictionary[13] + r"""\\
+Cannabicyclol Acid & """ + data[17] + r""" &  ND & """ + recov_data[17] + r"""& """ + self.loq_dictionary[17] + r"""\\
 \hline
-Cannabidivarin (CBDV) & """ + data[1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
-Cannabidivarin Acid & """ + data[2] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
+Cannabidivarin (CBDV) & """ + data[1] + r""" &  ND & """ + recov_data[1] + r"""& """ + self.loq_dictionary[1] + r"""\\
+Cannabidivarin Acid & """ + data[2] + r""" &  ND & """ + recov_data[2] + r"""&""" + self.loq_dictionary[2] + r"""\\
 \hline
-$\Delta^{9}$ THCV & """ + data[3] + r""" &  ND& """ + recov_data[3] + r"""& 0.003\\
-$\Delta^{9}$ THCV Acid &  """ + data[10] + r""" &  ND & """ + recov_data[10] + r"""& 0.003\\
+$\Delta^{9}$ THCV & """ + data[3] + r""" &  ND& """ + recov_data[3] + r"""& """ + self.loq_dictionary[3] + r"""\\
+$\Delta^{9}$ THCV Acid &  """ + data[10] + r""" &  ND & """ + recov_data[10] + r"""& """ + self.loq_dictionary[10] + r"""\\
 \hline
-Cannabinol (CBN) & """ + data[8] + r""" &   ND & """ + recov_data[8] + r"""& 0.003\\
-Cannabinol Acid & """ + data[15] + r""" &  ND & """ + recov_data[15] + r"""& 0.003 \\
+Cannabinol (CBN) & """ + data[8] + r""" &   ND & """ + recov_data[8] + r"""& """ + self.loq_dictionary[8] + r"""\\
+Cannabinol Acid & """ + data[15] + r""" &  ND & """ + recov_data[15] + r"""& """ + self.loq_dictionary[15] + r""" \\
 \hline
-Cannabigerivarin Acid & """ + data[4] + r""" &  ND & """ + recov_data[4] + r"""& 0.003 \\
+Cannabigerivarin Acid & """ + data[4] + r""" &  ND & """ + recov_data[4] + r"""& """ + self.loq_dictionary[4] + r""" \\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -613,42 +634,42 @@ Cannabigerivarin Acid & """ + data[4] + r""" &  ND & """ + recov_data[4] + r"""&
 \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g)  & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[11][0] + r""" &  """ + data[11][1] + r""" & ND & """ + recov_data[11] + r"""& 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & """ + recov_data[16] + r"""& 0.003\\
+$\Delta^{9}$-THC & """ + data[11][0] + r""" &  """ + data[11][1] + r""" & ND & """ + recov_data[11] + r"""&""" + self.loq_dictionary[11] + r"""\\
+$\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & """ + recov_data[16] + r"""& """ + self.loq_dictionary[16] + r"""\\
 \hline
 \hline
 \textbf{Total THC*} &  \textbf{""" + str(float(data[11][0]) + (float(data[16][0]) * 0.877)) + r"""} & \textbf{ """ + str(float(data[11][1]) + (float(data[16][1]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-$\Delta^{8}$THC & """ + data[12][0] + r""" &  """ + data[12][1] + r""" & ND & """ + recov_data[12] + r"""& 0.003\\
+$\Delta^{8}$THC & """ + data[12][0] + r""" &  """ + data[12][1] + r""" & ND & """ + recov_data[12] + r"""& """ + self.loq_dictionary[12] + r"""\\
 $\Delta^{8}$THC Acid & ND & ND & 96.6 & 0.003\\
 \hline
-Cannabidiol (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & """ + recov_data[14] + r"""& 0.003\\
-Cannabidiol Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & """ + recov_data[18] + r"""& 0.003\\
+Cannabidiol (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & """ + recov_data[14] + r"""& """ + self.loq_dictionary[14] + r"""\\
+Cannabidiol Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & """ + recov_data[18] + r"""& """ + self.loq_dictionary[18] + r"""\\
 \hline
-Cannabidiol (CBD) &""" + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
-Cannabidiol Acid & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
+Cannabidiol (CBD) &""" + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
+Cannabidiol Acid & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
 \hline
 \hline
 \textbf{Total CBD**} &  \textbf{""" + str(float(data[5][0]) + (float(data[7][0]) * 0.877)) + r"""} & \textbf{ """ + str(float(data[5][0]) + (float(data[7][0]) * 0.877)) + r"""} & & &\\
 \hline
 \hline
-Cannabigerol (CBG) & """ + data[6][0] + r""" &  """ + data[6][1] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
-Cannabigerol Acid & """ + data[9][0] + r""" &  """ + data[9][1] + r""" & ND & """ + recov_data[9] + r"""& 0.003\\
+Cannabigerol (CBG) & """ + data[6][0] + r""" &  """ + data[6][1] + r""" & ND & """ + recov_data[6] + r"""& """ + self.loq_dictionary[6] + r"""\\
+Cannabigerol Acid & """ + data[9][0] + r""" &  """ + data[9][1] + r""" & ND & """ + recov_data[9] + r"""& """ + self.loq_dictionary[9] + r"""\\
 \hline
-Cannabicyclol (CBL) & """ + data[13][0] + r""" &  """ + data[13][1] + r""" &  ND & """ + recov_data[13] + r"""& 0.003\\
-Cannabicyclol Acid & """ + data[17][0] + r""" &  """ + data[17][1] + r""" &  ND & """ + recov_data[17] + r"""& 0.003\\
+Cannabicyclol (CBL) & """ + data[13][0] + r""" &  """ + data[13][1] + r""" &  ND & """ + recov_data[13] + r"""& """ + self.loq_dictionary[13] + r"""\\
+Cannabicyclol Acid & """ + data[17][0] + r""" &  """ + data[17][1] + r""" &  ND & """ + recov_data[17] + r"""& """ + self.loq_dictionary[17] + r"""\\
 \hline
-Cannabidivarin (CBDV) & """ + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
-Cannabidivarin Acid & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
+Cannabidivarin (CBDV) & """ + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& """ + self.loq_dictionary[1] + r"""\\
+Cannabidivarin Acid & """ + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& """ + self.loq_dictionary[2] + r"""\\
 \hline
-$\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & """ + recov_data[3] + r"""& 0.003\\
-$\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & """ + recov_data[10] + r"""& 0.003\\
+$\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & """ + recov_data[3] + r"""& """ + self.loq_dictionary[3] + r"""\\
+$\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & """ + recov_data[10] + r"""& """ + self.loq_dictionary[10] + r"""\\
 \hline
-Cannabinol (CBN) & """ + data[8][0] + r""" &  """ + data[8][1] + r""" &   ND & """ + recov_data[8] + r"""& 0.003\\
-Cannabinol Acid & """ + data[15][0] + r""" &  """ + data[15][1] + r""" &  ND & """ + recov_data[15] + r"""& 0.003 \\
+Cannabinol (CBN) & """ + data[8][0] + r""" &  """ + data[8][1] + r""" &   ND & """ + recov_data[8] + r"""& """ + self.loq_dictionary[8] + r"""\\
+Cannabinol Acid & """ + data[15][0] + r""" &  """ + data[15][1] + r""" &  ND & """ + recov_data[15] + r"""& """ + self.loq_dictionary[15] + r""" \\
 \hline
-Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & """ + recov_data[4] + r"""& 0.003 \\
+Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & """ + recov_data[4] + r"""& """ + self.loq_dictionary[4] + r""" \\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  & \\
@@ -682,18 +703,18 @@ Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND
 \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$-THC & """ + data[5] + r""" & ND & """ + recov_data[5] + r"""& 0.003\\
-$\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& 0.003\\
+$\Delta^{9}$-THC & """ + data[5] + r""" & ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
+$\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& """ + self.loq_dictionary[6] + r"""\\
 \hline
-$\Delta^{8}$-THC & """ + data[7] + r""" & ND & """ + recov_data[7] + r"""& 0.003\\
+$\Delta^{8}$-THC & """ + data[7] + r""" & ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
 $\Delta^{8}$-THC Acid & 0.00 & N/A & N/A & N/A \\
 \hline
-Cannabidiol (CBD) &""" + data[1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
-Cannabidiol Acid &""" + data[2] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
+Cannabidiol (CBD) &""" + data[1] + r""" &  ND & """ + recov_data[1] + r"""& """ + self.loq_dictionary[1] + r"""\\
+Cannabidiol Acid &""" + data[2] + r""" &  ND & """ + recov_data[2] + r"""& """ + self.loq_dictionary[2] + r"""\\
 \hline
 \hline
-Cannabinol (CBN) & """ + data[3] + r""" &   ND & """ + recov_data[3] + r"""& 0.003\\
-Cannabinol Acid & """ + data[4] + r""" &   ND & """ + recov_data[4] + r"""& 0.003\\
+Cannabinol (CBN) & """ + data[3] + r""" &   ND & """ + recov_data[3] + r"""& """ + self.loq_dictionary[3] + r"""\\
+Cannabinol Acid & """ + data[4] + r""" &   ND & """ + recov_data[4] + r"""& """ + self.loq_dictionary[4] + r"""\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -721,17 +742,17 @@ Cannabinol Acid & """ + data[4] + r""" &   ND & """ + recov_data[4] + r"""& 0.00
 \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g) & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
 \hline
 \hline
-$\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& 0.003\\
-$\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & """ + recov_data[6] + r"""& 0.003\\
+$\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
+$\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & """ + recov_data[6] + r"""& """ + self.loq_dictionary[6] + r"""\\
 \hline
-$\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& 0.003\\
+$\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
 $\Delta^{8}$ THC Acid &  0.00  &  0.00 &  ND & 100  & 0.003\\
 \hline
-Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& 0.003\\
-Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& 0.003\\
+Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& """ + self.loq_dictionary[1] + r"""\\
+Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& """ + self.loq_dictionary[2] + r"""\\
 \hline
-Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & """ + recov_data[3] + r"""& 0.003\\
-Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & """ + recov_data[4] + r"""& 0.003\\
+Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & """ + recov_data[3] + r"""& """ + self.loq_dictionary[3] + r"""\\
+Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & """ + recov_data[4] + r"""& """ + self.loq_dictionary[4] + r"""\\
 \hline
 \hline
 \textbf{Moisture} & 0.00  &   &  &\\
@@ -866,7 +887,8 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
                                                       self.sample_data.best_recovery_qc_data_frame['id17'] ==
                                                       cannabinoid_id_17,
                                                       ['percrecovery']].iloc[0]['percrecovery'])
-        cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""& 0.003\\"""
+        loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
+        cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
 
     def multiple_page_multi_table(self, tuple_list):
