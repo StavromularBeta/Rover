@@ -9,6 +9,7 @@ sys.path.insert(0, currentdir)
 import os.path
 import errno
 from post_generate_header_methods import HeaderMethods
+from post_generate_organize_methods import OrganizeMethods
 
 
 class ReportWriter:
@@ -23,11 +24,9 @@ class ReportWriter:
         value = latex headers, customer information only..
         3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
         added. """
-        self.header_methods = HeaderMethods(header_data)
         self.sample_data = sample_data
-        self.updates = updates
-        self.single_reports_dictionary = {}
-        self.multiple_reports_dictionary = {}
+        self.header_methods = HeaderMethods(header_data)
+        self.organize_methods = OrganizeMethods(updates, sample_data)
         self.finished_reports_dictionary = {}
 
 #       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
@@ -84,63 +83,16 @@ class ReportWriter:
         """This is the controller function for the class. """
         self.header_methods.generate_job_latex_headers()
         self.header_methods.generate_samples_list()
-        self.split_samples_into_single_or_multi()
-        self.create_alternate_sample_type_columns()
+        self.organize_methods.split_samples_into_single_or_multi()
+        self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
         self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
 
-    def split_samples_into_single_or_multi(self):
-        counter = 0
-        for item in self.updates['single multi']:
-            if item == 'Single':
-                self.single_reports_dictionary[self.sample_data.unique_sample_id_list[counter]] = \
-                    [self.updates['sample type'][counter],
-                     self.updates['report type'][counter],
-                     self.updates['density_unit'][counter],
-                     self.updates['density_unit_option'][counter]]
-            else:
-                self.multiple_reports_dictionary[self.sample_data.unique_sample_id_list[counter]] = \
-                    [self.updates['sample type'][counter],
-                     self.updates['report type'][counter],
-                     self.updates['density_unit'][counter],
-                     self.updates['density_unit_option'][counter]]
-            counter += 1
-
-    def create_alternate_sample_type_columns(self):
-        self.sample_data.samples_data_frame['mg_g'] =\
-            self.sample_data.samples_data_frame['percentage_concentration'] * 10
-        for key, value in self.single_reports_dictionary.items():
-            sample_id = key
-            if value[3] == 'density':
-                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
-                                                        sample_id,
-                                                        'mg_ml'] = \
-                    self.sample_data.samples_data_frame['mg_g'] * float(value[2])
-            elif value[3] == 'unit':
-                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
-                                                        sample_id,
-                                                        'mg_unit'] = \
-                    self.sample_data.samples_data_frame['mg_g'] * \
-                    float(value[2])
-        for key, value in self.multiple_reports_dictionary.items():
-            sample_id = key
-            if value[3] == 'density':
-                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
-                                                        sample_id,
-                                                        'mg_ml'] = \
-                    self.sample_data.samples_data_frame['mg_g'] * float(value[2])
-            elif value[3] == 'unit':
-                self.sample_data.samples_data_frame.loc[self.sample_data.samples_data_frame['sampleid'] ==
-                                                        sample_id,
-                                                        'mg_unit'] = \
-                    self.sample_data.samples_data_frame['mg_g'] * \
-                    float(value[2])
-
 # SINGLE SAMPLE PER PAGE CODE
 
     def generate_single_sample_reports(self):
-        for key, value in self.single_reports_dictionary.items():
+        for key, value in self.organize_methods.single_reports_dictionary.items():
             if value[0] == 'Percent' and value[1] == 'Basic':
                 self.generate_single_percent_basic_report(key)
             elif value[0] == 'Percent' and value[1] == 'Deluxe':
@@ -739,7 +691,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
     def generate_multi_sample_reports(self):
         multi_tuple_list = []
         for key in self.header_methods.header_data.header_contents_dictionary.keys():
-            matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
+            matching = [(bob, marley) for bob, marley in self.organize_methods.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
             multi_tuple_list.append(matching)
         for item in multi_tuple_list:
             self.determine_number_of_pages_for_multi_reports(item)
@@ -747,7 +699,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
     def determine_number_of_pages_for_multi_reports(self, tuple_list):
         number_of_samples = len(tuple_list)
         if number_of_samples == 1:
-            self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
+            self.organize_methods.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
         elif 5 >= number_of_samples > 1:
             sample_id = tuple_list[0][0][0:6]
             header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id]
