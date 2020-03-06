@@ -1,7 +1,14 @@
+import os, sys, inspect
 import pandas as pd
-import os
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
 import os.path
 import errno
+from post_generate_header_methods import HeaderMethods
 
 
 class ReportWriter:
@@ -16,11 +23,9 @@ class ReportWriter:
         value = latex headers, customer information only..
         3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
         added. """
+        self.header_methods = HeaderMethods(header_data)
         self.sample_data = sample_data
-        self.header_data = header_data
         self.updates = updates
-        self.latex_header_dictionary = {}
-        self.latex_header_and_sample_list_dictionary = {}
         self.single_reports_dictionary = {}
         self.multiple_reports_dictionary = {}
         self.finished_reports_dictionary = {}
@@ -77,47 +82,13 @@ class ReportWriter:
 
     def deluxe_report_percentage_controller(self):
         """This is the controller function for the class. """
-        self.generate_job_latex_headers()
-        self.generate_samples_list()
+        self.header_methods.generate_job_latex_headers()
+        self.header_methods.generate_samples_list()
         self.split_samples_into_single_or_multi()
         self.create_alternate_sample_type_columns()
         self.generate_multi_sample_reports()
         self.generate_single_sample_reports()
         self.generate_report_directories_and_files()
-
-    def generate_job_latex_headers(self):
-        """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-        there will be fewer headers than samples if jobs contain more than one sample."""
-        for key, item in self.header_data.header_contents_dictionary.items():
-            header_string = r"""
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{natbib}
-\usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
-\usepackage{parskip}
-\usepackage{siunitx}
-\usepackage[dvipsnames]{xcolor}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead[L]{""" + item[0] + r""" \\ """ + item[4] + r""" \\ """ + item[6] + r"""\\ """ + item[8] + r"""\\ """ + item[10] + r""" \\ """ + item[13] + r"""\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[15][0] + r""" \\\textbf{Source:} """ + item[5] + item[15][1] + r""" \\\textbf{Type:} """ + item[7] + r"""""" + item[15][2] + r""" \\\textbf{No. of Samples:} """ + item[9] + r"""""" + item[15][3] + r"""\\\textbf{Arrival temp:} """ + item[11] + r"""""" + item[15][4] + r"""\\""" + item[14] + r"""""" + item[15][5] + r"""\\\phantom{a}\\}
-\fancyhead[R]{\textbf{No.} """ + item[3] + r"""\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
-\renewcommand{\headrulewidth}{0pt}
-\setlength\headheight{60pt}
-\begin{document}"""
-            self.latex_header_dictionary[key] = header_string
-
-    def generate_samples_list(self):
-        """iterates through the parsed header contents dictionary and produces the sample list for each job. """
-        for key, item in self.header_data.header_contents_dictionary.items():
-            samples_string = r"""
-\textbf{Samples:} """ + item[16] + r"""
-\newline
-\newline
-\hline
-"""
-            self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string
 
     def split_samples_into_single_or_multi(self):
         counter = 0
@@ -196,7 +167,7 @@ class ReportWriter:
                                                                                     'Percent',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'Percent')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -208,7 +179,7 @@ class ReportWriter:
                                                                                     'mg_g',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'mg_g')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -220,7 +191,7 @@ class ReportWriter:
                                                                                     'Percent',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'Percent')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -232,7 +203,7 @@ class ReportWriter:
                                                                                     'mg_g',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'mg_g')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -244,7 +215,7 @@ class ReportWriter:
                                                                                     'mg_ml',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'mg_ml')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -256,7 +227,7 @@ class ReportWriter:
                                                                                     'mg_ml',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'mg_ml')
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -267,7 +238,7 @@ class ReportWriter:
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
                                                                                          'Basic')
         temporary_table = self.create_single_basic_table_unit(temporary_data)
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -278,7 +249,7 @@ class ReportWriter:
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
                                                                                          'Deluxe')
         temporary_table = self.create_single_deluxe_table_unit(temporary_data)
-        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -767,7 +738,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
 
     def generate_multi_sample_reports(self):
         multi_tuple_list = []
-        for key in self.header_data.header_contents_dictionary.keys():
+        for key in self.header_methods.header_data.header_contents_dictionary.keys():
             matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
             multi_tuple_list.append(matching)
         for item in multi_tuple_list:
@@ -779,7 +750,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
             self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
         elif 5 >= number_of_samples > 1:
             sample_id = tuple_list[0][0][0:6]
-            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
             footer = self.generate_footer()
             report = header + table_string + footer
