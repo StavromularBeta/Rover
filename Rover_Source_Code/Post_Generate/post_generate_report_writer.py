@@ -697,6 +697,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
             self.determine_number_of_pages_for_multi_reports(item)
 
     def determine_number_of_pages_for_multi_reports(self, tuple_list):
+        print(tuple_list)
         number_of_samples = len(tuple_list)
         if number_of_samples == 1:
             self.organize_methods.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
@@ -751,6 +752,8 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
                 unit = r"""mg/g"""
             elif item[1][0] == 'mg/mL':
                 unit = r"""mg/mL"""
+            elif item[1][0] == 'per unit':
+                unit = r"""mg/g) (mg/unit"""
             else:
                 unit = r"""\%"""
             sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""} (""" + unit + r""")  &"""
@@ -794,10 +797,24 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
                 data_column = r"""mg_g"""
             elif item[1][0] == 'mg/mL':
                 data_column = r"""mg_ml"""
+            elif item[1][0] == 'per unit':
+                data_column = r"""mg_unit"""
             else:
                 data_column = 'percentage_concentration'
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
+            if data_column == r"""mg_unit""":
+                data_value_1 = "{0:.3f}".format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                        ["mg_g"]].iloc[0]["mg_g"])
+                data_value_2 = "{0:.3f}".format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                        [data_column]].iloc[0][data_column])
+                data_value = data_value_1 + r" / " + data_value_2
             else:
                 data_value = "{0:.3f}".format(
                     self.sample_data.samples_data_frame.loc[
