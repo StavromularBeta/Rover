@@ -30,6 +30,7 @@ class HeaderMethods:
 \setlength\headheight{60pt}
 \begin{document}"""
             self.latex_header_dictionary[key] = header_string
+        return self.latex_header_dictionary
 
     def generate_samples_list(self):
         """iterates through the parsed header contents dictionary and produces the sample list for each job. """
@@ -41,3 +42,4 @@ class HeaderMethods:
 \hline
 """
             self.latex_header_and_sample_list_dictionary[key] = self.latex_header_dictionary[key] + samples_string
+        return self.latex_header_and_sample_list_dictionary

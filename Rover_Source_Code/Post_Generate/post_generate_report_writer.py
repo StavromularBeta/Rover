@@ -25,8 +25,12 @@ class ReportWriter:
         3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
         added. """
         self.sample_data = sample_data
+        self.header_data = header_data
+        self.updates = updates
         self.header_methods = HeaderMethods(header_data)
         self.organize_methods = OrganizeMethods(updates, sample_data)
+        self.latex_header_dictionary = {}
+        self.latex_header_and_sample_list_dictionary = {}
         self.finished_reports_dictionary = {}
 
 #       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
@@ -81,8 +85,8 @@ class ReportWriter:
 
     def deluxe_report_percentage_controller(self):
         """This is the controller function for the class. """
-        self.header_methods.generate_job_latex_headers()
-        self.header_methods.generate_samples_list()
+        self.latex_header_dictionary = self.header_methods.generate_job_latex_headers()
+        self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
         self.organize_methods.split_samples_into_single_or_multi()
         self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
         self.generate_multi_sample_reports()
@@ -119,7 +123,7 @@ class ReportWriter:
                                                                                     'Percent',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'Percent')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -131,7 +135,7 @@ class ReportWriter:
                                                                                     'mg_g',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'mg_g')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -143,7 +147,7 @@ class ReportWriter:
                                                                                     'Percent',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'Percent')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -155,7 +159,7 @@ class ReportWriter:
                                                                                     'mg_g',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'mg_g')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -167,7 +171,7 @@ class ReportWriter:
                                                                                     'mg_ml',
                                                                                     'Basic')
         temporary_table = self.create_single_basic_table(temporary_data, 'mg_ml')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -179,7 +183,7 @@ class ReportWriter:
                                                                                     'mg_ml',
                                                                                     'Deluxe')
         temporary_table = self.create_single_deluxe_table(temporary_data, 'mg_ml')
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -190,7 +194,7 @@ class ReportWriter:
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
                                                                                          'Basic')
         temporary_table = self.create_single_basic_table_unit(temporary_data)
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -201,7 +205,7 @@ class ReportWriter:
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
                                                                                          'Deluxe')
         temporary_table = self.create_single_deluxe_table_unit(temporary_data)
-        header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
         self.finished_reports_dictionary[sample_id] = report
@@ -690,7 +694,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
 
     def generate_multi_sample_reports(self):
         multi_tuple_list = []
-        for key in self.header_methods.header_data.header_contents_dictionary.keys():
+        for key in self.header_data.header_contents_dictionary.keys():
             matching = [(bob, marley) for bob, marley in self.organize_methods.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
             multi_tuple_list.append(matching)
         for item in multi_tuple_list:
@@ -703,7 +707,7 @@ Cannabinol Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &   ND & ""
             self.organize_methods.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
         elif 5 >= number_of_samples > 1:
             sample_id = tuple_list[0][0][0:6]
-            header = self.header_methods.latex_header_and_sample_list_dictionary[sample_id]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
             footer = self.generate_footer()
             report = header + table_string + footer
