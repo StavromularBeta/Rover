@@ -131,61 +131,61 @@ class SingleMethods:
 
     def get_standard_recovery_values(self, report_type):
         temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
-        ibu_recovery_value = "{0:.3f}".format(
+        ibu_recovery_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 1.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbdv_value = "{0:.3f}".format(
+        cbdv_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 2.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbdva_value = "{0:.3f}".format(
+        cbdva_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 3.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        thcv_value = "{0:.3f}".format(
+        thcv_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbgva_value = "{0:.3f}".format(
+        cbgva_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbd_value = "{0:.3f}".format(
+        cbd_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbg_value = "{0:.3f}".format(
+        cbg_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 7.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbda_value = "{0:.3f}".format(
+        cbda_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 8.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbn_value = "{0:.3f}".format(
+        cbn_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 9.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbga_value = "{0:.3f}".format(
+        cbga_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 10.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        thcva_value = "{0:.3f}".format(
+        thcva_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 11.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        d9_thc_value = "{0:.3f}".format(
+        d9_thc_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 12.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        d8_thc_value = "{0:.3f}".format(
+        d8_thc_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 13.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbl_value = "{0:.3f}".format(
+        cbl_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 14.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbc_value = "{0:.3f}".format(
+        cbc_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 15.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbna_value = "{0:.3f}".format(
+        cbna_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 16.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        thca_value = "{0:.3f}".format(
+        thca_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 17.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbla_value = "{0:.3f}".format(
+        cbla_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 18.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
-        cbca_value = "{0:.3f}".format(
+        cbca_value = str(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 19.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
         if report_type == 'Deluxe':

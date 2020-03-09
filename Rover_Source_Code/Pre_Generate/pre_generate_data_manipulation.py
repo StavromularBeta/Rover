@@ -1,5 +1,6 @@
 import pandas as pd
 import os, sys, inspect
+from math import floor, log10
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -96,6 +97,7 @@ class PreGenerateDataManipulation:
         self.swap_out_out_of_range_values()
         self.create_list_of_unique_samples()
         self.create_condensed_sample_list_data_frame_for_gui()
+        self.limit_sig_figs_in_dataframes()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -225,3 +227,11 @@ class PreGenerateDataManipulation:
         """This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
         at the GUI level."""
         self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
+
+    def limit_sig_figs_in_dataframes(self):
+        sig_figs = 2
+        self.best_recovery_qc_data_frame.fillna(0, inplace=True)
+        self.best_recovery_qc_data_frame['percrecovery'] = self.best_recovery_qc_data_frame.percrecovery.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 > x > 0) else int(round(x)))
+        self.samples_data_frame['percentage_concentration'] = self.samples_data_frame.percentage_concentration.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 > x > 0) else int(round(x)))

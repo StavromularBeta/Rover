@@ -191,10 +191,10 @@ class MultiMethods:
                         [data_column]].iloc[0][data_column])
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
-        cannabinoid_recovery_value = "{0:.3f}".format(self.sample_data.best_recovery_qc_data_frame.loc[
-                                                      self.sample_data.best_recovery_qc_data_frame['id17'] ==
-                                                      cannabinoid_id_17,
-                                                      ['percrecovery']].iloc[0]['percrecovery'])
+        cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
+                                         self.sample_data.best_recovery_qc_data_frame['id17'] ==
+                                         cannabinoid_id_17,
+                                         ['percrecovery']].iloc[0]['percrecovery'])
         loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
