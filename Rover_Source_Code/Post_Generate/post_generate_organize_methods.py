@@ -25,6 +25,7 @@ class OrganizeMethods:
                      self.updates['density_unit'][counter],
                      self.updates['density_unit_option'][counter]]
             counter += 1
+        return self.single_reports_dictionary, self.multiple_reports_dictionary
 
     def create_alternate_sample_type_columns(self):
         self.sample_data.samples_data_frame['mg_g'] =\
