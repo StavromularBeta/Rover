@@ -104,7 +104,11 @@ class ReportWriter:
         pd.set_option('display.max_colwidth', -1)
 
     def deluxe_report_percentage_controller(self):
-        """This is the controller function for the class. """
+        """This is the controller function for the class. First, the latex header dictionaries are produced. Then,
+        the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
+        any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
+        After that, single reports are handled. The single and multi classes have to be instantiated down here, and not
+        in the init, because I haven't done proper class inheritance. """
         self.latex_header_dictionary = self.header_methods.generate_job_latex_headers()
         self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
         self.single_reports_dictionary, self.multiple_reports_dictionary = \

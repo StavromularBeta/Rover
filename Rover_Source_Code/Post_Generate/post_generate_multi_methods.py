@@ -28,7 +28,6 @@ class MultiMethods:
         return self.single_reports_dictionary, self.finished_reports_dictionary
 
     def determine_number_of_pages_for_multi_reports(self, tuple_list):
-        print(tuple_list)
         number_of_samples = len(tuple_list)
         if number_of_samples == 1:
             self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
@@ -40,7 +39,16 @@ class MultiMethods:
             report = header + table_string + footer
             self.finished_reports_dictionary[sample_id] = report
         else:
-            self.multiple_page_multi_table(tuple_list)
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_strings = self.multiple_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            for item in table_strings:
+                header += item
+                header += r'\newpage'
+            header = header[:-8]
+            report = header + footer
+            self.finished_reports_dictionary[sample_id] = report
 
     def single_page_multi_table(self, tuple_list):
         table_header_string = self.generate_single_page_multi_table_header(tuple_list)
@@ -55,6 +63,35 @@ class MultiMethods:
 \end{table}"""
         main_table_string += end_string
         return main_table_string
+
+    def multiple_page_multi_table(self, tuple_list):
+        counter = 0
+        tuple_list_list = []
+        add_list = []
+        for item in tuple_list:
+            if counter >= 4:
+                counter = 0
+                tuple_list_list.append(add_list)
+                add_list = []
+            add_list.append(item)
+            counter += 1
+        tuple_list_list.append(add_list)
+        latex_tables_list = []
+        for item in tuple_list_list:
+            table_header_string = self.generate_single_page_multi_table_header(item)
+            main_table_string = self.generate_single_page_multi_table(item, table_header_string)
+            end_string = r"""
+\hline
+\hline
+\textbf{Moisture} & 0.00  &   &  &\\
+\hline
+\hline
+\end{tabular}
+\end{table}"""
+            main_table_string += end_string
+            latex_tables_list.append(main_table_string)
+        return latex_tables_list
+
 
     def generate_single_page_multi_table_header(self, tuple_list):
         table_header_1 = r"""
@@ -161,9 +198,6 @@ class MultiMethods:
         loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
-
-    def multiple_page_multi_table(self, tuple_list):
-        pass
 
     def generate_footer(self):
         footer_string = r"""
