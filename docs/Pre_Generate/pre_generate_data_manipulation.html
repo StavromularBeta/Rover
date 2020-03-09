@@ -26,6 +26,7 @@
 </summary>
 <pre><code class="python">import pandas as pd
 import os, sys, inspect
+from math import floor, log10
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -66,6 +67,9 @@ class PreGenerateDataManipulation:
         self.min_value_blank_data_frame = pd.DataFrame()
         self.sample_dilutions_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
+        self.condensed_samples_data_frame = pd.DataFrame()
+        self.samples_list_data_frame = pd.DataFrame()
+        self.unique_sample_id_list = []
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -117,6 +121,9 @@ class PreGenerateDataManipulation:
         self.assign_high_flag_to_sample_data()
         self.split_samples_data_frame_into_dilutions_and_samples()
         self.swap_out_out_of_range_values()
+        self.create_list_of_unique_samples()
+        self.create_condensed_sample_list_data_frame_for_gui()
+        self.limit_sig_figs_in_dataframes()
 
     def collect_data_from_xml_file(self):
         &#34;&#34;&#34;Reads the xml data, saves it to a Pandas DataFrame.
@@ -185,6 +192,7 @@ class PreGenerateDataManipulation:
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
         self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                             &#39;id17&#39;,
                                                                              &#39;sampleid&#39;,
                                                                              &#39;name20&#39;,
                                                                              &#39;area&#39;,
@@ -231,7 +239,28 @@ class PreGenerateDataManipulation:
                 dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                                 &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
                 self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])</code></pre>
+                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+        self.samples_data_frame.fillna(0, inplace=True)
+
+    def create_condensed_sample_list_data_frame_for_gui(self):
+        self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
+                                                                     &#39;name20&#39;,
+                                                                     &#39;percentage_concentration&#39;,
+                                                                     &#39;area&#39;,
+                                                                     &#39;over_curve&#39;]]
+
+    def create_list_of_unique_samples(self):
+        &#34;&#34;&#34;This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
+        at the GUI level.&#34;&#34;&#34;
+        self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
+
+    def limit_sig_figs_in_dataframes(self):
+        sig_figs = 2
+        self.best_recovery_qc_data_frame.fillna(0, inplace=True)
+        self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
+        self.samples_data_frame[&#39;percentage_concentration&#39;] = self.samples_data_frame.percentage_concentration.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 &gt; x &gt; 0) else int(round(x)))</code></pre>
 </details>
 </section>
 <section>
@@ -303,6 +332,9 @@ blank_data_frame.</li>
         self.min_value_blank_data_frame = pd.DataFrame()
         self.sample_dilutions_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
+        self.condensed_samples_data_frame = pd.DataFrame()
+        self.samples_list_data_frame = pd.DataFrame()
+        self.unique_sample_id_list = []
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -354,6 +386,9 @@ blank_data_frame.</li>
         self.assign_high_flag_to_sample_data()
         self.split_samples_data_frame_into_dilutions_and_samples()
         self.swap_out_out_of_range_values()
+        self.create_list_of_unique_samples()
+        self.create_condensed_sample_list_data_frame_for_gui()
+        self.limit_sig_figs_in_dataframes()
 
     def collect_data_from_xml_file(self):
         &#34;&#34;&#34;Reads the xml data, saves it to a Pandas DataFrame.
@@ -422,6 +457,7 @@ blank_data_frame.</li>
         self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
         self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
         self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                             &#39;id17&#39;,
                                                                              &#39;sampleid&#39;,
                                                                              &#39;name20&#39;,
                                                                              &#39;area&#39;,
@@ -468,7 +504,28 @@ blank_data_frame.</li>
                 dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                                 &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
                 self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])</code></pre>
+                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+        self.samples_data_frame.fillna(0, inplace=True)
+
+    def create_condensed_sample_list_data_frame_for_gui(self):
+        self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
+                                                                     &#39;name20&#39;,
+                                                                     &#39;percentage_concentration&#39;,
+                                                                     &#39;area&#39;,
+                                                                     &#39;over_curve&#39;]]
+
+    def create_list_of_unique_samples(self):
+        &#34;&#34;&#34;This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
+        at the GUI level.&#34;&#34;&#34;
+        self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
+
+    def limit_sig_figs_in_dataframes(self):
+        sig_figs = 2
+        self.best_recovery_qc_data_frame.fillna(0, inplace=True)
+        self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
+        self.samples_data_frame[&#39;percentage_concentration&#39;] = self.samples_data_frame.percentage_concentration.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 &gt; x &gt; 0) else int(round(x)))</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -601,6 +658,7 @@ What we want in the end is closest recovery to 100, but not over 100.</p></secti
     self.best_recovery_qc_data_frame = self.qc_data_frame[tem]
     self.best_recovery_qc_data_frame.reset_index(drop=True, inplace=True)
     self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[[&#39;id15&#39;,
+                                                                         &#39;id17&#39;,
                                                                          &#39;sampleid&#39;,
                                                                          &#39;name20&#39;,
                                                                          &#39;area&#39;,
@@ -623,6 +681,39 @@ What we want in the end is closest recovery to 100, but not over 100.</p></secti
     self.percentage_data_frame[&#39;percentage_concentration&#39;] = self.percentage_data_frame[&#39;analconc&#39;]/10000</code></pre>
 </details>
 </dd>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_condensed_sample_list_data_frame_for_gui"><code class="name flex">
+<span>def <span class="ident">create_condensed_sample_list_data_frame_for_gui</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_condensed_sample_list_data_frame_for_gui(self):
+    self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
+                                                                 &#39;name20&#39;,
+                                                                 &#39;percentage_concentration&#39;,
+                                                                 &#39;area&#39;,
+                                                                 &#39;over_curve&#39;]]</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_list_of_unique_samples"><code class="name flex">
+<span>def <span class="ident">create_list_of_unique_samples</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
+at the GUI level.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_list_of_unique_samples(self):
+    &#34;&#34;&#34;This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
+    at the GUI level.&#34;&#34;&#34;
+    self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()</code></pre>
+</details>
+</dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.data_manipulation_controller"><code class="name flex">
 <span>def <span class="ident">data_manipulation_controller</span></span>(<span>self)</span>
 </code></dt>
@@ -643,7 +734,10 @@ What we want in the end is closest recovery to 100, but not over 100.</p></secti
     self.join_over_curve_df_to_samples_df()
     self.assign_high_flag_to_sample_data()
     self.split_samples_data_frame_into_dilutions_and_samples()
-    self.swap_out_out_of_range_values()</code></pre>
+    self.swap_out_out_of_range_values()
+    self.create_list_of_unique_samples()
+    self.create_condensed_sample_list_data_frame_for_gui()
+    self.limit_sig_figs_in_dataframes()</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.join_over_curve_df_to_samples_df"><code class="name flex">
@@ -664,6 +758,24 @@ These values are used to assign flags that indicate whether a given peak area is
                                                      how=&#39;left&#39;,
                                                      left_on=&#39;id17&#39;,
                                                      right_on=&#39;id17&#39;)</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.limit_sig_figs_in_dataframes"><code class="name flex">
+<span>def <span class="ident">limit_sig_figs_in_dataframes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def limit_sig_figs_in_dataframes(self):
+    sig_figs = 2
+    self.best_recovery_qc_data_frame.fillna(0, inplace=True)
+    self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
+        lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
+    self.samples_data_frame[&#39;percentage_concentration&#39;] = self.samples_data_frame.percentage_concentration.apply(
+        lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 &gt; x &gt; 0) else int(round(x)))</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.split_into_blank_qc_and_sample_data_frame"><code class="name flex">
@@ -726,7 +838,8 @@ the flag from 'over' to 'Corrected: new area = (area from dilution)'.</p></secti
             dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                             &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
             self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-            self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])</code></pre>
+            self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+    self.samples_data_frame.fillna(0, inplace=True)</code></pre>
 </details>
 </dd>
 </dl>
@@ -755,8 +868,11 @@ the flag from 'over' to 'Corrected: new area = (area from dilution)'.</p></secti
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values">combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.combine_qc_into_one_data_set_with_highest_recovery_values" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.combine_qc_into_one_data_set_with_highest_recovery_values">combine_qc_into_one_data_set_with_highest_recovery_values</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.convert_analytical_concentration_to_percentage_concentration" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.convert_analytical_concentration_to_percentage_concentration">convert_analytical_concentration_to_percentage_concentration</a></code></li>
+<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_condensed_sample_list_data_frame_for_gui" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_condensed_sample_list_data_frame_for_gui">create_condensed_sample_list_data_frame_for_gui</a></code></li>
+<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_list_of_unique_samples" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.create_list_of_unique_samples">create_list_of_unique_samples</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.data_manipulation_controller" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.data_manipulation_controller">data_manipulation_controller</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.join_over_curve_df_to_samples_df" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.join_over_curve_df_to_samples_df">join_over_curve_df_to_samples_df</a></code></li>
+<li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.limit_sig_figs_in_dataframes" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.limit_sig_figs_in_dataframes">limit_sig_figs_in_dataframes</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.split_into_blank_qc_and_sample_data_frame" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.split_into_blank_qc_and_sample_data_frame">split_into_blank_qc_and_sample_data_frame</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.split_samples_data_frame_into_dilutions_and_samples" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.split_samples_data_frame_into_dilutions_and_samples">split_samples_data_frame_into_dilutions_and_samples</a></code></li>
 <li><code><a title="Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.swap_out_out_of_range_values" href="#Rover_Source_Code.Pre_Generate.pre_generate_data_manipulation.PreGenerateDataManipulation.swap_out_out_of_range_values">swap_out_out_of_range_values</a></code></li>

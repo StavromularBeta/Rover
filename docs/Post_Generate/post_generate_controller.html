@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>Rover_Source_Code.Post_Generate.post_generate_controller API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Rover_Source_Code.Post_Generate.post_generate_controller</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os, sys, inspect
+import pandas as pd
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+parentdir = os.path.dirname(parentdir)
+parentdir = os.path.dirname(parentdir)
+sys.path.insert(0, parentdir)
+sys.path.insert(0, currentdir)
+from post_generate_header_methods import HeaderMethods
+from post_generate_organize_methods import OrganizeMethods
+from post_generate_single_methods import SingleMethods
+from post_generate_multi_methods import MultiMethods
+from post_generate_file_writing_methods import FileWritingMethods
+
+
+class ReportWriter:
+    &#34;&#34;&#34;This class controls the methods in the Post_Generate folder. It writes all of the reports once it is passed
+    the data from the GUI.&#34;&#34;&#34;
+
+    def __init__(self, sample_data, header_data, updates):
+        &#34;&#34;&#34;The main init function.
+
+        1. sample_data = the sample data, in dataframe format. Comes in without the columns for mg_g, mg_ml, and
+        mg_unit - these are added to the sample_data by the organize methods.
+        2. header_data = the header data with no modifications, the original headers parsed by Pre_Generate.
+        3. updates = all the information updated or added on the GUI screen. contains updated headers and sample lists,
+        sample type, report type, basic/deluxe info, and then unit masses/densities where relevant.
+        4. single_reports_dictionary = key : sampleid, value : updates for single reports.
+        5. multiple_reports_dictionary =  key : sampleid, value : updates for multiple reports.
+        6. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+        value = latex headers, customer information only..
+        7. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+        added.
+        8. finished_reports_dictionary = the finished reports as a string of Latex. key : sampleid, value : report.
+        9. cannabinoid_dictionary = a conversion dictionary for converting between id17 (order in which analytes come
+        off the HPLC) and report order (decided by wendy).
+        10. LOQ dictionary = a dictionary for entering the LOQ&#39;s of various cannabinoids. Order corresponds to report
+        order.
+        11. header_methods = the HeaderMethods class. All code for creating Latex headers is in this class.
+        12. organize_methods = the OrganizeMethods class. All code for creating extra data columns based on report type
+        and splitting the samples into single or multi is in here.
+        &#34;&#34;&#34;
+
+        self.sample_data = sample_data
+        self.header_data = header_data
+        self.updates = updates
+        self.single_reports_dictionary = {}
+        self.multiple_reports_dictionary = {}
+        self.latex_header_dictionary = {}
+        self.latex_header_and_sample_list_dictionary = {}
+        self.finished_reports_dictionary = {}
+
+#       This cannabinoid dictionary is used for making the multi-tables.
+        self.cannabinoid_dictionary = {1: (r&#34;$\Delta^{9}$-THC &amp;&#34;, 12.0),
+                                       2: (r&#34;$\Delta^{9}$-THC Acid &amp;&#34;, 17.0),
+                                       3: (r&#34;$\Delta^{8}$THC &amp;&#34;, 13.0),
+                                       4: (r&#34;Cannabidiol (CBC) &amp;&#34;, 15.0),
+                                       5: (r&#34;Cannabidiol Acid &amp;&#34;, 19.0),
+                                       6: (r&#34;Cannabidiol (CBD) &amp;&#34;, 6.0),
+                                       7: (r&#34;Cannabidiol Acid &amp;&#34;, 8.0),
+                                       8: (r&#34;Cannabigerol (CBG) &amp;&#34;, 7.0),
+                                       9: (r&#34;Cannabigerol Acid &amp;&#34;, 10.0),
+                                       10: (r&#34;Cannabicyclol (CBL) &amp;&#34;, 14.0),
+                                       11: (r&#34;Cannabicyclol Acid &amp;&#34;, 18.0),
+                                       12: (r&#34;Cannabidivarin (CBDV) &amp;&#34;, 2.0),
+                                       13: (r&#34;Cannabidivarin Acid &amp;&#34;, 3.0),
+                                       14: (r&#34;$\Delta^{9}$ THCV &amp;&#34;, 4.0),
+                                       15: (r&#34;$\Delta^{9}$ THCV Acid &amp;&#34;, 11.0),
+                                       16: (r&#34;Cannabinol (CBN) &amp;&#34;, 9.0),
+                                       17: (r&#34;Cannabinol Acid &amp;&#34;, 16.0),
+                                       18: (r&#34;Cannabigerivarin Acid &amp;&#34;, 5.0)
+                                       }
+
+#       This dictionary is for containing the LOQ&#39;s. keys match the list indices at the table writing step.
+        self.loq_dictionary = {1: &#39;0.030&#39;,
+                               2: &#39;0.003&#39;,
+                               3: &#39;0.003&#39;,
+                               4: &#39;0.003&#39;,
+                               5: &#39;0.003&#39;,
+                               6: &#39;0.003&#39;,
+                               7: &#39;0.003&#39;,
+                               8: &#39;0.003&#39;,
+                               9: &#39;0.030&#39;,
+                               10: &#39;0.003&#39;,
+                               11: &#39;0.003&#39;,
+                               12: &#39;0.003&#39;,
+                               13: &#39;0.003&#39;,
+                               14: &#39;0.003&#39;,
+                               15: &#39;0.003&#39;,
+                               16: &#39;0.003&#39;,
+                               17: &#39;0.003&#39;,
+                               18: &#39;0.003&#39;,
+                               }
+
+        # Helper classes
+        self.header_methods = HeaderMethods(header_data)
+        self.organize_methods = OrganizeMethods(updates, sample_data)
+
+#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
+#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
+        pd.set_option(&#39;display.max_rows&#39;, None)
+        pd.set_option(&#39;display.max_columns&#39;, None)
+        pd.set_option(&#39;display.width&#39;, None)
+        pd.set_option(&#39;display.max_colwidth&#39;, -1)
+
+    def deluxe_report_percentage_controller(self):
+        &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
+        the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
+        any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
+        After that, single reports are handled. The single and multi classes have to be instantiated down here, and not
+        in the init, because I haven&#39;t done proper class inheritance. &#34;&#34;&#34;
+        self.latex_header_dictionary = self.header_methods.generate_job_latex_headers()
+        self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
+        self.single_reports_dictionary, self.multiple_reports_dictionary = \
+            self.organize_methods.split_samples_into_single_or_multi()
+        self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
+        multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
+                                     self.multiple_reports_dictionary,
+                                     self.single_reports_dictionary,
+                                     self.latex_header_and_sample_list_dictionary,
+                                     self.sample_data,
+                                     self.cannabinoid_dictionary,
+                                     self.loq_dictionary)
+        self.single_reports_dictionary, self.finished_reports_dictionary = \
+            multi_methods.generate_multi_sample_reports()
+        single_methods = SingleMethods(self.finished_reports_dictionary,
+                                       self.single_reports_dictionary,
+                                       self.sample_data,
+                                       self.latex_header_and_sample_list_dictionary,
+                                       self.loq_dictionary)
+        self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
+        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary)
+        file_writing_methods.generate_report_directories_and_files()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter"><code class="flex name class">
+<span>class <span class="ident">ReportWriter</span></span>
+<span>(</span><span>sample_data, header_data, updates)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This class controls the methods in the Post_Generate folder. It writes all of the reports once it is passed
+the data from the GUI.</p>
+<p>The main init function.</p>
+<ol>
+<li>sample_data = the sample data, in dataframe format. Comes in without the columns for mg_g, mg_ml, and
+mg_unit - these are added to the sample_data by the organize methods.</li>
+<li>header_data = the header data with no modifications, the original headers parsed by Pre_Generate.</li>
+<li>updates = all the information updated or added on the GUI screen. contains updated headers and sample lists,
+sample type, report type, basic/deluxe info, and then unit masses/densities where relevant.</li>
+<li>single_reports_dictionary = key : sampleid, value : updates for single reports.</li>
+<li>multiple_reports_dictionary =
+key : sampleid, value : updates for multiple reports.</li>
+<li>latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+value = latex headers, customer information only..</li>
+<li>Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+added.</li>
+<li>finished_reports_dictionary = the finished reports as a string of Latex. key : sampleid, value : report.</li>
+<li>cannabinoid_dictionary = a conversion dictionary for converting between id17 (order in which analytes come
+off the HPLC) and report order (decided by wendy).</li>
+<li>LOQ dictionary = a dictionary for entering the LOQ's of various cannabinoids. Order corresponds to report
+order.</li>
+<li>header_methods = the HeaderMethods class. All code for creating Latex headers is in this class.</li>
+<li>organize_methods = the OrganizeMethods class. All code for creating extra data columns based on report type
+and splitting the samples into single or multi is in here.</li>
+</ol></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ReportWriter:
+    &#34;&#34;&#34;This class controls the methods in the Post_Generate folder. It writes all of the reports once it is passed
+    the data from the GUI.&#34;&#34;&#34;
+
+    def __init__(self, sample_data, header_data, updates):
+        &#34;&#34;&#34;The main init function.
+
+        1. sample_data = the sample data, in dataframe format. Comes in without the columns for mg_g, mg_ml, and
+        mg_unit - these are added to the sample_data by the organize methods.
+        2. header_data = the header data with no modifications, the original headers parsed by Pre_Generate.
+        3. updates = all the information updated or added on the GUI screen. contains updated headers and sample lists,
+        sample type, report type, basic/deluxe info, and then unit masses/densities where relevant.
+        4. single_reports_dictionary = key : sampleid, value : updates for single reports.
+        5. multiple_reports_dictionary =  key : sampleid, value : updates for multiple reports.
+        6. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+        value = latex headers, customer information only..
+        7. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+        added.
+        8. finished_reports_dictionary = the finished reports as a string of Latex. key : sampleid, value : report.
+        9. cannabinoid_dictionary = a conversion dictionary for converting between id17 (order in which analytes come
+        off the HPLC) and report order (decided by wendy).
+        10. LOQ dictionary = a dictionary for entering the LOQ&#39;s of various cannabinoids. Order corresponds to report
+        order.
+        11. header_methods = the HeaderMethods class. All code for creating Latex headers is in this class.
+        12. organize_methods = the OrganizeMethods class. All code for creating extra data columns based on report type
+        and splitting the samples into single or multi is in here.
+        &#34;&#34;&#34;
+
+        self.sample_data = sample_data
+        self.header_data = header_data
+        self.updates = updates
+        self.single_reports_dictionary = {}
+        self.multiple_reports_dictionary = {}
+        self.latex_header_dictionary = {}
+        self.latex_header_and_sample_list_dictionary = {}
+        self.finished_reports_dictionary = {}
+
+#       This cannabinoid dictionary is used for making the multi-tables.
+        self.cannabinoid_dictionary = {1: (r&#34;$\Delta^{9}$-THC &amp;&#34;, 12.0),
+                                       2: (r&#34;$\Delta^{9}$-THC Acid &amp;&#34;, 17.0),
+                                       3: (r&#34;$\Delta^{8}$THC &amp;&#34;, 13.0),
+                                       4: (r&#34;Cannabidiol (CBC) &amp;&#34;, 15.0),
+                                       5: (r&#34;Cannabidiol Acid &amp;&#34;, 19.0),
+                                       6: (r&#34;Cannabidiol (CBD) &amp;&#34;, 6.0),
+                                       7: (r&#34;Cannabidiol Acid &amp;&#34;, 8.0),
+                                       8: (r&#34;Cannabigerol (CBG) &amp;&#34;, 7.0),
+                                       9: (r&#34;Cannabigerol Acid &amp;&#34;, 10.0),
+                                       10: (r&#34;Cannabicyclol (CBL) &amp;&#34;, 14.0),
+                                       11: (r&#34;Cannabicyclol Acid &amp;&#34;, 18.0),
+                                       12: (r&#34;Cannabidivarin (CBDV) &amp;&#34;, 2.0),
+                                       13: (r&#34;Cannabidivarin Acid &amp;&#34;, 3.0),
+                                       14: (r&#34;$\Delta^{9}$ THCV &amp;&#34;, 4.0),
+                                       15: (r&#34;$\Delta^{9}$ THCV Acid &amp;&#34;, 11.0),
+                                       16: (r&#34;Cannabinol (CBN) &amp;&#34;, 9.0),
+                                       17: (r&#34;Cannabinol Acid &amp;&#34;, 16.0),
+                                       18: (r&#34;Cannabigerivarin Acid &amp;&#34;, 5.0)
+                                       }
+
+#       This dictionary is for containing the LOQ&#39;s. keys match the list indices at the table writing step.
+        self.loq_dictionary = {1: &#39;0.030&#39;,
+                               2: &#39;0.003&#39;,
+                               3: &#39;0.003&#39;,
+                               4: &#39;0.003&#39;,
+                               5: &#39;0.003&#39;,
+                               6: &#39;0.003&#39;,
+                               7: &#39;0.003&#39;,
+                               8: &#39;0.003&#39;,
+                               9: &#39;0.030&#39;,
+                               10: &#39;0.003&#39;,
+                               11: &#39;0.003&#39;,
+                               12: &#39;0.003&#39;,
+                               13: &#39;0.003&#39;,
+                               14: &#39;0.003&#39;,
+                               15: &#39;0.003&#39;,
+                               16: &#39;0.003&#39;,
+                               17: &#39;0.003&#39;,
+                               18: &#39;0.003&#39;,
+                               }
+
+        # Helper classes
+        self.header_methods = HeaderMethods(header_data)
+        self.organize_methods = OrganizeMethods(updates, sample_data)
+
+#       This is for development - allows me to see the full DataFrame when i print to the console, rather than a
+#       truncated version. This is useful for debugging purposes and ensuring that methods are working as intended.
+        pd.set_option(&#39;display.max_rows&#39;, None)
+        pd.set_option(&#39;display.max_columns&#39;, None)
+        pd.set_option(&#39;display.width&#39;, None)
+        pd.set_option(&#39;display.max_colwidth&#39;, -1)
+
+    def deluxe_report_percentage_controller(self):
+        &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
+        the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
+        any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
+        After that, single reports are handled. The single and multi classes have to be instantiated down here, and not
+        in the init, because I haven&#39;t done proper class inheritance. &#34;&#34;&#34;
+        self.latex_header_dictionary = self.header_methods.generate_job_latex_headers()
+        self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
+        self.single_reports_dictionary, self.multiple_reports_dictionary = \
+            self.organize_methods.split_samples_into_single_or_multi()
+        self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
+        multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
+                                     self.multiple_reports_dictionary,
+                                     self.single_reports_dictionary,
+                                     self.latex_header_and_sample_list_dictionary,
+                                     self.sample_data,
+                                     self.cannabinoid_dictionary,
+                                     self.loq_dictionary)
+        self.single_reports_dictionary, self.finished_reports_dictionary = \
+            multi_methods.generate_multi_sample_reports()
+        single_methods = SingleMethods(self.finished_reports_dictionary,
+                                       self.single_reports_dictionary,
+                                       self.sample_data,
+                                       self.latex_header_and_sample_list_dictionary,
+                                       self.loq_dictionary)
+        self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
+        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary)
+        file_writing_methods.generate_report_directories_and_files()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller"><code class="name flex">
+<span>def <span class="ident">deluxe_report_percentage_controller</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>This is the controller function for the class. First, the latex header dictionaries are produced. Then,
+the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
+any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
+After that, single reports are handled. The single and multi classes have to be instantiated down here, and not
+in the init, because I haven't done proper class inheritance.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def deluxe_report_percentage_controller(self):
+    &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
+    the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
+    any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
+    After that, single reports are handled. The single and multi classes have to be instantiated down here, and not
+    in the init, because I haven&#39;t done proper class inheritance. &#34;&#34;&#34;
+    self.latex_header_dictionary = self.header_methods.generate_job_latex_headers()
+    self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
+    self.single_reports_dictionary, self.multiple_reports_dictionary = \
+        self.organize_methods.split_samples_into_single_or_multi()
+    self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
+    multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
+                                 self.multiple_reports_dictionary,
+                                 self.single_reports_dictionary,
+                                 self.latex_header_and_sample_list_dictionary,
+                                 self.sample_data,
+                                 self.cannabinoid_dictionary,
+                                 self.loq_dictionary)
+    self.single_reports_dictionary, self.finished_reports_dictionary = \
+        multi_methods.generate_multi_sample_reports()
+    single_methods = SingleMethods(self.finished_reports_dictionary,
+                                   self.single_reports_dictionary,
+                                   self.sample_data,
+                                   self.latex_header_and_sample_list_dictionary,
+                                   self.loq_dictionary)
+    self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
+    file_writing_methods = FileWritingMethods(self.finished_reports_dictionary)
+    file_writing_methods.generate_report_directories_and_files()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Rover_Source_Code.Post_Generate" href="index.html">Rover_Source_Code.Post_Generate</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter" href="#Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter">ReportWriter</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller" href="#Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller">deluxe_report_percentage_controller</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

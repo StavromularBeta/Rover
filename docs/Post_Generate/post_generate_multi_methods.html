@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>Rover_Source_Code.Post_Generate.post_generate_multi_methods API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Rover_Source_Code.Post_Generate.post_generate_multi_methods</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultiMethods:
+
+    def __init__(self,
+                 header_contents_dictionary,
+                 multiple_reports_dictionary,
+                 single_reports_dictionary,
+                 latex_header_and_sample_list_dictionary,
+                 sample_data,
+                 cannabinoid_dictionary,
+                 loq_dictionary):
+        self.header_contents_dictionary = header_contents_dictionary
+        self.multiple_reports_dictionary = multiple_reports_dictionary
+        self.single_reports_dictionary = single_reports_dictionary
+        self.latex_header_and_sample_list_dictionary = latex_header_and_sample_list_dictionary
+        self.sample_data = sample_data
+        self.cannabinoid_dictionary = cannabinoid_dictionary
+        self.loq_dictionary = loq_dictionary
+        self.finished_reports_dictionary = {}
+
+    def generate_multi_sample_reports(self):
+        multi_tuple_list = []
+        for key in self.header_contents_dictionary.keys():
+            matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
+            multi_tuple_list.append(matching)
+        for item in multi_tuple_list:
+            self.determine_number_of_pages_for_multi_reports(item)
+        return self.single_reports_dictionary, self.finished_reports_dictionary
+
+    def determine_number_of_pages_for_multi_reports(self, tuple_list):
+        number_of_samples = len(tuple_list)
+        if number_of_samples == 1:
+            self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
+        elif 5 &gt;= number_of_samples &gt; 1:
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_string = self.single_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            report = header + table_string + footer
+            self.finished_reports_dictionary[sample_id] = report
+        else:
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_strings = self.multiple_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            for item in table_strings:
+                header += item
+                header += r&#39;\newpage&#39;
+            header = header[:-8]
+            report = header + footer
+            self.finished_reports_dictionary[sample_id] = report
+
+    def single_page_multi_table(self, tuple_list):
+        table_header_string = self.generate_single_page_multi_table_header(tuple_list)
+        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
+        end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+        main_table_string += end_string
+        return main_table_string
+
+    def multiple_page_multi_table(self, tuple_list):
+        counter = 0
+        tuple_list_list = []
+        add_list = []
+        for item in tuple_list:
+            if counter &gt;= 4:
+                counter = 0
+                tuple_list_list.append(add_list)
+                add_list = []
+            add_list.append(item)
+            counter += 1
+        tuple_list_list.append(add_list)
+        latex_tables_list = []
+        for item in tuple_list_list:
+            table_header_string = self.generate_single_page_multi_table_header(item)
+            main_table_string = self.generate_single_page_multi_table(item, table_header_string)
+            end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+            main_table_string += end_string
+            latex_tables_list.append(main_table_string)
+        return latex_tables_list
+
+
+    def generate_single_page_multi_table_header(self, tuple_list):
+        table_header_1 = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        header_slot_modifier = 0.490 / len(tuple_list)
+        header_slot_line = r&#34;&#34;&#34;p{\dimexpr&#34;&#34;&#34; +\
+                           str(header_slot_modifier) +\
+                           r&#34;&#34;&#34;\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        for i in range(len(tuple_list)):
+            table_header_1 += header_slot_line
+        table_header_2 = r&#34;&#34;&#34;
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+                \textbf{Cannabinoids} &amp; &#34;&#34;&#34;
+        table_header_1 += table_header_2
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == &#39;Percent&#39;:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/g&#39;:
+                unit = r&#34;&#34;&#34;mg/g&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/mL&#39;:
+                unit = r&#34;&#34;&#34;mg/mL&#34;&#34;&#34;
+            elif item[1][0] == &#39;per unit&#39;:
+                unit = r&#34;&#34;&#34;mg/g) (mg/unit&#34;&#34;&#34;
+            else:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            sampleid_slot_line = r&#34;&#34;&#34; \textbf{Sample &#34;&#34;&#34; + sampleid[-1] + r&#34;&#34;&#34;} (&#34;&#34;&#34; + unit + r&#34;&#34;&#34;)  &amp;&#34;&#34;&#34;
+            table_header_1 += sampleid_slot_line
+        table_header_3 = r&#34;&#34;&#34;\textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+&#34;&#34;&#34;
+        table_header_1 += table_header_3
+        return table_header_1
+
+    def generate_single_page_multi_table(self, tuple_list, table_header_string):
+        table_header_string += self.generate_single_page_multi_table_line(1, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(2, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(3, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(4, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(5, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(6, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(7, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(8, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(9, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(10, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(11, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(12, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(13, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(14, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(15, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(16, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(17, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(18, tuple_list)
+        return table_header_string
+
+    def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
+        cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
+        cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == &#39;Percent&#39;:
+                data_column = &#39;percentage_concentration&#39;
+            elif item[1][0] == &#39;mg/g&#39;:
+                data_column = r&#34;&#34;&#34;mg_g&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/mL&#39;:
+                data_column = r&#34;&#34;&#34;mg_ml&#34;&#34;&#34;
+            elif item[1][0] == &#39;per unit&#39;:
+                data_column = r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;
+            else:
+                data_column = &#39;percentage_concentration&#39;
+            if item[1][1] == &#39;Basic&#39; and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
+                data_value = &#39;-&#39;
+            elif data_column == r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;:
+                data_value_1 = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [&#34;mg_g&#34;]].iloc[0][&#34;mg_g&#34;])
+                data_value_2 = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [data_column]].iloc[0][data_column])
+                data_value = data_value_1 + r&#34; / &#34; + data_value_2
+            else:
+                data_value = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [data_column]].iloc[0][data_column])
+            data_value = data_value + &#34; &amp;&#34;
+            cannabinoid_latex_string += data_value
+        cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
+                                         self.sample_data.best_recovery_qc_data_frame[&#39;id17&#39;] ==
+                                         cannabinoid_id_17,
+                                         [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
+        cannabinoid_latex_string += r&#34;&#34;&#34;ND &amp; &#34;&#34;&#34; + cannabinoid_recovery_value + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + loq_value + r&#34;&#34;&#34;\\&#34;&#34;&#34;
+        return cannabinoid_latex_string
+
+    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods"><code class="flex name class">
+<span>class <span class="ident">MultiMethods</span></span>
+<span>(</span><span>header_contents_dictionary, multiple_reports_dictionary, single_reports_dictionary, latex_header_and_sample_list_dictionary, sample_data, cannabinoid_dictionary, loq_dictionary)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultiMethods:
+
+    def __init__(self,
+                 header_contents_dictionary,
+                 multiple_reports_dictionary,
+                 single_reports_dictionary,
+                 latex_header_and_sample_list_dictionary,
+                 sample_data,
+                 cannabinoid_dictionary,
+                 loq_dictionary):
+        self.header_contents_dictionary = header_contents_dictionary
+        self.multiple_reports_dictionary = multiple_reports_dictionary
+        self.single_reports_dictionary = single_reports_dictionary
+        self.latex_header_and_sample_list_dictionary = latex_header_and_sample_list_dictionary
+        self.sample_data = sample_data
+        self.cannabinoid_dictionary = cannabinoid_dictionary
+        self.loq_dictionary = loq_dictionary
+        self.finished_reports_dictionary = {}
+
+    def generate_multi_sample_reports(self):
+        multi_tuple_list = []
+        for key in self.header_contents_dictionary.keys():
+            matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
+            multi_tuple_list.append(matching)
+        for item in multi_tuple_list:
+            self.determine_number_of_pages_for_multi_reports(item)
+        return self.single_reports_dictionary, self.finished_reports_dictionary
+
+    def determine_number_of_pages_for_multi_reports(self, tuple_list):
+        number_of_samples = len(tuple_list)
+        if number_of_samples == 1:
+            self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
+        elif 5 &gt;= number_of_samples &gt; 1:
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_string = self.single_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            report = header + table_string + footer
+            self.finished_reports_dictionary[sample_id] = report
+        else:
+            sample_id = tuple_list[0][0][0:6]
+            header = self.latex_header_and_sample_list_dictionary[sample_id]
+            table_strings = self.multiple_page_multi_table(tuple_list)
+            footer = self.generate_footer()
+            for item in table_strings:
+                header += item
+                header += r&#39;\newpage&#39;
+            header = header[:-8]
+            report = header + footer
+            self.finished_reports_dictionary[sample_id] = report
+
+    def single_page_multi_table(self, tuple_list):
+        table_header_string = self.generate_single_page_multi_table_header(tuple_list)
+        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
+        end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+        main_table_string += end_string
+        return main_table_string
+
+    def multiple_page_multi_table(self, tuple_list):
+        counter = 0
+        tuple_list_list = []
+        add_list = []
+        for item in tuple_list:
+            if counter &gt;= 4:
+                counter = 0
+                tuple_list_list.append(add_list)
+                add_list = []
+            add_list.append(item)
+            counter += 1
+        tuple_list_list.append(add_list)
+        latex_tables_list = []
+        for item in tuple_list_list:
+            table_header_string = self.generate_single_page_multi_table_header(item)
+            main_table_string = self.generate_single_page_multi_table(item, table_header_string)
+            end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+            main_table_string += end_string
+            latex_tables_list.append(main_table_string)
+        return latex_tables_list
+
+
+    def generate_single_page_multi_table_header(self, tuple_list):
+        table_header_1 = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        header_slot_modifier = 0.490 / len(tuple_list)
+        header_slot_line = r&#34;&#34;&#34;p{\dimexpr&#34;&#34;&#34; +\
+                           str(header_slot_modifier) +\
+                           r&#34;&#34;&#34;\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        for i in range(len(tuple_list)):
+            table_header_1 += header_slot_line
+        table_header_2 = r&#34;&#34;&#34;
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+                \textbf{Cannabinoids} &amp; &#34;&#34;&#34;
+        table_header_1 += table_header_2
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == &#39;Percent&#39;:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/g&#39;:
+                unit = r&#34;&#34;&#34;mg/g&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/mL&#39;:
+                unit = r&#34;&#34;&#34;mg/mL&#34;&#34;&#34;
+            elif item[1][0] == &#39;per unit&#39;:
+                unit = r&#34;&#34;&#34;mg/g) (mg/unit&#34;&#34;&#34;
+            else:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            sampleid_slot_line = r&#34;&#34;&#34; \textbf{Sample &#34;&#34;&#34; + sampleid[-1] + r&#34;&#34;&#34;} (&#34;&#34;&#34; + unit + r&#34;&#34;&#34;)  &amp;&#34;&#34;&#34;
+            table_header_1 += sampleid_slot_line
+        table_header_3 = r&#34;&#34;&#34;\textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+&#34;&#34;&#34;
+        table_header_1 += table_header_3
+        return table_header_1
+
+    def generate_single_page_multi_table(self, tuple_list, table_header_string):
+        table_header_string += self.generate_single_page_multi_table_line(1, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(2, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(3, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(4, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(5, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(6, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(7, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(8, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(9, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(10, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(11, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(12, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(13, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(14, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(15, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(16, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(17, tuple_list)
+        table_header_string += self.generate_single_page_multi_table_line(18, tuple_list)
+        return table_header_string
+
+    def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
+        cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
+        cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == &#39;Percent&#39;:
+                data_column = &#39;percentage_concentration&#39;
+            elif item[1][0] == &#39;mg/g&#39;:
+                data_column = r&#34;&#34;&#34;mg_g&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/mL&#39;:
+                data_column = r&#34;&#34;&#34;mg_ml&#34;&#34;&#34;
+            elif item[1][0] == &#39;per unit&#39;:
+                data_column = r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;
+            else:
+                data_column = &#39;percentage_concentration&#39;
+            if item[1][1] == &#39;Basic&#39; and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
+                data_value = &#39;-&#39;
+            elif data_column == r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;:
+                data_value_1 = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [&#34;mg_g&#34;]].iloc[0][&#34;mg_g&#34;])
+                data_value_2 = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [data_column]].iloc[0][data_column])
+                data_value = data_value_1 + r&#34; / &#34; + data_value_2
+            else:
+                data_value = &#34;{0:.3f}&#34;.format(
+                    self.sample_data.samples_data_frame.loc[
+                        (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                        &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                        [data_column]].iloc[0][data_column])
+            data_value = data_value + &#34; &amp;&#34;
+            cannabinoid_latex_string += data_value
+        cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
+                                         self.sample_data.best_recovery_qc_data_frame[&#39;id17&#39;] ==
+                                         cannabinoid_id_17,
+                                         [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
+        cannabinoid_latex_string += r&#34;&#34;&#34;ND &amp; &#34;&#34;&#34; + cannabinoid_recovery_value + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + loq_value + r&#34;&#34;&#34;\\&#34;&#34;&#34;
+        return cannabinoid_latex_string
+
+    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.determine_number_of_pages_for_multi_reports"><code class="name flex">
+<span>def <span class="ident">determine_number_of_pages_for_multi_reports</span></span>(<span>self, tuple_list)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def determine_number_of_pages_for_multi_reports(self, tuple_list):
+    number_of_samples = len(tuple_list)
+    if number_of_samples == 1:
+        self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
+    elif 5 &gt;= number_of_samples &gt; 1:
+        sample_id = tuple_list[0][0][0:6]
+        header = self.latex_header_and_sample_list_dictionary[sample_id]
+        table_string = self.single_page_multi_table(tuple_list)
+        footer = self.generate_footer()
+        report = header + table_string + footer
+        self.finished_reports_dictionary[sample_id] = report
+    else:
+        sample_id = tuple_list[0][0][0:6]
+        header = self.latex_header_and_sample_list_dictionary[sample_id]
+        table_strings = self.multiple_page_multi_table(tuple_list)
+        footer = self.generate_footer()
+        for item in table_strings:
+            header += item
+            header += r&#39;\newpage&#39;
+        header = header[:-8]
+        report = header + footer
+        self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_footer"><code class="name flex">
+<span>def <span class="ident">generate_footer</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_multi_sample_reports"><code class="name flex">
+<span>def <span class="ident">generate_multi_sample_reports</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_multi_sample_reports(self):
+    multi_tuple_list = []
+    for key in self.header_contents_dictionary.keys():
+        matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
+        multi_tuple_list.append(matching)
+    for item in multi_tuple_list:
+        self.determine_number_of_pages_for_multi_reports(item)
+    return self.single_reports_dictionary, self.finished_reports_dictionary</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table"><code class="name flex">
+<span>def <span class="ident">generate_single_page_multi_table</span></span>(<span>self, tuple_list, table_header_string)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_page_multi_table(self, tuple_list, table_header_string):
+    table_header_string += self.generate_single_page_multi_table_line(1, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(2, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(3, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(4, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(5, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(6, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(7, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(8, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(9, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(10, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(11, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(12, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(13, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(14, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(15, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(16, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(17, tuple_list)
+    table_header_string += self.generate_single_page_multi_table_line(18, tuple_list)
+    return table_header_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_header"><code class="name flex">
+<span>def <span class="ident">generate_single_page_multi_table_header</span></span>(<span>self, tuple_list)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def generate_single_page_multi_table_header(self, tuple_list):
+        table_header_1 = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        header_slot_modifier = 0.490 / len(tuple_list)
+        header_slot_line = r&#34;&#34;&#34;p{\dimexpr&#34;&#34;&#34; +\
+                           str(header_slot_modifier) +\
+                           r&#34;&#34;&#34;\textwidth-2\tabcolsep-\arrayrulewidth\relax}|&#34;&#34;&#34;
+        for i in range(len(tuple_list)):
+            table_header_1 += header_slot_line
+        table_header_2 = r&#34;&#34;&#34;
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+                \textbf{Cannabinoids} &amp; &#34;&#34;&#34;
+        table_header_1 += table_header_2
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == &#39;Percent&#39;:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/g&#39;:
+                unit = r&#34;&#34;&#34;mg/g&#34;&#34;&#34;
+            elif item[1][0] == &#39;mg/mL&#39;:
+                unit = r&#34;&#34;&#34;mg/mL&#34;&#34;&#34;
+            elif item[1][0] == &#39;per unit&#39;:
+                unit = r&#34;&#34;&#34;mg/g) (mg/unit&#34;&#34;&#34;
+            else:
+                unit = r&#34;&#34;&#34;\%&#34;&#34;&#34;
+            sampleid_slot_line = r&#34;&#34;&#34; \textbf{Sample &#34;&#34;&#34; + sampleid[-1] + r&#34;&#34;&#34;} (&#34;&#34;&#34; + unit + r&#34;&#34;&#34;)  &amp;&#34;&#34;&#34;
+            table_header_1 += sampleid_slot_line
+        table_header_3 = r&#34;&#34;&#34;\textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+&#34;&#34;&#34;
+        table_header_1 += table_header_3
+        return table_header_1</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_line"><code class="name flex">
+<span>def <span class="ident">generate_single_page_multi_table_line</span></span>(<span>self, cannabinoid, tuple_list)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
+    cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
+    cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+    for item in tuple_list:
+        sampleid = item[0]
+        if item[1][0] == &#39;Percent&#39;:
+            data_column = &#39;percentage_concentration&#39;
+        elif item[1][0] == &#39;mg/g&#39;:
+            data_column = r&#34;&#34;&#34;mg_g&#34;&#34;&#34;
+        elif item[1][0] == &#39;mg/mL&#39;:
+            data_column = r&#34;&#34;&#34;mg_ml&#34;&#34;&#34;
+        elif item[1][0] == &#39;per unit&#39;:
+            data_column = r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;
+        else:
+            data_column = &#39;percentage_concentration&#39;
+        if item[1][1] == &#39;Basic&#39; and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
+            data_value = &#39;-&#39;
+        elif data_column == r&#34;&#34;&#34;mg_unit&#34;&#34;&#34;:
+            data_value_1 = &#34;{0:.3f}&#34;.format(
+                self.sample_data.samples_data_frame.loc[
+                    (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                    &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                    [&#34;mg_g&#34;]].iloc[0][&#34;mg_g&#34;])
+            data_value_2 = &#34;{0:.3f}&#34;.format(
+                self.sample_data.samples_data_frame.loc[
+                    (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                    &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                    [data_column]].iloc[0][data_column])
+            data_value = data_value_1 + r&#34; / &#34; + data_value_2
+        else:
+            data_value = &#34;{0:.3f}&#34;.format(
+                self.sample_data.samples_data_frame.loc[
+                    (self.sample_data.samples_data_frame[&#39;id17&#39;] == cannabinoid_id_17)
+                    &amp; (self.sample_data.samples_data_frame[&#39;sampleid&#39;] == sampleid),
+                    [data_column]].iloc[0][data_column])
+        data_value = data_value + &#34; &amp;&#34;
+        cannabinoid_latex_string += data_value
+    cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
+                                     self.sample_data.best_recovery_qc_data_frame[&#39;id17&#39;] ==
+                                     cannabinoid_id_17,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
+    cannabinoid_latex_string += r&#34;&#34;&#34;ND &amp; &#34;&#34;&#34; + cannabinoid_recovery_value + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + loq_value + r&#34;&#34;&#34;\\&#34;&#34;&#34;
+    return cannabinoid_latex_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.multiple_page_multi_table"><code class="name flex">
+<span>def <span class="ident">multiple_page_multi_table</span></span>(<span>self, tuple_list)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def multiple_page_multi_table(self, tuple_list):
+        counter = 0
+        tuple_list_list = []
+        add_list = []
+        for item in tuple_list:
+            if counter &gt;= 4:
+                counter = 0
+                tuple_list_list.append(add_list)
+                add_list = []
+            add_list.append(item)
+            counter += 1
+        tuple_list_list.append(add_list)
+        latex_tables_list = []
+        for item in tuple_list_list:
+            table_header_string = self.generate_single_page_multi_table_header(item)
+            main_table_string = self.generate_single_page_multi_table(item, table_header_string)
+            end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+            main_table_string += end_string
+            latex_tables_list.append(main_table_string)
+        return latex_tables_list</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.single_page_multi_table"><code class="name flex">
+<span>def <span class="ident">single_page_multi_table</span></span>(<span>self, tuple_list)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def single_page_multi_table(self, tuple_list):
+        table_header_string = self.generate_single_page_multi_table_header(tuple_list)
+        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
+        end_string = r&#34;&#34;&#34;
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}&#34;&#34;&#34;
+        main_table_string += end_string
+        return main_table_string</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Rover_Source_Code.Post_Generate" href="index.html">Rover_Source_Code.Post_Generate</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods">MultiMethods</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.determine_number_of_pages_for_multi_reports" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.determine_number_of_pages_for_multi_reports">determine_number_of_pages_for_multi_reports</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_footer" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_footer">generate_footer</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_multi_sample_reports" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_multi_sample_reports">generate_multi_sample_reports</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table">generate_single_page_multi_table</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_header" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_header">generate_single_page_multi_table_header</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_line" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.generate_single_page_multi_table_line">generate_single_page_multi_table_line</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.multiple_page_multi_table" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.multiple_page_multi_table">multiple_page_multi_table</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.single_page_multi_table" href="#Rover_Source_Code.Post_Generate.post_generate_multi_methods.MultiMethods.single_page_multi_table">single_page_multi_table</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

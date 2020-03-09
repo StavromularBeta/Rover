@@ -1,0 +1,2220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>Rover_Source_Code.Post_Generate.post_generate_single_methods API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Rover_Source_Code.Post_Generate.post_generate_single_methods</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SingleMethods:
+
+    def __init__(self,
+                 finished_reports_dictionary,
+                 single_reports_dictionary,
+                 sample_data,
+                 latex_header_and_sample_list_dictionary,
+                 loq_dictionary
+                 ):
+        self.finished_reports_dictionary = finished_reports_dictionary
+        self.single_reports_dictionary = single_reports_dictionary
+        self.sample_data = sample_data
+        self.latex_header_and_sample_list_dictionary = latex_header_and_sample_list_dictionary
+        self.loq_dictionary = loq_dictionary
+
+    def generate_single_sample_reports(self):
+        for key, value in self.single_reports_dictionary.items():
+            if value[0] == &#39;Percent&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_percent_basic_report(key)
+            elif value[0] == &#39;Percent&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_percent_deluxe_report(key)
+            elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_mg_g_basic_report(key)
+            elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_mg_g_deluxe_report(key)
+            elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_mg_ml_basic_report(key)
+            elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_mg_ml_deluxe_report(key)
+            elif value[0] == &#39;per unit&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_unit_basic_report(key)
+            elif value[0] == &#39;per unit&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_unit_deluxe_report(key)
+            else:
+                self.generate_single_percent_deluxe_report(key)
+        return self.finished_reports_dictionary
+
+    def generate_single_percent_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;Percent&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;Percent&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_g_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_g&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_g&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_percent_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;Percent&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;Percent&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_g_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_g&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_g&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_ml_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_ml&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_ml&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_ml_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_ml&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_ml&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_unit_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table_unit(temporary_data)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_unit_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table_unit(temporary_data)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def get_standard_recovery_values(self, report_type):
+        temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
+        ibu_recovery_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thcv_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbgva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbd_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbg_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbda_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbn_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbga_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thcva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        d9_thc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        d8_thc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbl_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbna_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thca_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbla_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbca_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                    d8_thc_value]
+
+    def get_relevant_values_and_recoveries_for_single_reports(self, temporary_data_frame, sample_type, report_type):
+        if sample_type == &#39;Percent&#39;:
+            sample_column_type = &#39;percentage_concentration&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_column_type = &#39;mg_g&#39;
+        elif sample_type == &#39;mg_ml&#39;:
+            sample_column_type = &#39;mg_ml&#39;
+        else:
+            sample_column_type = &#39;percentage_concentration&#39;
+        ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbdva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbgva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbd_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbg_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbda_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbn_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbga_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d9_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d8_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbl_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbna_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbla_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                    d8_thc_value]
+
+    def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type):
+        ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbdva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thcv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbgva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbd_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbg_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbda_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbn_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbga_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thcva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        d9_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        d8_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbl_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbna_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbla_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        # UNITS
+        cbdv_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbdva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thcv_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbgva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbd_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbg_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbda_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbn_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbga_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thcva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        d9_thc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        d8_thc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbl_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbna_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thca_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbla_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbca_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, [cbdv_value, cbdv_value_u], [cbdva_value, cbdva_value_u],
+                    [thcv_value, thcv_value_u], [cbgva_value, cbgva_value_u], [cbd_value, cbd_value_u],
+                    [cbg_value, cbg_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                    [cbga_value, cbga_value_u], [thcva_value, thcva_value_u], [d9_thc_value, d9_thc_value_u],
+                    [d8_thc_value, d8_thc_value_u], [cbl_value, cbl_value_u], [cbc_value, cbc_value_u],
+                    [cbna_value, cbna_value_u], [thca_value, thca_value_u], [cbla_value, cbla_value_u],
+                    [cbca_value, cbca_value_u]]
+        else:
+            return [ibu_recovery_value, [cbd_value, cbd_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                    [cbna_value, cbna_value_u], [d9_thc_value, d9_thc_value_u], [thca_value, thca_value_u],
+                    [d8_thc_value, d8_thc_value_u]]
+
+    def create_single_deluxe_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+        if sample_type == &#39;Percent&#39;:
+            sample_type = r&#39;\%&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_type = &#39;mg/g&#39;
+        elif sample_type == &#39;mg_ml&#39;:
+            sample_type = &#39;mg/mL&#39;
+        else:
+            sample_type = r&#39;\%&#39;
+        deluxe_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[11]) + (float(data[16]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    $\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$THC Acid &amp; N/A &amp; N/A &amp; N/A &amp; N/A \\
+    \hline
+    Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14] + r&#34;&#34;&#34;  &amp; ND&amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[5]) + (float(data[7]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+    Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;  ND&amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[15] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+    \hline
+    Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return deluxe_potency_table_string
+
+    def create_single_deluxe_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+        sample_type = &#39;mg/unit&#39;
+        deluxe_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g)  &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[11][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + \
+                                      self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[16][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[
+                                          16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(
+            float(data[11][0]) + (float(data[16][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+            float(data[11][1]) + (float(data[16][1]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    $\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[12][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$THC Acid &amp; ND &amp; ND &amp; 96.6 &amp; 0.003\\
+    \hline
+    Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[14][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[18][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(
+            float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+            float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[9][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[13][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                          13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+    Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[17][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[10][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                          10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[8][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[15][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[15][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+    \hline
+    Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp; \\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return deluxe_potency_table_string
+
+    def create_single_basic_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+        if sample_type == &#39;Percent&#39;:
+            sample_type = r&#39;\%&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_type = &#39;mg/g&#39;
+        elif sample_type == &#39;mg_mL&#39;:
+            sample_type = &#39;mg/mL&#39;
+        else:
+            sample_type = r&#39;\%&#39;
+        basic_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{8}$-THC &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$-THC Acid &amp; 0.00 &amp; N/A &amp; N/A &amp; N/A \\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return basic_potency_table_string
+
+    def create_single_basic_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+        sample_type = &#39;mg/unit&#39;
+        basic_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g) &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$ THC &amp; &#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THC Acid &amp;  &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                         6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{8}$ THC &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$ THC Acid &amp;  0.00  &amp;  0.00 &amp;  ND &amp; 100  &amp; 0.003\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return basic_potency_table_string
+
+    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods"><code class="flex name class">
+<span>class <span class="ident">SingleMethods</span></span>
+<span>(</span><span>finished_reports_dictionary, single_reports_dictionary, sample_data, latex_header_and_sample_list_dictionary, loq_dictionary)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SingleMethods:
+
+    def __init__(self,
+                 finished_reports_dictionary,
+                 single_reports_dictionary,
+                 sample_data,
+                 latex_header_and_sample_list_dictionary,
+                 loq_dictionary
+                 ):
+        self.finished_reports_dictionary = finished_reports_dictionary
+        self.single_reports_dictionary = single_reports_dictionary
+        self.sample_data = sample_data
+        self.latex_header_and_sample_list_dictionary = latex_header_and_sample_list_dictionary
+        self.loq_dictionary = loq_dictionary
+
+    def generate_single_sample_reports(self):
+        for key, value in self.single_reports_dictionary.items():
+            if value[0] == &#39;Percent&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_percent_basic_report(key)
+            elif value[0] == &#39;Percent&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_percent_deluxe_report(key)
+            elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_mg_g_basic_report(key)
+            elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_mg_g_deluxe_report(key)
+            elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_mg_ml_basic_report(key)
+            elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_mg_ml_deluxe_report(key)
+            elif value[0] == &#39;per unit&#39; and value[1] == &#39;Basic&#39;:
+                self.generate_single_unit_basic_report(key)
+            elif value[0] == &#39;per unit&#39; and value[1] == &#39;Deluxe&#39;:
+                self.generate_single_unit_deluxe_report(key)
+            else:
+                self.generate_single_percent_deluxe_report(key)
+        return self.finished_reports_dictionary
+
+    def generate_single_percent_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;Percent&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;Percent&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_g_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_g&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_g&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_percent_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;Percent&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;Percent&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_g_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_g&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_g&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_ml_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_ml&#39;,
+                                                                                    &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_ml&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_mg_ml_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                    &#39;mg_ml&#39;,
+                                                                                    &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_ml&#39;)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_unit_basic_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         &#39;Basic&#39;)
+        temporary_table = self.create_single_basic_table_unit(temporary_data)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def generate_single_unit_deluxe_report(self, sample_id):
+        temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                                   == sample_id]
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         &#39;Deluxe&#39;)
+        temporary_table = self.create_single_deluxe_table_unit(temporary_data)
+        header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+        footer = self.generate_footer()
+        report = header + temporary_table + footer
+        self.finished_reports_dictionary[sample_id] = report
+
+    def get_standard_recovery_values(self, report_type):
+        temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
+        ibu_recovery_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thcv_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbgva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbd_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbg_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbda_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbn_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbga_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thcva_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        d9_thc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        d8_thc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbl_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbc_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbna_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        thca_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbla_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbca_value = str(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                    d8_thc_value]
+
+    def get_relevant_values_and_recoveries_for_single_reports(self, temporary_data_frame, sample_type, report_type):
+        if sample_type == &#39;Percent&#39;:
+            sample_column_type = &#39;percentage_concentration&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_column_type = &#39;mg_g&#39;
+        elif sample_type == &#39;mg_ml&#39;:
+            sample_column_type = &#39;mg_ml&#39;
+        else:
+            sample_column_type = &#39;percentage_concentration&#39;
+        ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbdva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbgva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbd_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbg_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbda_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbn_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbga_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thcva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d9_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        d8_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbl_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbna_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        thca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbla_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        cbca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [sample_column_type]].iloc[0][sample_column_type])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                    cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                    cbna_value, thca_value, cbla_value, cbca_value]
+        else:
+            return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                    d8_thc_value]
+
+    def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type):
+        ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                     [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+        cbdv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbdva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thcv_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbgva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbd_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbg_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbda_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbn_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbga_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thcva_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        d9_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        d8_thc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbl_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbc_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbna_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        thca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbla_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        cbca_value = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+        # UNITS
+        cbdv_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbdva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thcv_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbgva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbd_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbg_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbda_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbn_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbga_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thcva_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        d9_thc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        d8_thc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbl_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbc_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbna_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        thca_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbla_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        cbca_value_u = &#34;{0:.3f}&#34;.format(
+            temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                     [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+        if report_type == &#39;Deluxe&#39;:
+            return [ibu_recovery_value, [cbdv_value, cbdv_value_u], [cbdva_value, cbdva_value_u],
+                    [thcv_value, thcv_value_u], [cbgva_value, cbgva_value_u], [cbd_value, cbd_value_u],
+                    [cbg_value, cbg_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                    [cbga_value, cbga_value_u], [thcva_value, thcva_value_u], [d9_thc_value, d9_thc_value_u],
+                    [d8_thc_value, d8_thc_value_u], [cbl_value, cbl_value_u], [cbc_value, cbc_value_u],
+                    [cbna_value, cbna_value_u], [thca_value, thca_value_u], [cbla_value, cbla_value_u],
+                    [cbca_value, cbca_value_u]]
+        else:
+            return [ibu_recovery_value, [cbd_value, cbd_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                    [cbna_value, cbna_value_u], [d9_thc_value, d9_thc_value_u], [thca_value, thca_value_u],
+                    [d8_thc_value, d8_thc_value_u]]
+
+    def create_single_deluxe_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+        if sample_type == &#39;Percent&#39;:
+            sample_type = r&#39;\%&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_type = &#39;mg/g&#39;
+        elif sample_type == &#39;mg_ml&#39;:
+            sample_type = &#39;mg/mL&#39;
+        else:
+            sample_type = r&#39;\%&#39;
+        deluxe_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[11]) + (float(data[16]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    $\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$THC Acid &amp; N/A &amp; N/A &amp; N/A &amp; N/A \\
+    \hline
+    Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14] + r&#34;&#34;&#34;  &amp; ND&amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[5]) + (float(data[7]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+    Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;  ND&amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[15] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+    \hline
+    Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return deluxe_potency_table_string
+
+    def create_single_deluxe_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+        sample_type = &#39;mg/unit&#39;
+        deluxe_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g)  &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[11][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + \
+                                      self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[16][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[
+                                          16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(
+            float(data[11][0]) + (float(data[16][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+            float(data[11][1]) + (float(data[16][1]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    $\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[12][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$THC Acid &amp; ND &amp; ND &amp; 96.6 &amp; 0.003\\
+    \hline
+    Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[14][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[18][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(
+            float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+            float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+    \hline
+    \hline
+    Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[9][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[13][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                          13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+    Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[17][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[10][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                          10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[8][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[15][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[15][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+    \hline
+    Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                      self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp; \\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return deluxe_potency_table_string
+
+    def create_single_basic_table(self, data, sample_type):
+        recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+        if sample_type == &#39;Percent&#39;:
+            sample_type = r&#39;\%&#39;
+        elif sample_type == &#39;mg_g&#39;:
+            sample_type = &#39;mg/g&#39;
+        elif sample_type == &#39;mg_mL&#39;:
+            sample_type = &#39;mg/mL&#39;
+        else:
+            sample_type = r&#39;\%&#39;
+        basic_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{8}$-THC &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$-THC Acid &amp; 0.00 &amp; N/A &amp; N/A &amp; N/A \\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return basic_potency_table_string
+
+    def create_single_basic_table_unit(self, data):
+        recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+        sample_type = &#39;mg/unit&#39;
+        basic_potency_table_string = r&#34;&#34;&#34;
+    \newline
+    \renewcommand{\arraystretch}{1.2}
+    \begin{table}[h!]\centering
+    \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                    }
+    \textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g) &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+    \hline
+    \hline
+    $\Delta^{9}$ THC &amp; &#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+    $\Delta^{9}$ THC Acid &amp;  &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                         6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+    \hline
+    $\Delta^{8}$ THC &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+    $\Delta^{8}$ THC Acid &amp;  0.00  &amp;  0.00 &amp;  ND &amp; 100  &amp; 0.003\\
+    \hline
+    Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+    Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+    \hline
+    Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+    Cannabinol Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                     self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+    \hline
+    \hline
+    \textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+    \hline
+    \hline
+    \end{tabular}
+    \end{table}
+    &#34;&#34;&#34;
+        return basic_potency_table_string
+
+    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table"><code class="name flex">
+<span>def <span class="ident">create_single_basic_table</span></span>(<span>self, data, sample_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_single_basic_table(self, data, sample_type):
+    recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+    if sample_type == &#39;Percent&#39;:
+        sample_type = r&#39;\%&#39;
+    elif sample_type == &#39;mg_g&#39;:
+        sample_type = &#39;mg/g&#39;
+    elif sample_type == &#39;mg_mL&#39;:
+        sample_type = &#39;mg/mL&#39;
+    else:
+        sample_type = r&#39;\%&#39;
+    basic_potency_table_string = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+\textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+$\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+$\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+\hline
+$\Delta^{8}$-THC &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+$\Delta^{8}$-THC Acid &amp; 0.00 &amp; N/A &amp; N/A &amp; N/A \\
+\hline
+Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+\hline
+\hline
+Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+Cannabinol Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}
+&#34;&#34;&#34;
+    return basic_potency_table_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table_unit"><code class="name flex">
+<span>def <span class="ident">create_single_basic_table_unit</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_single_basic_table_unit(self, data):
+    recov_data = self.get_standard_recovery_values(&#39;Basic&#39;)
+    sample_type = &#39;mg/unit&#39;
+    basic_potency_table_string = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+\textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g) &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+$\Delta^{9}$ THC &amp; &#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+$\Delta^{9}$ THC Acid &amp;  &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                     6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+\hline
+$\Delta^{8}$ THC &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+$\Delta^{8}$ THC Acid &amp;  0.00  &amp;  0.00 &amp;  ND &amp; 100  &amp; 0.003\\
+\hline
+Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp;&#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+\hline
+Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+Cannabinol Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                 self.loq_dictionary[4] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}
+&#34;&#34;&#34;
+    return basic_potency_table_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table"><code class="name flex">
+<span>def <span class="ident">create_single_deluxe_table</span></span>(<span>self, data, sample_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_single_deluxe_table(self, data, sample_type):
+    recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+    if sample_type == &#39;Percent&#39;:
+        sample_type = r&#39;\%&#39;
+    elif sample_type == &#39;mg_g&#39;:
+        sample_type = &#39;mg/g&#39;
+    elif sample_type == &#39;mg_ml&#39;:
+        sample_type = &#39;mg/mL&#39;
+    else:
+        sample_type = r&#39;\%&#39;
+    deluxe_potency_table_string = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.490\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+\textbf{Cannabinoids} &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+$\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+$\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[11]) + (float(data[16]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+\hline
+\hline
+$\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+$\Delta^{8}$THC Acid &amp; N/A &amp; N/A &amp; N/A &amp; N/A \\
+\hline
+Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14] + r&#34;&#34;&#34;  &amp; ND&amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+\hline
+Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(float(data[5]) + (float(data[7]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+\hline
+\hline
+Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+\hline
+Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+\hline
+Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+\hline
+$\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3] + r&#34;&#34;&#34; &amp;  ND&amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+$\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+\hline
+Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+Cannabinol Acid &amp; &#34;&#34;&#34; + data[15] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+\hline
+Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp;\\
+\hline
+\hline
+\end{tabular}
+\end{table}
+&#34;&#34;&#34;
+    return deluxe_potency_table_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table_unit"><code class="name flex">
+<span>def <span class="ident">create_single_deluxe_table_unit</span></span>(<span>self, data)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_single_deluxe_table_unit(self, data):
+    recov_data = self.get_standard_recovery_values(&#39;Deluxe&#39;)
+    sample_type = &#39;mg/unit&#39;
+    deluxe_potency_table_string = r&#34;&#34;&#34;
+\newline
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h!]\centering
+\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.245\textwidth-2\tabcolsep-\arrayrulewidth\relax}|
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                }
+\textbf{Cannabinoids} &amp; \textbf{Sample 1} (mg/g)  &amp; \textbf{Sample 1} (&#34;&#34;&#34; + sample_type + r&#34;&#34;&#34;)  &amp; \textbf{LB} (\%) &amp; \textbf{RR} (\%) &amp; \textbf{LOQ} (\%)\\
+\hline
+\hline
+$\Delta^{9}$-THC &amp; &#34;&#34;&#34; + data[11][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[11][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[11] + r&#34;&#34;&#34;&amp;&#34;&#34;&#34; + \
+                                  self.loq_dictionary[11] + r&#34;&#34;&#34;\\
+$\Delta^{9}$-THC Acid &amp; &#34;&#34;&#34; + data[16][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[16][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[
+                                      16] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[16] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Total THC*} &amp;  \textbf{&#34;&#34;&#34; + str(
+        float(data[11][0]) + (float(data[16][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+        float(data[11][1]) + (float(data[16][1]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+\hline
+\hline
+$\Delta^{8}$THC &amp; &#34;&#34;&#34; + data[12][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[12][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[12] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[12] + r&#34;&#34;&#34;\\
+$\Delta^{8}$THC Acid &amp; ND &amp; ND &amp; 96.6 &amp; 0.003\\
+\hline
+Cannabidiol (CBC) &amp; &#34;&#34;&#34; + data[14][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[14][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[14] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[14] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp; &#34;&#34;&#34; + data[18][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[18][1] + r&#34;&#34;&#34;  &amp; ND &amp; &#34;&#34;&#34; + recov_data[18] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[18] + r&#34;&#34;&#34;\\
+\hline
+Cannabidiol (CBD) &amp;&#34;&#34;&#34; + data[5][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[5][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[5] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[5] + r&#34;&#34;&#34;\\
+Cannabidiol Acid &amp; &#34;&#34;&#34; + data[7][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[7][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[7] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[7] + r&#34;&#34;&#34;\\
+\hline
+\hline
+\textbf{Total CBD**} &amp;  \textbf{&#34;&#34;&#34; + str(
+        float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; \textbf{ &#34;&#34;&#34; + str(
+        float(data[5][0]) + (float(data[7][0]) * 0.877)) + r&#34;&#34;&#34;} &amp; &amp; &amp;\\
+\hline
+\hline
+Cannabigerol (CBG) &amp; &#34;&#34;&#34; + data[6][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[6][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[6] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[6] + r&#34;&#34;&#34;\\
+Cannabigerol Acid &amp; &#34;&#34;&#34; + data[9][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[9][1] + r&#34;&#34;&#34; &amp; ND &amp; &#34;&#34;&#34; + recov_data[9] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[9] + r&#34;&#34;&#34;\\
+\hline
+Cannabicyclol (CBL) &amp; &#34;&#34;&#34; + data[13][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[13][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                      13] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[13] + r&#34;&#34;&#34;\\
+Cannabicyclol Acid &amp; &#34;&#34;&#34; + data[17][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[17][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[17] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[17] + r&#34;&#34;&#34;\\
+\hline
+Cannabidivarin (CBDV) &amp; &#34;&#34;&#34; + data[1][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[1][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[1] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[1] + r&#34;&#34;&#34;\\
+Cannabidivarin Acid &amp; &#34;&#34;&#34; + data[2][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[2][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[2] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[2] + r&#34;&#34;&#34;\\
+\hline
+$\Delta^{9}$ THCV &amp; &#34;&#34;&#34; + data[3][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[3][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[3] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[3] + r&#34;&#34;&#34;\\
+$\Delta^{9}$ THCV Acid &amp;  &#34;&#34;&#34; + data[10][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[10][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[
+                                      10] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + self.loq_dictionary[10] + r&#34;&#34;&#34;\\
+\hline
+Cannabinol (CBN) &amp; &#34;&#34;&#34; + data[8][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[8][1] + r&#34;&#34;&#34; &amp;   ND &amp; &#34;&#34;&#34; + recov_data[8] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[8] + r&#34;&#34;&#34;\\
+Cannabinol Acid &amp; &#34;&#34;&#34; + data[15][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[15][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[15] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[15] + r&#34;&#34;&#34; \\
+\hline
+Cannabigerivarin Acid &amp; &#34;&#34;&#34; + data[4][0] + r&#34;&#34;&#34; &amp;  &#34;&#34;&#34; + data[4][1] + r&#34;&#34;&#34; &amp;  ND &amp; &#34;&#34;&#34; + recov_data[4] + r&#34;&#34;&#34;&amp; &#34;&#34;&#34; + \
+                                  self.loq_dictionary[4] + r&#34;&#34;&#34; \\
+\hline
+\hline
+\textbf{Moisture} &amp; 0.00  &amp;   &amp;  &amp; \\
+\hline
+\hline
+\end{tabular}
+\end{table}
+&#34;&#34;&#34;
+    return deluxe_potency_table_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_footer"><code class="name flex">
+<span>def <span class="ident">generate_footer</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def generate_footer(self):
+        footer_string = r&#34;&#34;&#34;
+Methods: solvent extraction; measured by UPLC-UV. P.I. 1.14 \&amp; based on USP monograph 29 \newline
+$\si{S_{o}}$ (standard deviation at zero analyte concentration) = 0.001 \%. \% = percent (10mg/g = 1.0 \%). \newline\newline
+ND = none detected. RR = Reference Recovery. LB = Lab Blank. THC = tetrahydrocannabinol.\newline 
+\textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
+Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
+\newline\newline\newline
+H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilodeau\\ Sr. Analytical Chemist: \underline{\hspace{2.1cm}}{ \hspace{4.1cm} Analytical Chemist: \underline{\hspace{3cm}}        
+\end{document}
+ &#34;&#34;&#34;
+        return footer_string</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_basic_report"><code class="name flex">
+<span>def <span class="ident">generate_single_mg_g_basic_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_mg_g_basic_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;mg_g&#39;,
+                                                                                &#39;Basic&#39;)
+    temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_g&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_deluxe_report"><code class="name flex">
+<span>def <span class="ident">generate_single_mg_g_deluxe_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_mg_g_deluxe_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;mg_g&#39;,
+                                                                                &#39;Deluxe&#39;)
+    temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_g&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_basic_report"><code class="name flex">
+<span>def <span class="ident">generate_single_mg_ml_basic_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_mg_ml_basic_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;mg_ml&#39;,
+                                                                                &#39;Basic&#39;)
+    temporary_table = self.create_single_basic_table(temporary_data, &#39;mg_ml&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_deluxe_report"><code class="name flex">
+<span>def <span class="ident">generate_single_mg_ml_deluxe_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_mg_ml_deluxe_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;mg_ml&#39;,
+                                                                                &#39;Deluxe&#39;)
+    temporary_table = self.create_single_deluxe_table(temporary_data, &#39;mg_ml&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_basic_report"><code class="name flex">
+<span>def <span class="ident">generate_single_percent_basic_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_percent_basic_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;Percent&#39;,
+                                                                                &#39;Basic&#39;)
+    temporary_table = self.create_single_basic_table(temporary_data, &#39;Percent&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_deluxe_report"><code class="name flex">
+<span>def <span class="ident">generate_single_percent_deluxe_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_percent_deluxe_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
+                                                                                &#39;Percent&#39;,
+                                                                                &#39;Deluxe&#39;)
+    temporary_table = self.create_single_deluxe_table(temporary_data, &#39;Percent&#39;)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_sample_reports"><code class="name flex">
+<span>def <span class="ident">generate_single_sample_reports</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_sample_reports(self):
+    for key, value in self.single_reports_dictionary.items():
+        if value[0] == &#39;Percent&#39; and value[1] == &#39;Basic&#39;:
+            self.generate_single_percent_basic_report(key)
+        elif value[0] == &#39;Percent&#39; and value[1] == &#39;Deluxe&#39;:
+            self.generate_single_percent_deluxe_report(key)
+        elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Basic&#39;:
+            self.generate_single_mg_g_basic_report(key)
+        elif value[0] == &#39;mg/g&#39; and value[1] == &#39;Deluxe&#39;:
+            self.generate_single_mg_g_deluxe_report(key)
+        elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Basic&#39;:
+            self.generate_single_mg_ml_basic_report(key)
+        elif value[0] == &#39;mg/mL&#39; and value[1] == &#39;Deluxe&#39;:
+            self.generate_single_mg_ml_deluxe_report(key)
+        elif value[0] == &#39;per unit&#39; and value[1] == &#39;Basic&#39;:
+            self.generate_single_unit_basic_report(key)
+        elif value[0] == &#39;per unit&#39; and value[1] == &#39;Deluxe&#39;:
+            self.generate_single_unit_deluxe_report(key)
+        else:
+            self.generate_single_percent_deluxe_report(key)
+    return self.finished_reports_dictionary</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_basic_report"><code class="name flex">
+<span>def <span class="ident">generate_single_unit_basic_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_unit_basic_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                     &#39;Basic&#39;)
+    temporary_table = self.create_single_basic_table_unit(temporary_data)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_deluxe_report"><code class="name flex">
+<span>def <span class="ident">generate_single_unit_deluxe_report</span></span>(<span>self, sample_id)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate_single_unit_deluxe_report(self, sample_id):
+    temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame[&#39;sampleid&#39;]
+                                                               == sample_id]
+    temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                     &#39;Deluxe&#39;)
+    temporary_table = self.create_single_deluxe_table_unit(temporary_data)
+    header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
+    footer = self.generate_footer()
+    report = header + temporary_table + footer
+    self.finished_reports_dictionary[sample_id] = report</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports"><code class="name flex">
+<span>def <span class="ident">get_relevant_values_and_recoveries_for_single_reports</span></span>(<span>self, temporary_data_frame, sample_type, report_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_relevant_values_and_recoveries_for_single_reports(self, temporary_data_frame, sample_type, report_type):
+    if sample_type == &#39;Percent&#39;:
+        sample_column_type = &#39;percentage_concentration&#39;
+    elif sample_type == &#39;mg_g&#39;:
+        sample_column_type = &#39;mg_g&#39;
+    elif sample_type == &#39;mg_ml&#39;:
+        sample_column_type = &#39;mg_ml&#39;
+    else:
+        sample_column_type = &#39;percentage_concentration&#39;
+    ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbdv_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbdva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    thcv_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbgva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbd_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbg_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbda_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbn_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbga_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    thcva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    d9_thc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    d8_thc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbl_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbna_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    thca_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbla_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    cbca_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                 [sample_column_type]].iloc[0][sample_column_type])
+    if report_type == &#39;Deluxe&#39;:
+        return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                cbna_value, thca_value, cbla_value, cbca_value]
+    else:
+        return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                d8_thc_value]</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports_unit"><code class="name flex">
+<span>def <span class="ident">get_relevant_values_and_recoveries_for_single_reports_unit</span></span>(<span>self, temporary_data_frame, report_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type):
+    ibu_recovery_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbdv_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbdva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    thcv_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbgva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbd_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbg_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbda_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbn_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbga_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    thcva_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    d9_thc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    d8_thc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbl_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbc_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbna_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    thca_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbla_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    cbca_value = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                 [&#39;mg_g&#39;]].iloc[0][&#39;mg_g&#39;])
+    # UNITS
+    cbdv_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbdva_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    thcv_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbgva_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbd_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbg_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbda_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbn_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbga_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    thcva_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    d9_thc_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    d8_thc_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbl_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbc_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbna_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    thca_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbla_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    cbca_value_u = &#34;{0:.3f}&#34;.format(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                 [&#39;mg_unit&#39;]].iloc[0][&#39;mg_unit&#39;])
+    if report_type == &#39;Deluxe&#39;:
+        return [ibu_recovery_value, [cbdv_value, cbdv_value_u], [cbdva_value, cbdva_value_u],
+                [thcv_value, thcv_value_u], [cbgva_value, cbgva_value_u], [cbd_value, cbd_value_u],
+                [cbg_value, cbg_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                [cbga_value, cbga_value_u], [thcva_value, thcva_value_u], [d9_thc_value, d9_thc_value_u],
+                [d8_thc_value, d8_thc_value_u], [cbl_value, cbl_value_u], [cbc_value, cbc_value_u],
+                [cbna_value, cbna_value_u], [thca_value, thca_value_u], [cbla_value, cbla_value_u],
+                [cbca_value, cbca_value_u]]
+    else:
+        return [ibu_recovery_value, [cbd_value, cbd_value_u], [cbda_value, cbda_value_u], [cbn_value, cbn_value_u],
+                [cbna_value, cbna_value_u], [d9_thc_value, d9_thc_value_u], [thca_value, thca_value_u],
+                [d8_thc_value, d8_thc_value_u]]</code></pre>
+</details>
+</dd>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_standard_recovery_values"><code class="name flex">
+<span>def <span class="ident">get_standard_recovery_values</span></span>(<span>self, report_type)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_standard_recovery_values(self, report_type):
+    temporary_data_frame = self.sample_data.best_recovery_qc_data_frame
+    ibu_recovery_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 1.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbdv_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 2.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbdva_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 3.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    thcv_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 4.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbgva_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 5.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbd_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 6.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbg_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 7.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbda_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 8.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbn_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 9.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbga_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 10.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    thcva_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 11.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    d9_thc_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 12.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    d8_thc_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 13.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbl_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 14.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbc_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 15.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbna_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 16.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    thca_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 17.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbla_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 18.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    cbca_value = str(
+        temporary_data_frame.loc[temporary_data_frame[&#39;id17&#39;] == 19.0,
+                                 [&#39;percrecovery&#39;]].iloc[0][&#39;percrecovery&#39;])
+    if report_type == &#39;Deluxe&#39;:
+        return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+                cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
+                cbna_value, thca_value, cbla_value, cbca_value]
+    else:
+        return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
+                d8_thc_value]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Rover_Source_Code.Post_Generate" href="index.html">Rover_Source_Code.Post_Generate</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods">SingleMethods</a></code></h4>
+<ul class="">
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table">create_single_basic_table</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table_unit" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_basic_table_unit">create_single_basic_table_unit</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table">create_single_deluxe_table</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table_unit" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.create_single_deluxe_table_unit">create_single_deluxe_table_unit</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_footer" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_footer">generate_footer</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_basic_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_basic_report">generate_single_mg_g_basic_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_deluxe_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_g_deluxe_report">generate_single_mg_g_deluxe_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_basic_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_basic_report">generate_single_mg_ml_basic_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_deluxe_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_mg_ml_deluxe_report">generate_single_mg_ml_deluxe_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_basic_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_basic_report">generate_single_percent_basic_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_deluxe_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_percent_deluxe_report">generate_single_percent_deluxe_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_sample_reports" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_sample_reports">generate_single_sample_reports</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_basic_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_basic_report">generate_single_unit_basic_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_deluxe_report" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.generate_single_unit_deluxe_report">generate_single_unit_deluxe_report</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports">get_relevant_values_and_recoveries_for_single_reports</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports_unit" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_relevant_values_and_recoveries_for_single_reports_unit">get_relevant_values_and_recoveries_for_single_reports_unit</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_standard_recovery_values" href="#Rover_Source_Code.Post_Generate.post_generate_single_methods.SingleMethods.get_standard_recovery_values">get_standard_recovery_values</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

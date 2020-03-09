@@ -32,7 +32,7 @@ import MainWindow as Mw
 class MainApplication(Tk.Frame):
     def __init__(self, parent, **kwargs):
         Tk.Frame.__init__(self, parent, **kwargs)
-        self.BannerBar = Bb.BannerWindow(self, width=1200)
+        self.BannerBar = Bb.BannerWindow(self, width=1400)
         self.MainWindow = Mw.MainWindow(self)
         self.BannerBar.pack(side=&#39;top&#39;, fill=&#39;x&#39;, expand=True)
         self.BannerBar.pack_propagate(0)
@@ -42,10 +42,10 @@ class MainApplication(Tk.Frame):
         self.MainWindow.display_homepage()
 
 
-#root = Tk.Tk()
-#root.geometry(&#39;1200x800&#39;)
-#MainApplication(root, height=800, width=1200).grid()
-#root.mainloop()</code></pre>
+root = Tk.Tk()
+root.geometry(&#39;1400x800&#39;)
+MainApplication(root, height=800, width=1400).grid()
+root.mainloop()</code></pre>
 </details>
 </section>
 <section>
@@ -74,7 +74,7 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
 <pre><code class="python">class MainApplication(Tk.Frame):
     def __init__(self, parent, **kwargs):
         Tk.Frame.__init__(self, parent, **kwargs)
-        self.BannerBar = Bb.BannerWindow(self, width=1200)
+        self.BannerBar = Bb.BannerWindow(self, width=1400)
         self.MainWindow = Mw.MainWindow(self)
         self.BannerBar.pack(side=&#39;top&#39;, fill=&#39;x&#39;, expand=True)
         self.BannerBar.pack_propagate(0)

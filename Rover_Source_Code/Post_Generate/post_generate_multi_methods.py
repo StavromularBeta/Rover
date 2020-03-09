@@ -7,8 +7,7 @@ class MultiMethods:
                  latex_header_and_sample_list_dictionary,
                  sample_data,
                  cannabinoid_dictionary,
-                 loq_dictionary
-                 ):
+                 loq_dictionary):
         self.header_contents_dictionary = header_contents_dictionary
         self.multiple_reports_dictionary = multiple_reports_dictionary
         self.single_reports_dictionary = single_reports_dictionary
