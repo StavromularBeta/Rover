@@ -9,7 +9,7 @@ sys.path.insert(0, parentdir)
 parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 sys.path.insert(0, currentdir)
-from Post_Generate.post_generate_report_writer import ReportWriter as report
+from Post_Generate.post_generate_controller import ReportWriter as report
 
 
 class BatchWindow(Tk.Frame):

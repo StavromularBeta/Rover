@@ -6,12 +6,11 @@ parentdir = os.path.dirname(parentdir)
 parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 sys.path.insert(0, currentdir)
-import os.path
-import errno
 from post_generate_header_methods import HeaderMethods
 from post_generate_organize_methods import OrganizeMethods
 from post_generate_single_methods import SingleMethods
 from post_generate_multi_methods import MultiMethods
+from post_generate_file_writing_methods import FileWritingMethods
 
 
 class ReportWriter:
@@ -95,45 +94,21 @@ class ReportWriter:
         self.single_reports_dictionary, self.multiple_reports_dictionary = \
             self.organize_methods.split_samples_into_single_or_multi()
         self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
-        self.multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
-                                          self.multiple_reports_dictionary,
-                                          self.single_reports_dictionary,
-                                          self.latex_header_and_sample_list_dictionary,
-                                          self.sample_data,
-                                          self.cannabinoid_dictionary,
-                                          self.loq_dictionary)
+        multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
+                                     self.multiple_reports_dictionary,
+                                     self.single_reports_dictionary,
+                                     self.latex_header_and_sample_list_dictionary,
+                                     self.sample_data,
+                                     self.cannabinoid_dictionary,
+                                     self.loq_dictionary)
         self.single_reports_dictionary, self.finished_reports_dictionary = \
-            self.multi_methods.generate_multi_sample_reports()
-        self.single_methods = SingleMethods(self.finished_reports_dictionary,
-                                            self.single_reports_dictionary,
-                                            self.sample_data,
-                                            self.latex_header_and_sample_list_dictionary,
-                                            self.loq_dictionary)
-        self.finished_reports_dictionary = self.single_methods.generate_single_sample_reports()
-        self.generate_report_directories_and_files()
+            multi_methods.generate_multi_sample_reports()
+        single_methods = SingleMethods(self.finished_reports_dictionary,
+                                       self.single_reports_dictionary,
+                                       self.sample_data,
+                                       self.latex_header_and_sample_list_dictionary,
+                                       self.loq_dictionary)
+        self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
+        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary)
+        file_writing_methods.generate_report_directories_and_files()
 
-    def generate_report_directories_and_files(self):
-        target = r'T:\ANALYST WORK FILES\Peter\Rover\reports\ '
-        for key, value in self.finished_reports_dictionary.items():
-            try:
-                jobnumber = str(key)
-                filename = target + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
-                filename = filename.replace('/', '-')
-                with self.safe_open_w(filename) as f:
-                    f.write(value)
-            except OSError:
-                pass
-
-    def mkdir_p(self, path):
-        try:
-            os.makedirs(path)
-        except OSError as exc:  # Python >2.5
-            if exc.errno == errno.EEXIST and os.path.isdir(path):
-                pass
-            else:
-                raise
-
-    def safe_open_w(self, path):
-        """ Open "path" for writing, creating any parent directories as needed. """
-        self.mkdir_p(os.path.dirname(path))
-        return open(path, 'w')
