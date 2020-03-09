@@ -14,17 +14,33 @@ from post_generate_file_writing_methods import FileWritingMethods
 
 
 class ReportWriter:
-    """This file writes deluxe percentage reports. if multi=True, there will be multiple samples displayed per page. If
-    multi=False, there will be only one sample displayed per page. """
+    """This class controls the methods in the Post_Generate folder. It writes all of the reports once it is passed
+    the data from the GUI."""
 
     def __init__(self, sample_data, header_data, updates):
         """The main init function.
 
-        1. cont = an initialization of the PreGenerateController class. All of the data for the report comes from here.
-        2. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
+        1. sample_data = the sample data, in dataframe format. Comes in without the columns for mg_g, mg_ml, and
+        mg_unit - these are added to the sample_data by the organize methods.
+        2. header_data = the header data with no modifications, the original headers parsed by Pre_Generate.
+        3. updates = all the information updated or added on the GUI screen. contains updated headers and sample lists,
+        sample type, report type, basic/deluxe info, and then unit masses/densities where relevant.
+        4. single_reports_dictionary = key : sampleid, value : updates for single reports.
+        5. multiple_reports_dictionary =  key : sampleid, value : updates for multiple reports.
+        6. latex_header_dictionary = a dictionary of all the headers for each job in the batch. Key = jobnumber,
         value = latex headers, customer information only..
-        3. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
-        added. """
+        7. Latex_header_and_sample_list_dictionary = the same as Latex_header_dictionary except with sample information
+        added.
+        8. finished_reports_dictionary = the finished reports as a string of Latex. key : sampleid, value : report.
+        9. cannabinoid_dictionary = a conversion dictionary for converting between id17 (order in which analytes come
+        off the HPLC) and report order (decided by wendy).
+        10. LOQ dictionary = a dictionary for entering the LOQ's of various cannabinoids. Order corresponds to report
+        order.
+        11. header_methods = the HeaderMethods class. All code for creating Latex headers is in this class.
+        12. organize_methods = the OrganizeMethods class. All code for creating extra data columns based on report type
+        and splitting the samples into single or multi is in here.
+        """
+
         self.sample_data = sample_data
         self.header_data = header_data
         self.updates = updates

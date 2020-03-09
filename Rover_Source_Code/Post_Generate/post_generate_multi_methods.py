@@ -134,7 +134,7 @@ class MultiMethods:
                 data_column = 'percentage_concentration'
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
-            if data_column == r"""mg_unit""":
+            elif data_column == r"""mg_unit""":
                 data_value_1 = "{0:.3f}".format(
                     self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
