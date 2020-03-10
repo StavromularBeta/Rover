@@ -130,19 +130,19 @@ class BatchWindow(Tk.Frame):
             address_entry.grid(row=counter, column=column_counter)
             counter += 1
             address_entry_2 = Tk.Entry(self.headers_data_frame)
-            address_entry_2.insert(Tk.END, value[6])
+            address_entry_2.insert(Tk.END, value[5])
             address_entry_2.grid(row=counter, column=column_counter)
             counter += 1
             address_entry_3 = Tk.Entry(self.headers_data_frame)
-            address_entry_3.insert(Tk.END, value[8])
+            address_entry_3.insert(Tk.END, value[6])
             address_entry_3.grid(row=counter, column=column_counter)
             counter += 1
             sample_type_entry_1 = Tk.Entry(self.headers_data_frame)
-            sample_type_entry_1.insert(Tk.END, value[5])
+            sample_type_entry_1.insert(Tk.END, value[7])
             sample_type_entry_1.grid(row=counter, column=column_counter)
             counter += 1
             sample_type_entry_2 = Tk.Entry(self.headers_data_frame)
-            sample_type_entry_2.insert(Tk.END, value[7])
+            sample_type_entry_2.insert(Tk.END, value[8])
             sample_type_entry_2.grid(row=counter, column=column_counter)
             counter += 1
             number_of_samples_entry = Tk.Entry(self.headers_data_frame)
@@ -150,11 +150,11 @@ class BatchWindow(Tk.Frame):
             number_of_samples_entry.grid(row=counter, column=column_counter)
             counter += 1
             receive_temp = Tk.Entry(self.headers_data_frame)
-            receive_temp.insert(Tk.END, value[11])
+            receive_temp.insert(Tk.END, value[10])
             receive_temp.grid(row=counter, column=column_counter)
             counter += 1
             additional_info_1 = Tk.Entry(self.headers_data_frame)
-            additional_info_1.insert(Tk.END, value[10])
+            additional_info_1.insert(Tk.END, value[11])
             additional_info_1.grid(row=counter, column=column_counter)
             counter += 1
             additional_info_2 = Tk.Entry(self.headers_data_frame)
@@ -271,8 +271,19 @@ class BatchWindow(Tk.Frame):
         self.post_generate_controller(data.dm, data.hp)
 
     def post_generate_controller(self, sample_data, header_data):
+        counter = 0
+        for key, value in header_data.header_contents_dictionary.items():
+            for item in range(0, 15):
+                header_data.header_contents_dictionary[key][item] = \
+                    self.updated_dictionary['headers'][counter]
+                counter += 1
+        header_counter = 16
+        counter = 0
+        for key, value in header_data.header_contents_dictionary.items():
+            header_data.header_contents_dictionary[key][header_counter] = self.updated_dictionary['samples'][counter]
+            counter += 1
         batch_report = report(sample_data, header_data, self.updated_dictionary)
-        batch_report.deluxe_report_percentage_controller()
+        batch_report.post_generate_controller()
 
 
 

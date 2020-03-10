@@ -91,7 +91,6 @@ class MultiMethods:
             latex_tables_list.append(main_table_string)
         return latex_tables_list
 
-
     def generate_single_page_multi_table_header(self, tuple_list):
         table_header_1 = r"""
 \newline

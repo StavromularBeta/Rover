@@ -103,7 +103,7 @@ class ReportWriter:
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
 
-    def deluxe_report_percentage_controller(self):
+    def post_generate_controller(self):
         """This is the controller function for the class. First, the latex header dictionaries are produced. Then,
         the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
         any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.

@@ -229,6 +229,8 @@ class PreGenerateDataManipulation:
         self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
 
     def limit_sig_figs_in_dataframes(self):
+        """This function rounds the values in the percentage recovery and percentage concentration columns of the
+        standard recovery data frame and the samples data frame, respectively. """
         sig_figs = 2
         self.best_recovery_qc_data_frame.fillna(0, inplace=True)
         self.best_recovery_qc_data_frame['percrecovery'] = self.best_recovery_qc_data_frame.percrecovery.apply(
