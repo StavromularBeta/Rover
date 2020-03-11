@@ -192,7 +192,7 @@ class BatchWindow(Tk.Frame):
         for key, value in data.hp.header_contents_dictionary.items():
             Tk.Label(self.samples_list_frame, text=key + " samples list").grid(row=counter, column=0)
             samples_list_text = Tk.Text(self.samples_list_frame, width=80, height=10)
-            samples_list_text.insert(Tk.END, value[16])
+            samples_list_text.insert(Tk.END, value[15])
             counter += 1
             samples_list_text.grid(row=counter, column=0)
             counter += 1
@@ -277,14 +277,40 @@ class BatchWindow(Tk.Frame):
                 header_data.header_contents_dictionary[key][item] = \
                     self.updated_dictionary['headers'][counter]
                 counter += 1
-        header_counter = 16
+            datestring = "Date: " + header_data.header_contents_dictionary[key][1] + " (" + header_data.header_contents_dictionary[key][2] + ")"
+            a_length = len(datestring)
+            sourcestring = "Source: " + header_data.header_contents_dictionary[key][7]
+            b_length = len(sourcestring)
+            subtype_string = "Type: " + header_data.header_contents_dictionary[key][8]
+            c_length = len(subtype_string)
+            samplenumberstring = "No. of Samples: " + header_data.header_contents_dictionary[key][9]
+            d_length = len(samplenumberstring)
+            arrivaltempstring = "Arrival temp: " + header_data.header_contents_dictionary[key][10]
+            e_length = len(arrivaltempstring)
+            endinfo3string = header_data.header_contents_dictionary[key][14]
+            f_length = len(endinfo3string)
+            lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
+            longest = max(lengthlist)
+            lengthlist_counter = 0
+            for item in lengthlist:
+                if item != longest:
+                    offset = longest - item - 1
+                    offset = "x" * offset
+                    offset = r'\phantom{' + offset + "}"
+                    lengthlist[lengthlist_counter] = offset
+                    lengthlist_counter += 1
+                else:
+                    offset = r'\phantom{}'
+                    lengthlist[lengthlist_counter] = offset
+                    lengthlist_counter += 1
+            header_data.header_contents_dictionary[key].append(lengthlist)
+        header_counter = 15
         counter = 0
         for key, value in header_data.header_contents_dictionary.items():
             header_data.header_contents_dictionary[key][header_counter] = self.updated_dictionary['samples'][counter]
             counter += 1
+            print(header_data.header_contents_dictionary[key])
         batch_report = report(sample_data, header_data, self.updated_dictionary)
         batch_report.post_generate_controller()
-
-
 
 

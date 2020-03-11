@@ -141,32 +141,6 @@ class PreGenerateHeaderParsing:
                 sample_information[sample_info_counter] = item[0] + ')' + item[1:]
             sample_info_counter += 1
         sample_information = ' '.join(sample_information)
-        datestring = "Date: " + date + " (" + time + ")"
-        a_length = len(datestring)
-        sourcestring = "Source: " + sample_type
-        b_length = len(sourcestring)
-        subtype_string = "Type: " + sample_subtype
-        c_length = len(subtype_string)
-        samplenumberstring = "No. of Samples: " + number_of_samples
-        d_length = len(samplenumberstring)
-        arrivaltempstring = "Arrival temp: " + arrival_temp
-        e_length = len(arrivaltempstring)
-        endinfo3string = end_info_3
-        f_length = len(endinfo3string)
-        lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
-        longest = max(lengthlist)
-        counter = 0
-        for item in lengthlist:
-            if item != longest:
-                offset = longest - item -1
-                offset = "x" * offset
-                offset = r'\phantom{' + offset + "}"
-                lengthlist[counter] = offset
-                counter += 1
-            else:
-                offset = r'\phantom{}'
-                lengthlist[counter] = offset
-                counter += 1
         parsed_header_contents = [name1,
                                   date,
                                   time,
@@ -182,7 +156,6 @@ class PreGenerateHeaderParsing:
                                   end_info_1,
                                   end_info_2,
                                   end_info_3,
-                                  lengthlist,
                                   sample_information]
         return parsed_header_contents
 

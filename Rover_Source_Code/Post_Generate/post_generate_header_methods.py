@@ -24,7 +24,7 @@ class HeaderMethods:
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead[L]{""" + item[0] + r""" \\ """ + item[4] + r""" \\ """ + item[5] + r"""\\ """ + item[6] + r"""\\ """ + item[11] + r""" \\ """ + item[13] + r"""\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[15][0] + r""" \\\textbf{Source:} """ + item[7] + item[15][1] + r""" \\\textbf{Type:} """ + item[8] + r"""""" + item[15][2] + r""" \\\textbf{No. of Samples:} """ + item[9] + r"""""" + item[15][3] + r"""\\\textbf{Arrival temp:} """ + item[10] + r"""""" + item[15][4] + r"""\\""" + item[14] + r"""""" + item[15][5] + r"""\\\phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[16][0] + r""" \\\textbf{Source:} """ + item[7] + item[16][1] + r""" \\\textbf{Type:} """ + item[8] + r"""""" + item[16][2] + r""" \\\textbf{No. of Samples:} """ + item[9] + r"""""" + item[16][3] + r"""\\\textbf{Arrival temp:} """ + item[10] + r"""""" + item[16][4] + r"""\\""" + item[14] + r"""""" + item[16][5] + r"""\\\phantom{a}\\}
 \fancyhead[R]{\textbf{No.} """ + item[3] + r"""\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
 \renewcommand{\headrulewidth}{0pt}
 \setlength\headheight{60pt}
@@ -36,7 +36,7 @@ class HeaderMethods:
         """iterates through the parsed header contents dictionary and produces the sample list for each job. """
         for key, item in self.header_data.header_contents_dictionary.items():
             samples_string = r"""
-\textbf{Samples:} """ + item[16] + r"""
+\textbf{Samples:} """ + item[15] + r"""
 \newline
 \newline
 \hline
