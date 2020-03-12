@@ -91,7 +91,6 @@ class ReportWriter:
                                17: '0.003',
                                18: '0.003',
                                }
-
         # Helper classes
         self.header_methods = HeaderMethods(header_data)
         self.organize_methods = OrganizeMethods(updates, sample_data)

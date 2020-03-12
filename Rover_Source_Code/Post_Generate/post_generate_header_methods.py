@@ -2,15 +2,23 @@ import pandas as pd
 
 
 class HeaderMethods:
+    """This class contains the methods that create the latex headers for all of the reports."""
 
     def __init__(self, header_data):
+        """
+        1. header_data = the header data from pre_generate with GUI modifications - specifically, any changes made on
+        the GUI have replaced the parsed attempts at the correct information, and the spacing has been added.
+        2. latex_header_dictionary = the dictionary of finished latex headers only.
+        3. latex_header_and_sample_list_dictionary = the dictionary of finished latex headers and sample lists.
+        """
         self.header_data = header_data
         self.latex_header_dictionary = {}
         self.latex_header_and_sample_list_dictionary = {}
 
     def generate_job_latex_headers(self):
-        """Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-        there will be fewer headers than samples if jobs contain more than one sample."""
+        """Iterates through the parsed header contents dictionary and produces the latex header for each job. the 16th
+        list item is a list of padding, which gets applied to the center column of the header so that the center column
+        is properly aligned (the one downfall of this latex header package, no alignment on the center column). """
         for key, item in self.header_data.header_contents_dictionary.items():
             header_string = r"""
 \documentclass{article}

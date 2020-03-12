@@ -28,7 +28,9 @@ class MultiMethods:
 
     def determine_number_of_pages_for_multi_reports(self, tuple_list):
         number_of_samples = len(tuple_list)
-        if number_of_samples == 1:
+        if number_of_samples == 0:
+            pass
+        elif number_of_samples == 1:
             self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
         elif 5 >= number_of_samples > 1:
             sample_id = tuple_list[0][0][0:6]
@@ -170,19 +172,19 @@ class MultiMethods:
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
             elif data_column == r"""mg_unit""":
-                data_value_1 = "{0:.3f}".format(
+                data_value_1 = str(
                     self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                         ["mg_g"]].iloc[0]["mg_g"])
-                data_value_2 = "{0:.3f}".format(
+                data_value_2 = str(
                     self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                         [data_column]].iloc[0][data_column])
                 data_value = data_value_1 + r" / " + data_value_2
             else:
-                data_value = "{0:.3f}".format(
+                data_value = str(
                     self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),

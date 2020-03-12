@@ -86,10 +86,10 @@ class SingleMethods:
     def generate_single_mg_ml_basic_report(self, sample_id):
         temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
                                                                    == sample_id]
-        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
-                                                                                    'mg_ml',
-                                                                                    'Basic')
-        temporary_table = self.create_single_basic_table(temporary_data, 'mg_ml')
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         'Basic',
+                                                                                         'density')
+        temporary_table = self.create_single_basic_table_unit(temporary_data, 'density')
         header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
@@ -98,10 +98,10 @@ class SingleMethods:
     def generate_single_mg_ml_deluxe_report(self, sample_id):
         temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
                                                                    == sample_id]
-        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports(temporary_data_frame,
-                                                                                    'mg_ml',
-                                                                                    'Deluxe')
-        temporary_table = self.create_single_deluxe_table(temporary_data, 'mg_ml')
+        temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
+                                                                                         'Deluxe',
+                                                                                         'density')
+        temporary_table = self.create_single_deluxe_table_unit(temporary_data, 'density')
         header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
@@ -111,8 +111,9 @@ class SingleMethods:
         temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
                                                                    == sample_id]
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
-                                                                                         'Basic')
-        temporary_table = self.create_single_basic_table_unit(temporary_data)
+                                                                                         'Basic',
+                                                                                         'unit')
+        temporary_table = self.create_single_basic_table_unit(temporary_data, 'unit')
         header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
@@ -122,8 +123,9 @@ class SingleMethods:
         temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
                                                                    == sample_id]
         temporary_data = self.get_relevant_values_and_recoveries_for_single_reports_unit(temporary_data_frame,
-                                                                                         'Deluxe')
-        temporary_table = self.create_single_deluxe_table_unit(temporary_data)
+                                                                                         'Deluxe',
+                                                                                         'unit')
+        temporary_table = self.create_single_deluxe_table_unit(temporary_data, 'unit')
         header = self.latex_header_and_sample_list_dictionary[sample_id[0:6]]
         footer = self.generate_footer()
         report = header + temporary_table + footer
@@ -270,119 +272,128 @@ class SingleMethods:
             return [ibu_recovery_value, cbd_value, cbda_value, cbn_value, cbna_value, d9_thc_value, thca_value,
                     d8_thc_value]
 
-    def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type):
+    def get_relevant_values_and_recoveries_for_single_reports_unit(self, temporary_data_frame, report_type, unit_type):
+        if unit_type == 'unit':
+            column_1 = 'mg_g'
+            column_2 = 'mg_unit'
+        elif unit_type == 'density':
+            column_1 = 'mg_ml'
+            column_2 = 'percentage_concentration'
+        else:
+            column_1 = 'percentage_concentration'
+            column_2 = 'percentage_concentration'
         ibu_recovery_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 1.0,
                                      ['percrecovery']].iloc[0]['percrecovery'])
         cbdv_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 2.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbdva_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 3.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         thcv_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbgva_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbd_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbg_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 7.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbda_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 8.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbn_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 9.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbga_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 10.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         thcva_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 11.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         d9_thc_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 12.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         d8_thc_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 13.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbl_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 14.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbc_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 15.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbna_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 16.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         thca_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 17.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbla_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 18.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         cbca_value = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 19.0,
-                                     ['mg_g']].iloc[0]['mg_g'])
+                                     [column_1]].iloc[0][column_1])
         # UNITS
         cbdv_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 2.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbdva_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 3.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         thcv_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbgva_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbd_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbg_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 7.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbda_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 8.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbn_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 9.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbga_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 10.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         thcva_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 11.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         d9_thc_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 12.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         d8_thc_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 13.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbl_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 14.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbc_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 15.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbna_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 16.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         thca_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 17.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbla_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 18.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         cbca_value_u = "{0:.3f}".format(
             temporary_data_frame.loc[temporary_data_frame['id17'] == 19.0,
-                                     ['mg_unit']].iloc[0]['mg_unit'])
+                                     [column_2]].iloc[0][column_2])
         if report_type == 'Deluxe':
             return [ibu_recovery_value, [cbdv_value, cbdv_value_u], [cbdva_value, cbdva_value_u],
                     [thcv_value, thcv_value_u], [cbgva_value, cbgva_value_u], [cbd_value, cbd_value_u],
@@ -465,9 +476,17 @@ class SingleMethods:
     """
         return deluxe_potency_table_string
 
-    def create_single_deluxe_table_unit(self, data):
+    def create_single_deluxe_table_unit(self, data, unit_type):
         recov_data = self.get_standard_recovery_values('Deluxe')
-        sample_type = 'mg/unit'
+        if unit_type == 'unit':
+            sample_type_1 = 'mg/g'
+            sample_type_2 = 'mg/unit'
+        elif unit_type == 'density':
+            sample_type_1 = 'mg/mL'
+            sample_type_2 = r'\%'
+        else:
+            sample_type_1 = r'\%'
+            sample_type_2 = r'\%'
         deluxe_potency_table_string = r"""
     \newline
     \renewcommand{\arraystretch}{1.2}
@@ -479,13 +498,12 @@ class SingleMethods:
                     p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
                     p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
                     }
-    \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g)  & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
+    \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type_1 + r""")  & \textbf{Sample 1} (""" + sample_type_2 + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
     \hline
     \hline
     $\Delta^{9}$-THC & """ + data[11][0] + r""" &  """ + data[11][1] + r""" & ND & """ + recov_data[11] + r"""&""" + \
                                       self.loq_dictionary[11] + r"""\\
-    $\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & """ + recov_data[
-                                          16] + r"""& """ + self.loq_dictionary[16] + r"""\\
+    $\Delta^{9}$-THC Acid & """ + data[16][0] + r""" &  """ + data[16][1] + r""" & ND & """ + recov_data[16] + r"""& """ + self.loq_dictionary[16] + r"""\\
     \hline
     \hline
     \textbf{Total THC*} &  \textbf{""" + str(
@@ -530,8 +548,7 @@ class SingleMethods:
     \hline
     $\Delta^{9}$ THCV & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &  ND & """ + recov_data[3] + r"""& """ + \
                                       self.loq_dictionary[3] + r"""\\
-    $\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & """ + recov_data[
-                                          10] + r"""& """ + self.loq_dictionary[10] + r"""\\
+    $\Delta^{9}$ THCV Acid &  """ + data[10][0] + r""" &  """ + data[10][1] + r""" &  ND & """ + recov_data[10] + r"""& """ + self.loq_dictionary[10] + r"""\\
     \hline
     Cannabinol (CBN) & """ + data[8][0] + r""" &  """ + data[8][1] + r""" &   ND & """ + recov_data[8] + r"""& """ + \
                                       self.loq_dictionary[8] + r"""\\
@@ -556,7 +573,7 @@ class SingleMethods:
             sample_type = r'\%'
         elif sample_type == 'mg_g':
             sample_type = 'mg/g'
-        elif sample_type == 'mg_mL':
+        elif sample_type == 'mg_ml':
             sample_type = 'mg/mL'
         else:
             sample_type = r'\%'
@@ -595,9 +612,17 @@ class SingleMethods:
     """
         return basic_potency_table_string
 
-    def create_single_basic_table_unit(self, data):
+    def create_single_basic_table_unit(self, data, unit_type):
         recov_data = self.get_standard_recovery_values('Basic')
-        sample_type = 'mg/unit'
+        if unit_type == 'unit':
+            sample_type_1 = 'mg/g'
+            sample_type_2 = 'mg/unit'
+        elif unit_type == 'density':
+            sample_type_1 = 'mg/mL'
+            sample_type_2 = r'\%'
+        else:
+            sample_type_1 = r'\%'
+            sample_type_2 = r'\%'
         basic_potency_table_string = r"""
     \newline
     \renewcommand{\arraystretch}{1.2}
@@ -609,7 +634,7 @@ class SingleMethods:
                     p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
                     p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
                     }
-    \textbf{Cannabinoids} & \textbf{Sample 1} (mg/g) & \textbf{Sample 1} (""" + sample_type + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
+    \textbf{Cannabinoids} & \textbf{Sample 1} (""" + sample_type_1 + r""") & \textbf{Sample 1} (""" + sample_type_2 + r""")  & \textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
     \hline
     \hline
     $\Delta^{9}$ THC & """ + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& """ + \
