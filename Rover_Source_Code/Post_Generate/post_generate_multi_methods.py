@@ -136,23 +136,93 @@ class MultiMethods:
     def generate_single_page_multi_table(self, tuple_list, table_header_string):
         table_header_string += self.generate_single_page_multi_table_line(1, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(2, tuple_list)
+        table_header_string += r' \hline '
+        table_header_string += r' \hline '
+        table_header_string += self.generate_total_line(1, 2, tuple_list)
+        table_header_string += r' \hline '
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(3, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(4, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(5, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(6, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(7, tuple_list)
+        table_header_string += r' \hline '
+        table_header_string += r' \hline '
+        table_header_string += self.generate_total_line(6, 7, tuple_list)
+        table_header_string += r' \hline '
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(8, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(9, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(10, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(11, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(12, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(13, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(14, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(15, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(16, tuple_list)
         table_header_string += self.generate_single_page_multi_table_line(17, tuple_list)
+        table_header_string += r' \hline '
         table_header_string += self.generate_single_page_multi_table_line(18, tuple_list)
         return table_header_string
+
+    def generate_total_line(self, cannabinoid, cannabinoid_acid, tuple_list):
+        if cannabinoid == 1:
+            cannabinoid_latex_string = r'\textbf{Total THC*} &'
+        elif cannabinoid == 6:
+            cannabinoid_latex_string = r'\textbf{Total CBD**} &'
+        else:
+            cannabinoid_latex_string = r'Something is wrong &'
+        cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+        cannabinoid_acid_id_17 = self.cannabinoid_dictionary[cannabinoid_acid][1]
+        for item in tuple_list:
+            sampleid = item[0]
+            if item[1][0] == 'Percent':
+                data_column = 'percentage_concentration'
+            elif item[1][0] == 'mg/g':
+                data_column = r"""mg_g"""
+            elif item[1][0] == 'mg/mL':
+                data_column = r"""mg_ml"""
+            elif item[1][0] == 'per unit':
+                data_column = r"""mg_unit"""
+            else:
+                data_column = 'percentage_concentration'
+            if data_column == r"""mg_unit""":
+                data_value_1 = str(
+                    float(self.sample_data.samples_data_frame.loc[
+                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                         ["mg_g"]].iloc[0]["mg_g"]) + float(self.sample_data.samples_data_frame.loc[
+                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
+                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                         ["mg_g"]].iloc[0]["mg_g"] * 0.877))
+                data_value_2 = str(
+                    float(self.sample_data.samples_data_frame.loc[
+                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                              [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
+                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
+                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                              [data_column]].iloc[0][data_column] * 0.877))
+                data_value = r"\textbf{" + data_value_1 + r"} / \textbf{" + data_value_2 + " }"
+            else:
+                data_value = str(
+                    float(self.sample_data.samples_data_frame.loc[
+                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                              [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
+                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
+                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                              [data_column]].iloc[0][data_column] * 0.877))
+            data_value = r"\textbf{" + data_value + "} &"
+            cannabinoid_latex_string += data_value
+        cannabinoid_latex_string += r"""\\"""
+        return cannabinoid_latex_string
 
     def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
         cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]

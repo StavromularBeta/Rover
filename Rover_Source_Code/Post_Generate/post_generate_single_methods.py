@@ -593,11 +593,17 @@ class SingleMethods:
     $\Delta^{9}$-THC & """ + data[5] + r""" & ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
     $\Delta^{9}$-THC Acid & """ + data[6] + r""" & ND & """ + recov_data[6] + r"""& """ + self.loq_dictionary[6] + r"""\\
     \hline
+    \hline
+    \textbf{Total THC*} &  \textbf{""" + str(float(data[5]) + (float(data[6]) * 0.877)) + r"""} & & &\\
+    \hline
+    \hline
     $\Delta^{8}$-THC & """ + data[7] + r""" & ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
-    $\Delta^{8}$-THC Acid & 0.00 & N/A & N/A & N/A \\
     \hline
     Cannabidiol (CBD) &""" + data[1] + r""" &  ND & """ + recov_data[1] + r"""& """ + self.loq_dictionary[1] + r"""\\
     Cannabidiol Acid &""" + data[2] + r""" &  ND & """ + recov_data[2] + r"""& """ + self.loq_dictionary[2] + r"""\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &  \textbf{""" + str(float(data[1]) + (float(data[2]) * 0.877)) + r"""} & & &\\
     \hline
     \hline
     Cannabinol (CBN) & """ + data[3] + r""" &   ND & """ + recov_data[3] + r"""& """ + self.loq_dictionary[3] + r"""\\
@@ -642,14 +648,25 @@ class SingleMethods:
     $\Delta^{9}$ THC Acid &  """ + data[6][0] + r""" &  """ + data[6][1] + r""" &  ND & """ + recov_data[
                                          6] + r"""& """ + self.loq_dictionary[6] + r"""\\
     \hline
+    \hline
+    \textbf{Total THC*} &  \textbf{""" + str(
+            float(data[5][0]) + (float(data[6][0]) * 0.877)) + r"""} & \textbf{ """ + str(
+            float(data[5][1]) + (float(data[6][1]) * 0.877)) + r"""} & & &\\
+    \hline
+    \hline
     $\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& """ + \
                                      self.loq_dictionary[7] + r"""\\
-    $\Delta^{8}$ THC Acid &  0.00  &  0.00 &  ND & 100  & 0.003\\
     \hline
     Cannabidiol (CBD) &""" + data[1][0] + r""" &  """ + data[1][1] + r""" &  ND & """ + recov_data[1] + r"""& """ + \
                                      self.loq_dictionary[1] + r"""\\
     Cannabidiol Acid &""" + data[2][0] + r""" &  """ + data[2][1] + r""" &  ND & """ + recov_data[2] + r"""& """ + \
                                      self.loq_dictionary[2] + r"""\\
+    \hline
+    \hline
+    \textbf{Total CBD**} &  \textbf{""" + str(
+            float(data[1][0]) + (float(data[2][0]) * 0.877)) + r"""} & \textbf{ """ + str(
+            float(data[1][0]) + (float(data[2][0]) * 0.877)) + r"""} & & &\\
+    \hline
     \hline
     Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & """ + recov_data[3] + r"""& """ + \
                                      self.loq_dictionary[3] + r"""\\
