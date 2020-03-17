@@ -1,4 +1,6 @@
 class MultiMethods:
+    """This class contains the methods that make multi-sample reports - that is, jobs with more than one sample on the
+    report. """
 
     def __init__(self,
                  header_contents_dictionary,
@@ -8,6 +10,20 @@ class MultiMethods:
                  sample_data,
                  cannabinoid_dictionary,
                  loq_dictionary):
+        """
+        1. header_contents_dictionary = header contents for all of the jobs in the batch, updated and finalized.
+        2. multiple_reports_dictionary = key: jobnumber (full number), value: list of modifiers like single/basic, the
+        units and relevant unit/density values, single/multi status, etc.
+        3. single_reports_dictionary = the same as above, but for one-sample reports.
+        4. latex_header_and_sample_list_dictionary = finished latex headers and sample lists.
+        5. sample_data = the actual sample data, with post_generate data columns added.
+        6. cannabinoid_dictionary = a conversion dictionary necessary because the running order of the analytes is
+        different to the reporting order, so id17 wont match up with table line number. This dict. has key: table order,
+        value = [latex, id17].
+        7. loq_dictionary = a dictionary for LOQ's, when we actually figure some out. S_o would work for this dict also.
+        key: table order, value = LOQ. this dictionary will end up being the last column in the table.
+        8 . finished_reports_dictionary = key:jobnumber, value: finished report.
+        """
         self.header_contents_dictionary = header_contents_dictionary
         self.multiple_reports_dictionary = multiple_reports_dictionary
         self.single_reports_dictionary = single_reports_dictionary
@@ -18,6 +34,9 @@ class MultiMethods:
         self.finished_reports_dictionary = {}
 
     def generate_multi_sample_reports(self):
+        """groups all of the various subjobs together. the first for loop collects the various samples for a given job
+        into a list and then appends that list to the multi_tuple_list. the multi_tuple_list is iterated through in the
+        next loop and the jobs are sent to determine_number_of_pages_for_multi_reports. """
         multi_tuple_list = []
         for key in self.header_contents_dictionary.keys():
             matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
