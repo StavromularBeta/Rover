@@ -230,15 +230,20 @@ class MultiMethods:
                               [data_column]].iloc[0][data_column] * 0.877))
                 data_value = r"\textbf{" + data_value_1 + r"} / \textbf{" + data_value_2 + " }"
             else:
-                data_value = str(
-                    float(self.sample_data.samples_data_frame.loc[
-                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                              [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
-                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
-                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                              [data_column]].iloc[0][data_column] * 0.877))
-            data_value = r"\textbf{" + data_value + "} &"
+                data_value = float(self.sample_data.samples_data_frame.loc[
+                             (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                             & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                             [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
+                                (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
+                                & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                                [data_column]].iloc[0][data_column] * 0.877)
+                if 100 > data_value >= 1:
+                    data_value = str(data_value)[0:4]
+                elif 1 > data_value > 0:
+                    data_value = str(data_value)[0:5]
+                else:
+                    data_value = 'ND'
+                data_value = r"\textbf{" + data_value + "} &"
             cannabinoid_latex_string += data_value
         cannabinoid_latex_string += r"""\\"""
         return cannabinoid_latex_string
@@ -273,11 +278,16 @@ class MultiMethods:
                         [data_column]].iloc[0][data_column])
                 data_value = data_value_1 + r" / " + data_value_2
             else:
-                data_value = str(
-                    self.sample_data.samples_data_frame.loc[
+                data_value = self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                        [data_column]].iloc[0][data_column])
+                        [data_column]].iloc[0][data_column]
+                if 100 > data_value >= 1:
+                    data_value = str(data_value)[0:4]
+                elif 1 > data_value > 0:
+                    data_value = str(data_value)[0:5]
+                else:
+                    data_value = 'ND'
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
         cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
