@@ -131,6 +131,7 @@ class MultiMethods:
                 }
                 \textbf{Cannabinoids} & """
         table_header_1 += table_header_2
+        unit_line_start = " & "
         for item in tuple_list:
             sampleid = item[0]
             if item[1][0] == 'Percent':
@@ -143,13 +144,15 @@ class MultiMethods:
                 unit = r"""mg/g) (mg/unit"""
             else:
                 unit = r"""\%"""
-            sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""} (""" + unit + r""")  &"""
+            sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""}  &"""
             table_header_1 += sampleid_slot_line
-        table_header_3 = r"""\textbf{LB} (\%) & \textbf{RR} (\%) & \textbf{LOQ} (\%)\\
-\hline
-\hline
-"""
+            unit_line = r""" (""" + unit + r""")  &"""
+            unit_line_start += unit_line
+        table_header_3 = r"""\textbf{LB} & \textbf{RR} & \textbf{LOQ} \\"""
         table_header_1 += table_header_3
+        table_header_1 += unit_line_start + r""" (\%) & (\%) & (\%) \\
+\hline
+\hline"""
         return table_header_1
 
     def generate_single_page_multi_table(self, tuple_list, table_header_string):
