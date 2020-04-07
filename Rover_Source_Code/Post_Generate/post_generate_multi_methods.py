@@ -41,7 +41,26 @@ class MultiMethods:
         for key in self.header_contents_dictionary.keys():
             matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
             multi_tuple_list.append(matching)
+        new_multi_tuple_list = []
         for item in multi_tuple_list:
+            new_sub_list = []
+            for subitem in item:
+                if subitem[1][0] == 'per unit':
+                    new_tuple_entry = (subitem[0], ['mg/g', subitem[1][1], subitem[1][2], subitem[1][3]])
+                    new_sub_list.append(new_tuple_entry)
+                    new_sub_list.append(subitem)
+                elif subitem[1][0] == 'mg/mL':
+                    new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
+                    new_sub_list.append(subitem)
+                    new_sub_list.append(new_tuple_entry)
+                elif subitem[1][0] == 'mg/g':
+                    new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
+                    new_sub_list.append(subitem)
+                    new_sub_list.append(new_tuple_entry)
+                else:
+                    new_sub_list.append(subitem)
+            new_multi_tuple_list.append(new_sub_list)
+        for item in new_multi_tuple_list:
             self.determine_number_of_pages_for_multi_reports(item)
         return self.single_reports_dictionary, self.finished_reports_dictionary
 
@@ -49,9 +68,7 @@ class MultiMethods:
         number_of_samples = len(tuple_list)
         if number_of_samples == 0:
             pass
-        elif number_of_samples == 1:
-            self.single_reports_dictionary[tuple_list[0][0]] = tuple_list[0][1]
-        elif 5 >= number_of_samples > 1:
+        elif 5 >= number_of_samples > 0:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
@@ -141,7 +158,7 @@ class MultiMethods:
             elif item[1][0] == 'mg/mL':
                 unit = r"""mg/mL"""
             elif item[1][0] == 'per unit':
-                unit = r"""mg/g) (mg/unit"""
+                unit = r"""mg/unit"""
             else:
                 unit = r"""\%"""
             sampleid_slot_line = r""" \textbf{Sample """ + sampleid[-1] + r"""}  &"""
@@ -214,39 +231,22 @@ class MultiMethods:
                 data_column = r"""mg_unit"""
             else:
                 data_column = 'percentage_concentration'
-            if data_column == r"""mg_unit""":
-                data_value_1 = str(
-                    float(self.sample_data.samples_data_frame.loc[
-                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                         ["mg_g"]].iloc[0]["mg_g"]) + float(self.sample_data.samples_data_frame.loc[
-                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
-                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                         ["mg_g"]].iloc[0]["mg_g"] * 0.877))
-                data_value_2 = str(
-                    float(self.sample_data.samples_data_frame.loc[
-                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                              [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
-                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
-                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                              [data_column]].iloc[0][data_column] * 0.877))
-                data_value = r"\textbf{" + data_value_1 + r"} / \textbf{" + data_value_2 + " }"
-            else:
-                data_value = float(self.sample_data.samples_data_frame.loc[
+            data_value = float(self.sample_data.samples_data_frame.loc[
                              (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                              & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                              [data_column]].iloc[0][data_column]) + float(self.sample_data.samples_data_frame.loc[
                                 (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
                                 & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                                 [data_column]].iloc[0][data_column] * 0.877)
-                if 100 > data_value >= 1:
-                    data_value = str(data_value)[0:4]
-                elif 1 > data_value > 0:
-                    data_value = str(data_value)[0:5]
-                else:
-                    data_value = 'ND'
-                data_value = r"\textbf{" + data_value + "} &"
+            if 100 > data_value >= 1:
+                data_value = str(data_value)[0:4]
+            elif 1 > data_value > 0:
+                data_value = str(data_value)[0:5]
+            elif data_value > 100:
+                data_value = str(data_value)[0:3]
+            else:
+                data_value = 'ND'
+            data_value = r"\textbf{" + data_value + "} &"
             cannabinoid_latex_string += data_value
         cannabinoid_latex_string += r"""\\"""
         return cannabinoid_latex_string
@@ -268,29 +268,16 @@ class MultiMethods:
                 data_column = 'percentage_concentration'
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
-            elif data_column == r"""mg_unit""":
-                data_value_1 = str(
-                    self.sample_data.samples_data_frame.loc[
-                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                        ["mg_g"]].iloc[0]["mg_g"])
-                data_value_2 = str(
-                    self.sample_data.samples_data_frame.loc[
-                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                        [data_column]].iloc[0][data_column])
-                data_value = data_value_1 + r" / " + data_value_2
-            else:
-                data_value = self.sample_data.samples_data_frame.loc[
+            data_value = self.sample_data.samples_data_frame.loc[
                         (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                         & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                         [data_column]].iloc[0][data_column]
-                if 100 > data_value >= 1:
-                    data_value = str(data_value)[0:4]
-                elif 1 > data_value > 0:
-                    data_value = str(data_value)[0:5]
-                else:
-                    data_value = 'ND'
+            if 100 > data_value >= 1:
+                data_value = str(data_value)[0:4]
+            elif 1 > data_value > 0:
+                data_value = str(data_value)[0:5]
+            else:
+                data_value = 'ND'
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
         cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[

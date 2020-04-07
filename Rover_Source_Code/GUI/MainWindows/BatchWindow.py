@@ -309,7 +309,6 @@ class BatchWindow(Tk.Frame):
         for key, value in header_data.header_contents_dictionary.items():
             header_data.header_contents_dictionary[key][header_counter] = self.updated_dictionary['samples'][counter]
             counter += 1
-            print(header_data.header_contents_dictionary[key])
         batch_report = report(sample_data, header_data, self.updated_dictionary)
         batch_report.post_generate_controller()
 
