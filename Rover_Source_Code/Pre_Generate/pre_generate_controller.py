@@ -15,9 +15,7 @@ class PreGenerateController:
      the header_parsing routines."""
 
     def __init__(self, target_file):
-
-        self.file_folder_location = r'T:\ANALYST WORK FILES\Peter\Rover\xml_data_files\ '
-        self.target_file = self.file_folder_location[:-1] + target_file + '.xlsx'
+        self.target_file = target_file
         self.dm = PreGenerateDataManipulation(self.target_file)
         self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
