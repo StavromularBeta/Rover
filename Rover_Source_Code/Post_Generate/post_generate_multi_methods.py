@@ -134,6 +134,7 @@ class MultiMethods:
 \newline
 \renewcommand{\arraystretch}{1.2}
 \begin{table}[h!]\centering
+\small
 \begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""
         header_slot_modifier = 0.490 / len(tuple_list)
         header_slot_line = r"""p{\dimexpr""" +\
@@ -142,9 +143,9 @@ class MultiMethods:
         for i in range(len(tuple_list)):
             table_header_1 += header_slot_line
         table_header_2 = r"""
-                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
-                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
-                p{\dimexpr0.08\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.07\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.1\textwidth-2\tabcolsep-\arrayrulewidth\relax}
+                p{\dimexpr0.07\textwidth-2\tabcolsep-\arrayrulewidth\relax}
                 }
                 \textbf{Cannabinoids} & """
         table_header_1 += table_header_2
@@ -165,7 +166,7 @@ class MultiMethods:
             table_header_1 += sampleid_slot_line
             unit_line = r""" (""" + unit + r""")  &"""
             unit_line_start += unit_line
-        table_header_3 = r"""\textbf{LB} & \textbf{RR} & \textbf{LOQ} \\"""
+        table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & \textbf{\small LOQ} \\"""
         table_header_1 += table_header_3
         table_header_1 += unit_line_start + r""" (\%) & (\%) & (\%) \\
 \hline
@@ -268,22 +269,35 @@ class MultiMethods:
                 data_column = 'percentage_concentration'
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
-            data_value = self.sample_data.samples_data_frame.loc[
-                        (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                        & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                        [data_column]].iloc[0][data_column]
-            if 100 > data_value >= 1:
+            else:
+                data_value = self.sample_data.samples_data_frame.loc[
+                            (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                            & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
+                            [data_column]].iloc[0][data_column]
+            if data_value == '-':
+                pass
+            elif 100 > data_value >= 1:
                 data_value = str(data_value)[0:4]
             elif 1 > data_value > 0:
                 data_value = str(data_value)[0:5]
+            elif data_value >= 100:
+                data_value = str(data_value)[0:3]
             else:
                 data_value = 'ND'
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
-        cannabinoid_recovery_value = str(self.sample_data.best_recovery_qc_data_frame.loc[
-                                         self.sample_data.best_recovery_qc_data_frame['id17'] ==
-                                         cannabinoid_id_17,
-                                         ['percrecovery']].iloc[0]['percrecovery'])
+        cannabinoid_recovery_value = self.sample_data.best_recovery_qc_data_frame.loc[
+                                     self.sample_data.best_recovery_qc_data_frame['id17'] ==
+                                     cannabinoid_id_17,
+                                     ['percrecovery']].iloc[0]['percrecovery']
+        if 100 > cannabinoid_recovery_value >= 1:
+            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:4]
+        elif 1 > cannabinoid_recovery_value > 0:
+            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:5]
+        elif cannabinoid_recovery_value >= 100:
+            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:3]
+        else:
+            cannabinoid_recovery_value = 'ND'
         loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
