@@ -68,13 +68,16 @@ class PreGenerateHeaderParsing:
             current_month_file_path = self.current_month_directory + 'W' + item + '.TXT'
             last_month_file_path = self.last_month_directory + 'W' + item + '.TXT'
             header_contents = ''
+            print("attempting to find header for " + item)
             try:
                 header = open(current_month_file_path, 'r')
                 header_contents = header.read()
+                print(item + " header found.")
             except FileNotFoundError:
                 try:
                     header = open(last_month_file_path, 'r')
                     header_contents = header.read()
+                    print(item + " header found.")
                 except FileNotFoundError:
                     print('shit dont be here')
                     print("ERROR: HEADER FOR AT LEAST ONE JOB CANNOT BE FOUND")

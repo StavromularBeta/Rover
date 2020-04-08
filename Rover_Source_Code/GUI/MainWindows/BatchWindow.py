@@ -1,5 +1,6 @@
 import tkinter as Tk
 from tkinter import ttk
+from tkinter import font as tkFont
 import os, sys, inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -15,6 +16,7 @@ from Post_Generate.post_generate_controller import ReportWriter as report
 class BatchWindow(Tk.Frame):
     def __init__(self, parent, **kwargs):
         Tk.Frame.__init__(self, parent, **kwargs)
+        self.header_font = tkFont.Font(size=12, weight='bold')
         self.parent = parent
         self.master_display_frame = Tk.Frame(self)
         self.sub_display_frame = Tk.Frame(self)
@@ -40,12 +42,12 @@ class BatchWindow(Tk.Frame):
 
     def batch(self, data):
         self.create_scrollable_window()
-        self.blank_data_frame.grid(row=0, column=0)
-        self.recovery_data_frame.grid(row=0, column=1)
-        self.headers_data_frame.grid(row=1, column=0, columnspan=2)
-        self.samples_list_frame.grid(row=2, column=0, columnspan=2)
-        self.display_sample_data_frame.grid(row=3, column=0, columnspan=2)
-        self.samples_checklist_frame.grid(row=4, column=0, columnspan=2)
+        self.blank_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
+        self.recovery_data_frame.grid(row=0, column=1, sticky=Tk.W, padx=10, pady=10)
+        self.headers_data_frame.grid(row=1, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.samples_list_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.display_sample_data_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.samples_checklist_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
         self.create_blank_frame(data)
         self.create_recovery_frame(data)
         self.create_header_frames(data)
@@ -72,17 +74,17 @@ class BatchWindow(Tk.Frame):
         self.master_display_frame.grid()
 
     def create_blank_frame(self, data):
-        blank_label = Tk.Label(self.blank_data_frame, text="Blank Data")
-        blank_label.grid(row=0, column=0)
+        blank_label = Tk.Label(self.blank_data_frame, text="Blank Data", font=self.header_font)
+        blank_label.grid(row=0, column=0, sticky=Tk.W)
         blank_text = Tk.Text(self.blank_data_frame, width=18, height=20)
         blank_text.insert(Tk.END, data.dm.min_value_blank_data_frame.to_string())
         blank_text.config(state="disabled")
         blank_text.grid(row=1, column=0)
 
     def create_recovery_frame(self, data):
-        recovery_label = Tk.Label(self.recovery_data_frame, text="Standard Recovery Data")
-        recovery_label.grid(row=0, column=0)
-        recovery_text = Tk.Text(self.recovery_data_frame, width=60, height=20)
+        recovery_label = Tk.Label(self.recovery_data_frame, text="Standard Recovery Data", font=self.header_font)
+        recovery_label.grid(row=0, column=0, sticky=Tk.W)
+        recovery_text = Tk.Text(self.recovery_data_frame, width=70, height=20)
         recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
         recovery_text.config(state="disabled")
         recovery_text.grid(row=1, column=0)
@@ -90,23 +92,23 @@ class BatchWindow(Tk.Frame):
     def create_header_frames(self, data):
         counter = 0
         column_counter = 1
-        Tk.Label(self.headers_data_frame, text="Client Name").grid(row=1, column=0)
-        Tk.Label(self.headers_data_frame, text="Date").grid(row=2, column=0)
-        Tk.Label(self.headers_data_frame, text="Time").grid(row=3, column=0)
-        Tk.Label(self.headers_data_frame, text="Job Number").grid(row=4, column=0)
-        Tk.Label(self.headers_data_frame, text="Address 1").grid(row=5, column=0)
-        Tk.Label(self.headers_data_frame, text="Address 2").grid(row=6, column=0)
-        Tk.Label(self.headers_data_frame, text="Address 3").grid(row=7, column=0)
-        Tk.Label(self.headers_data_frame, text="Sample Type 1").grid(row=8, column=0)
-        Tk.Label(self.headers_data_frame, text="Sample Type 2").grid(row=9, column=0)
-        Tk.Label(self.headers_data_frame, text="Number of Samples").grid(row=10, column=0)
-        Tk.Label(self.headers_data_frame, text="Receive Temp.").grid(row=11, column=0)
-        Tk.Label(self.headers_data_frame, text="Additional Info 1").grid(row=12, column=0)
-        Tk.Label(self.headers_data_frame, text="Additional Info 2").grid(row=13, column=0)
-        Tk.Label(self.headers_data_frame, text="Additional Info 3").grid(row=14, column=0)
-        Tk.Label(self.headers_data_frame, text="Payment Info").grid(row=15, column=0)
+        Tk.Label(self.headers_data_frame, text="Client Name", font=self.header_font).grid(row=1, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Date", font=self.header_font).grid(row=2, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Time", font=self.header_font).grid(row=3, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Job Number", font=self.header_font).grid(row=4, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 1", font=self.header_font).grid(row=5, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 2", font=self.header_font).grid(row=6, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 3", font=self.header_font).grid(row=7, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 1", font=self.header_font).grid(row=8, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 2", font=self.header_font).grid(row=9, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Number of Samples", font=self.header_font).grid(row=10, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Receive Temp.", font=self.header_font).grid(row=11, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 1", font=self.header_font).grid(row=12, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 2", font=self.header_font).grid(row=13, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 3", font=self.header_font).grid(row=14, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Payment Info", font=self.header_font).grid(row=15, column=0, sticky=Tk.W)
         for key, value in data.hp.header_contents_dictionary.items():
-            header_frame_label = Tk.Label(self.headers_data_frame, text=key)
+            header_frame_label = Tk.Label(self.headers_data_frame, text=key, font=self.header_font)
             header_frame_label.grid(row=counter, column=column_counter)
             counter += 1
             header_name_entry = Tk.Entry(self.headers_data_frame)
@@ -190,7 +192,9 @@ class BatchWindow(Tk.Frame):
     def create_sample_list_frame(self, data):
         counter = 0
         for key, value in data.hp.header_contents_dictionary.items():
-            Tk.Label(self.samples_list_frame, text=key + " samples list").grid(row=counter, column=0)
+            Tk.Label(self.samples_list_frame, text=key + " samples list", font=self.header_font).grid(row=counter,
+                                                                                                      column=0,
+                                                                                                      sticky=Tk.W)
             samples_list_text = Tk.Text(self.samples_list_frame, width=80, height=10)
             samples_list_text.insert(Tk.END, value[15])
             counter += 1
@@ -200,7 +204,13 @@ class BatchWindow(Tk.Frame):
 
     def create_samples_checklist_option_frame(self, data):
         counter = 1
-        Tk.Label(self.samples_checklist_frame, text="Samples in the batch").grid(row=0, column=0)
+        Tk.Label(self.samples_checklist_frame, text="Samples", font=self.header_font).grid(row=0, column=0)
+        Tk.Label(self.samples_checklist_frame, text="Units", font=self.header_font).grid(row=0, column=1)
+        Tk.Label(self.samples_checklist_frame, text="Basic/Deluxe", font=self.header_font).grid(row=0, column=2)
+        Tk.Label(self.samples_checklist_frame, text="single/multi", font=self.header_font).grid(row=0, column=3)
+        Tk.Label(self.samples_checklist_frame,
+                 text="density or unit mass input",
+                 font=self.header_font).grid(row=0, column=4, columnspan=2)
         for item in data.dm.unique_sample_id_list:
             Tk.Label(self.samples_checklist_frame, text=item).grid(row=counter, column=0)
             sample_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
@@ -242,11 +252,17 @@ class BatchWindow(Tk.Frame):
             counter += 1
         Tk.Button(self.samples_checklist_frame,
                   text="Generate Batch",
-                  command=lambda x=data: self.generate_batch(x)).grid(row=counter, column=0)
+                  command=lambda x=data: self.generate_batch(x), font=self.header_font).grid(row=counter,
+                                                                                             column=0,
+                                                                                             padx=10,
+                                                                                             pady=20,
+                                                                                             sticky=Tk.W,
+                                                                                             columnspan=2)
 
     def display_sample_data(self, data):
-        samples_label = Tk.Label(self.display_sample_data_frame, text="Samples")
-        samples_label.grid(row=0, column=0)
+        samples_label = Tk.Label(self.display_sample_data_frame, text="Raw Data - All Samples",
+                                 font=self.header_font)
+        samples_label.grid(row=0, column=0, sticky=Tk.W)
         samples_text = Tk.Text(self.display_sample_data_frame, width=100, height=100)
         samples_text.insert(Tk.END, data.dm.condensed_samples_data_frame.to_string())
         samples_text.config(state="disabled")
