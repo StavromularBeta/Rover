@@ -220,6 +220,8 @@ class PreGenerateDataManipulation:
         self.samples_data_frame.fillna(0, inplace=True)
 
     def create_condensed_sample_list_data_frame_for_gui(self):
+        """creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+        (All samples - raw)."""
         self.condensed_samples_data_frame = self.samples_data_frame[['sampleid',
                                                                      'name20',
                                                                      'percentage_concentration',

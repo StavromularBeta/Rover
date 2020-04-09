@@ -35,8 +35,11 @@ class MultiMethods:
 
     def generate_multi_sample_reports(self):
         """groups all of the various subjobs together. the first for loop collects the various samples for a given job
-        into a list and then appends that list to the multi_tuple_list. the multi_tuple_list is iterated through in the
-        next loop and the jobs are sent to determine_number_of_pages_for_multi_reports. """
+        into a list and then appends that list to the multi_tuple_list. The second for loop adds the extra column in the
+        table required if samples are to be reported in two different units. For example, a cannabis cookie needs to
+        be reported in mg/g, and mg/cookie of analyte. The code to handle this is in the "if" part of the second for
+        loop. the new_multi_tuple_list is iterated through in the last loop, and the jobs are sent to
+        determine_number_of_pages_for_multi_reports. """
         multi_tuple_list = []
         for key in self.header_contents_dictionary.keys():
             matching = [(bob, marley) for bob, marley in self.multiple_reports_dictionary.items() if str(key)[0:6] in str(bob)]
@@ -65,10 +68,24 @@ class MultiMethods:
         return self.single_reports_dictionary, self.finished_reports_dictionary
 
     def determine_number_of_pages_for_multi_reports(self, tuple_list):
+        """determines whether a given report can fit one one page/ has to be written on multiple pages. If there
+        are no jobs requiring multiple samples per page, the first part of the if statement prevents the code from
+        crashing. If there are more than 4 samples, we need multiple pages.
+
+        This is pretty close to a 'controller' function for this class. If the job only needs one page, the code in
+        the elif statement executes. a header, table, and footer are produced, combined, and added to the finished
+        reports dictionary. If the job requires multiple pages, a header, multiple tables, and a footer are generated.
+        each table is added to the header, along with a latex command that starts a new page after each table. When the
+        footer is added, the last \newpage command is removed prior to its addition to the bulk of the report. This
+        is then added to the finished reports dictionary.
+
+        Note that if a job with one sample is selected as a 'multi' job at the GUI step, then it will be put through the
+        multiple samples per job routine by default. It specifically has to be selected as a 'single' job to go through
+        the single_methods class."""
         number_of_samples = len(tuple_list)
         if number_of_samples == 0:
             pass
-        elif 5 >= number_of_samples > 0:
+        elif 4 >= number_of_samples > 0:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
@@ -88,6 +105,8 @@ class MultiMethods:
             self.finished_reports_dictionary[sample_id] = report
 
     def single_page_multi_table(self, tuple_list):
+        """combines the header of a table, to the main part of the table containing data. Then adds on the end string.
+        returns the completed table."""
         table_header_string = self.generate_single_page_multi_table_header(tuple_list)
         main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
         end_string = r"""
@@ -166,7 +185,7 @@ class MultiMethods:
             table_header_1 += sampleid_slot_line
             unit_line = r""" (""" + unit + r""")  &"""
             unit_line_start += unit_line
-        table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & \textbf{\small LOQ} \\"""
+        table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & $\mathbf{\small S_{0}}$ \\"""
         table_header_1 += table_header_3
         table_header_1 += unit_line_start + r""" (\%) & (\%) & (\%) \\
 \hline
