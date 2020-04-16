@@ -408,8 +408,8 @@ class SingleMethods:
                     [d8_thc_value, d8_thc_value_u]]
 
     def create_single_deluxe_table(self, data, sample_type):
-        thc_total = self.create_total_line('regular', 'THC', data)
-        cbd_total = self.create_total_line('regular', 'CBD', data)
+        thc_total = self.create_total_line('regular', 'deluxe', 'THC', data)
+        cbd_total = self.create_total_line('regular', 'deluxe', 'CBD', data)
         recov_data = self.get_standard_recovery_values('Deluxe')
         if sample_type == 'Percent':
             sample_type = r'\%'
@@ -480,8 +480,8 @@ class SingleMethods:
         return deluxe_potency_table_string
 
     def create_single_deluxe_table_unit(self, data, unit_type):
-        thc_total = self.create_total_line('unit', 'THC', data)
-        cbd_total = self.create_total_line('unit', 'CBD', data)
+        thc_total = self.create_total_line('unit', 'deluxe', 'THC', data)
+        cbd_total = self.create_total_line('unit', 'deluxe', 'CBD', data)
         recov_data = self.get_standard_recovery_values('Deluxe')
         if unit_type == 'unit':
             sample_type_1 = 'mg/g'
@@ -572,8 +572,8 @@ class SingleMethods:
         return deluxe_potency_table_string
 
     def create_single_basic_table(self, data, sample_type):
-        thc_total = self.create_total_line('regular', 'THC', data)
-        cbd_total = self.create_total_line('regular', 'CBD', data)
+        thc_total = self.create_total_line('regular', 'basic', 'THC', data)
+        cbd_total = self.create_total_line('regular', 'basic', 'CBD', data)
         recov_data = self.get_standard_recovery_values('Basic')
         if sample_type == 'Percent':
             sample_type = r'\%'
@@ -627,8 +627,8 @@ class SingleMethods:
         return basic_potency_table_string
 
     def create_single_basic_table_unit(self, data, unit_type):
-        thc_total = self.create_total_line('unit', 'THC', data)
-        cbd_total = self.create_total_line('unit', 'CBD', data)
+        thc_total = self.create_total_line('unit', 'basic', 'THC', data)
+        cbd_total = self.create_total_line('unit', 'basic', 'CBD', data)
         recov_data = self.get_standard_recovery_values('Basic')
         if unit_type == 'unit':
             sample_type_1 = 'mg/g'
@@ -717,13 +717,19 @@ class SingleMethods:
             data_value = 'ND'
         return data_value
 
-    def create_total_line(self, total_line_type, cannabinoid, data):
+    def create_total_line(self, total_line_type, report_type, cannabinoid, data):
         if total_line_type == "unit":
             if cannabinoid == 'THC':
-                delta9 = data[5][0]
-                acid = data[6][0]
-                delta9_unit = data[5][1]
-                acid_unit = data[6][1]
+                if report_type == 'basic':
+                    delta9 = data[5][0]
+                    acid = data[6][0]
+                    delta9_unit = data[5][1]
+                    acid_unit = data[6][1]
+                else:
+                    delta9 = data[11][0]
+                    acid = data[16][0]
+                    delta9_unit = data[11][1]
+                    acid_unit = data[16][1]
                 if delta9 == 'ND':
                     delta9 = 0
                 if acid == 'ND':
@@ -752,14 +758,16 @@ class SingleMethods:
                     total2 = 'ND'
                 return [total1, total2]
             else:
-                cbd = data[1][0]
-                print(cbd)
-                acid = data[2][0]
-                print(acid)
-                cbd_unit = data[1][1]
-                print(cbd_unit)
-                acid_unit = data[2][1]
-                print(acid_unit)
+                if report_type == 'basic':
+                    cbd = data[1][0]
+                    acid = data[2][0]
+                    cbd_unit = data[1][1]
+                    acid_unit = data[2][1]
+                else:
+                    cbd = data[5][0]
+                    acid = data[7][0]
+                    cbd_unit = data[5][1]
+                    acid_unit = data[7][1]
                 if cbd == 'ND':
                     cbd = 0
                 if acid == 'ND':
@@ -769,9 +777,7 @@ class SingleMethods:
                 if acid_unit == 'ND':
                     acid_unit = 0
                 total1 = float(cbd) + (float(acid) * 0.877)
-                print(total1)
                 total2 = float(cbd_unit) + (float(acid_unit) * 0.877)
-                print(total2)
                 if 100 > total1 >= 1:
                     total1 = str(total1)[0:4]
                 elif 1 > total1 > 0:
@@ -791,8 +797,12 @@ class SingleMethods:
                 return [total1, total2]
         elif total_line_type == "regular":
             if cannabinoid == 'THC':
-                delta9 = data[5]
-                acid = data[6]
+                if report_type == 'basic':
+                    delta9 = data[5]
+                    acid = data[6]
+                else:
+                    delta9 = data[11]
+                    acid = data[16]
                 if delta9 == 'ND':
                     delta9 = 0
                 if acid == 'ND':
@@ -808,8 +818,12 @@ class SingleMethods:
                     total = 'ND'
                 return total
             else:
-                cbd = data[1]
-                acid = data[2]
+                if report_type == "basic":
+                    cbd = data[1]
+                    acid = data[2]
+                else:
+                    cbd = data[5]
+                    acid = data[7]
                 if cbd == 'ND':
                     cbd = 0
                 if acid == 'ND':
