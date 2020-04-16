@@ -34,8 +34,8 @@ class BannerWindow(Tk.Frame):
         self.banner_font = tkFont.Font(size=48, weight=&#39;bold&#39;)
 
     def make_banner(self):
-        main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font, width=31)
-        main_banner.grid(sticky=Tk.W)</code></pre>
+        main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font)
+        main_banner.grid(sticky=Tk.W, padx=10)</code></pre>
 </details>
 </section>
 <section>
@@ -67,8 +67,8 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
         self.banner_font = tkFont.Font(size=48, weight=&#39;bold&#39;)
 
     def make_banner(self):
-        main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font, width=31)
-        main_banner.grid(sticky=Tk.W)</code></pre>
+        main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font)
+        main_banner.grid(sticky=Tk.W, padx=10)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -92,8 +92,8 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def make_banner(self):
-    main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font, width=31)
-    main_banner.grid(sticky=Tk.W)</code></pre>
+    main_banner = Tk.Label(self, text=&#34;Rover&#34;, font=self.banner_font)
+    main_banner.grid(sticky=Tk.W, padx=10)</code></pre>
 </details>
 </dd>
 </dl>

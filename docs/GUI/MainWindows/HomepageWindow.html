@@ -25,6 +25,8 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import tkinter as Tk
+from tkinter import font as tkFont
+from tkinter import filedialog
 import os, sys, inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -42,20 +44,19 @@ class HomepageWindow(Tk.Frame):
     def __init__(self, parent, **kwargs):
         Tk.Frame.__init__(self, parent, **kwargs)
         self.parent = parent
-        self.batch_filename = Tk.Entry(self)
+        self.select_button_font = tkFont.Font(size=18, weight=&#39;bold&#39;)
 
     def homepage(self):
-        batch_entry_label = Tk.Label(self, text=&#34;Enter batch file name: &#34;)
-        batch_filename_button = Tk.Button(self, text=&#34;Process Data&#34;,
-                                          command=lambda item=self.batch_filename.get():
-                                          self.start_data_processing(self.batch_filename.get()))
-        batch_entry_label.grid()
-        self.batch_filename.grid()
-        batch_filename_button.grid()
+        select_button = Tk.Button(self, text=&#34;Select data file&#34;, command=self.browse_button, font=self.select_button_font)
+        select_button.grid(sticky=Tk.W, padx=10, pady=10)
 
     def start_data_processing(self, file_name):
         batch = cont(file_name)
-        self.parent.display_batchpage(batch)</code></pre>
+        self.parent.display_batchpage(batch)
+
+    def browse_button(self):
+        filename = filedialog.askopenfilename(initialdir= r&#34;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files&#34;)
+        self.start_data_processing(filename)</code></pre>
 </details>
 </section>
 <section>
@@ -85,20 +86,19 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
     def __init__(self, parent, **kwargs):
         Tk.Frame.__init__(self, parent, **kwargs)
         self.parent = parent
-        self.batch_filename = Tk.Entry(self)
+        self.select_button_font = tkFont.Font(size=18, weight=&#39;bold&#39;)
 
     def homepage(self):
-        batch_entry_label = Tk.Label(self, text=&#34;Enter batch file name: &#34;)
-        batch_filename_button = Tk.Button(self, text=&#34;Process Data&#34;,
-                                          command=lambda item=self.batch_filename.get():
-                                          self.start_data_processing(self.batch_filename.get()))
-        batch_entry_label.grid()
-        self.batch_filename.grid()
-        batch_filename_button.grid()
+        select_button = Tk.Button(self, text=&#34;Select data file&#34;, command=self.browse_button, font=self.select_button_font)
+        select_button.grid(sticky=Tk.W, padx=10, pady=10)
 
     def start_data_processing(self, file_name):
         batch = cont(file_name)
-        self.parent.display_batchpage(batch)</code></pre>
+        self.parent.display_batchpage(batch)
+
+    def browse_button(self):
+        filename = filedialog.askopenfilename(initialdir= r&#34;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files&#34;)
+        self.start_data_processing(filename)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -112,6 +112,20 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
 </ul>
 <h3>Methods</h3>
 <dl>
+<dt id="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.browse_button"><code class="name flex">
+<span>def <span class="ident">browse_button</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def browse_button(self):
+    filename = filedialog.askopenfilename(initialdir= r&#34;T:\ANALYST WORK FILES\Peter\Rover\xml_data_files&#34;)
+    self.start_data_processing(filename)</code></pre>
+</details>
+</dd>
 <dt id="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.homepage"><code class="name flex">
 <span>def <span class="ident">homepage</span></span>(<span>self)</span>
 </code></dt>
@@ -122,13 +136,8 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def homepage(self):
-    batch_entry_label = Tk.Label(self, text=&#34;Enter batch file name: &#34;)
-    batch_filename_button = Tk.Button(self, text=&#34;Process Data&#34;,
-                                      command=lambda item=self.batch_filename.get():
-                                      self.start_data_processing(self.batch_filename.get()))
-    batch_entry_label.grid()
-    self.batch_filename.grid()
-    batch_filename_button.grid()</code></pre>
+    select_button = Tk.Button(self, text=&#34;Select data file&#34;, command=self.browse_button, font=self.select_button_font)
+    select_button.grid(sticky=Tk.W, padx=10, pady=10)</code></pre>
 </details>
 </dd>
 <dt id="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.start_data_processing"><code class="name flex">
@@ -166,6 +175,7 @@ highlightcolor, highlightthickness, relief, takefocus, visual, width.</p></secti
 <li>
 <h4><code><a title="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow" href="#Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow">HomepageWindow</a></code></h4>
 <ul class="">
+<li><code><a title="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.browse_button" href="#Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.browse_button">browse_button</a></code></li>
 <li><code><a title="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.homepage" href="#Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.homepage">homepage</a></code></li>
 <li><code><a title="Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.start_data_processing" href="#Rover_Source_Code.GUI.MainWindows.HomepageWindow.HomepageWindow.start_data_processing">start_data_processing</a></code></li>
 </ul>

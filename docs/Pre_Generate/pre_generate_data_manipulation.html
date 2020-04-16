@@ -238,11 +238,16 @@ class PreGenerateDataManipulation:
             if row[&#39;over_curve&#39;] == &#39;over&#39;:
                 dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                                 &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
-                self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+                try:
+                    self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
+                    self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+                except IndexError:
+                    self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Out of range, no dil. &#39;
         self.samples_data_frame.fillna(0, inplace=True)
 
     def create_condensed_sample_list_data_frame_for_gui(self):
+        &#34;&#34;&#34;creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+        (All samples - raw).&#34;&#34;&#34;
         self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
                                                                      &#39;name20&#39;,
                                                                      &#39;percentage_concentration&#39;,
@@ -255,7 +260,9 @@ class PreGenerateDataManipulation:
         self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
 
     def limit_sig_figs_in_dataframes(self):
-        sig_figs = 2
+        &#34;&#34;&#34;This function rounds the values in the percentage recovery and percentage concentration columns of the
+        standard recovery data frame and the samples data frame, respectively. &#34;&#34;&#34;
+        sig_figs = 4
         self.best_recovery_qc_data_frame.fillna(0, inplace=True)
         self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
             lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
@@ -503,11 +510,16 @@ blank_data_frame.</li>
             if row[&#39;over_curve&#39;] == &#39;over&#39;:
                 dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                                 &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
-                self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+                try:
+                    self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
+                    self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+                except IndexError:
+                    self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Out of range, no dil. &#39;
         self.samples_data_frame.fillna(0, inplace=True)
 
     def create_condensed_sample_list_data_frame_for_gui(self):
+        &#34;&#34;&#34;creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+        (All samples - raw).&#34;&#34;&#34;
         self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
                                                                      &#39;name20&#39;,
                                                                      &#39;percentage_concentration&#39;,
@@ -520,7 +532,9 @@ blank_data_frame.</li>
         self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
 
     def limit_sig_figs_in_dataframes(self):
-        sig_figs = 2
+        &#34;&#34;&#34;This function rounds the values in the percentage recovery and percentage concentration columns of the
+        standard recovery data frame and the samples data frame, respectively. &#34;&#34;&#34;
+        sig_figs = 4
         self.best_recovery_qc_data_frame.fillna(0, inplace=True)
         self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
             lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
@@ -685,12 +699,15 @@ What we want in the end is closest recovery to 100, but not over 100.</p></secti
 <span>def <span class="ident">create_condensed_sample_list_data_frame_for_gui</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+(All samples - raw).</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def create_condensed_sample_list_data_frame_for_gui(self):
+    &#34;&#34;&#34;creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+    (All samples - raw).&#34;&#34;&#34;
     self.condensed_samples_data_frame = self.samples_data_frame[[&#39;sampleid&#39;,
                                                                  &#39;name20&#39;,
                                                                  &#39;percentage_concentration&#39;,
@@ -764,13 +781,16 @@ These values are used to assign flags that indicate whether a given peak area is
 <span>def <span class="ident">limit_sig_figs_in_dataframes</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This function rounds the values in the percentage recovery and percentage concentration columns of the
+standard recovery data frame and the samples data frame, respectively.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def limit_sig_figs_in_dataframes(self):
-    sig_figs = 2
+    &#34;&#34;&#34;This function rounds the values in the percentage recovery and percentage concentration columns of the
+    standard recovery data frame and the samples data frame, respectively. &#34;&#34;&#34;
+    sig_figs = 4
     self.best_recovery_qc_data_frame.fillna(0, inplace=True)
     self.best_recovery_qc_data_frame[&#39;percrecovery&#39;] = self.best_recovery_qc_data_frame.percrecovery.apply(
         lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 &gt; x &gt; 0) else int(round(x)))
@@ -837,8 +857,11 @@ the flag from 'over' to 'Corrected: new area = (area from dilution)'.</p></secti
         if row[&#39;over_curve&#39;] == &#39;over&#39;:
             dilution = self.sample_dilutions_data_frame.loc[(self.sample_dilutions_data_frame[&#39;id17&#39;] == row[&#39;id17&#39;])
                                                             &amp; (self.sample_dilutions_data_frame[&#39;sampleid&#39;].str.contains(row[&#39;sampleid&#39;]))]
-            self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
-            self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+            try:
+                self.samples_data_frame.loc[index, &#39;percentage_concentration&#39;] = dilution.iloc[0, 9]
+                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Corrected: new area = &#39; + str(dilution.iloc[0, 5])
+            except IndexError:
+                self.samples_data_frame.loc[index, &#39;over_curve&#39;] = &#39;Out of range, no dil. &#39;
     self.samples_data_frame.fillna(0, inplace=True)</code></pre>
 </details>
 </dd>

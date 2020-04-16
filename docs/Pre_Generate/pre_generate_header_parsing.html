@@ -94,13 +94,16 @@ class PreGenerateHeaderParsing:
             current_month_file_path = self.current_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
             last_month_file_path = self.last_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
             header_contents = &#39;&#39;
+            print(&#34;attempting to find header for &#34; + item)
             try:
                 header = open(current_month_file_path, &#39;r&#39;)
                 header_contents = header.read()
+                print(item + &#34; header found.&#34;)
             except FileNotFoundError:
                 try:
                     header = open(last_month_file_path, &#39;r&#39;)
                     header_contents = header.read()
+                    print(item + &#34; header found.&#34;)
                 except FileNotFoundError:
                     print(&#39;shit dont be here&#39;)
                     print(&#34;ERROR: HEADER FOR AT LEAST ONE JOB CANNOT BE FOUND&#34;)
@@ -167,48 +170,21 @@ class PreGenerateHeaderParsing:
                 sample_information[sample_info_counter] = item[0] + &#39;)&#39; + item[1:]
             sample_info_counter += 1
         sample_information = &#39; &#39;.join(sample_information)
-        datestring = &#34;Date: &#34; + date + &#34; (&#34; + time + &#34;)&#34;
-        a_length = len(datestring)
-        sourcestring = &#34;Source: &#34; + sample_type
-        b_length = len(sourcestring)
-        subtype_string = &#34;Type: &#34; + sample_subtype
-        c_length = len(subtype_string)
-        samplenumberstring = &#34;No. of Samples: &#34; + number_of_samples
-        d_length = len(samplenumberstring)
-        arrivaltempstring = &#34;Arrival temp: &#34; + arrival_temp
-        e_length = len(arrivaltempstring)
-        endinfo3string = end_info_3
-        f_length = len(endinfo3string)
-        lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
-        longest = max(lengthlist)
-        counter = 0
-        for item in lengthlist:
-            if item != longest:
-                offset = longest - item -1
-                offset = &#34;x&#34; * offset
-                offset = r&#39;\phantom{&#39; + offset + &#34;}&#34;
-                lengthlist[counter] = offset
-                counter += 1
-            else:
-                offset = r&#39;\phantom{}&#39;
-                lengthlist[counter] = offset
-                counter += 1
         parsed_header_contents = [name1,
                                   date,
                                   time,
                                   w_number,
                                   name2,
-                                  sample_type,
                                   name3,
-                                  sample_subtype,
                                   name4,
+                                  sample_type,
+                                  sample_subtype,
                                   number_of_samples,
-                                  telephone,
                                   arrival_temp,
+                                  telephone,
                                   end_info_1,
                                   end_info_2,
                                   end_info_3,
-                                  lengthlist,
                                   sample_information]
         return parsed_header_contents</code></pre>
 </details>
@@ -308,13 +284,16 @@ of the header_parser method.</li>
             current_month_file_path = self.current_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
             last_month_file_path = self.last_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
             header_contents = &#39;&#39;
+            print(&#34;attempting to find header for &#34; + item)
             try:
                 header = open(current_month_file_path, &#39;r&#39;)
                 header_contents = header.read()
+                print(item + &#34; header found.&#34;)
             except FileNotFoundError:
                 try:
                     header = open(last_month_file_path, &#39;r&#39;)
                     header_contents = header.read()
+                    print(item + &#34; header found.&#34;)
                 except FileNotFoundError:
                     print(&#39;shit dont be here&#39;)
                     print(&#34;ERROR: HEADER FOR AT LEAST ONE JOB CANNOT BE FOUND&#34;)
@@ -381,48 +360,21 @@ of the header_parser method.</li>
                 sample_information[sample_info_counter] = item[0] + &#39;)&#39; + item[1:]
             sample_info_counter += 1
         sample_information = &#39; &#39;.join(sample_information)
-        datestring = &#34;Date: &#34; + date + &#34; (&#34; + time + &#34;)&#34;
-        a_length = len(datestring)
-        sourcestring = &#34;Source: &#34; + sample_type
-        b_length = len(sourcestring)
-        subtype_string = &#34;Type: &#34; + sample_subtype
-        c_length = len(subtype_string)
-        samplenumberstring = &#34;No. of Samples: &#34; + number_of_samples
-        d_length = len(samplenumberstring)
-        arrivaltempstring = &#34;Arrival temp: &#34; + arrival_temp
-        e_length = len(arrivaltempstring)
-        endinfo3string = end_info_3
-        f_length = len(endinfo3string)
-        lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
-        longest = max(lengthlist)
-        counter = 0
-        for item in lengthlist:
-            if item != longest:
-                offset = longest - item -1
-                offset = &#34;x&#34; * offset
-                offset = r&#39;\phantom{&#39; + offset + &#34;}&#34;
-                lengthlist[counter] = offset
-                counter += 1
-            else:
-                offset = r&#39;\phantom{}&#39;
-                lengthlist[counter] = offset
-                counter += 1
         parsed_header_contents = [name1,
                                   date,
                                   time,
                                   w_number,
                                   name2,
-                                  sample_type,
                                   name3,
-                                  sample_subtype,
                                   name4,
+                                  sample_type,
+                                  sample_subtype,
                                   number_of_samples,
-                                  telephone,
                                   arrival_temp,
+                                  telephone,
                                   end_info_1,
                                   end_info_2,
                                   end_info_3,
-                                  lengthlist,
                                   sample_information]
         return parsed_header_contents</code></pre>
 </details>
@@ -478,13 +430,16 @@ which parses these headers to the best of it's ability. It does an alright job, 
         current_month_file_path = self.current_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
         last_month_file_path = self.last_month_directory + &#39;W&#39; + item + &#39;.TXT&#39;
         header_contents = &#39;&#39;
+        print(&#34;attempting to find header for &#34; + item)
         try:
             header = open(current_month_file_path, &#39;r&#39;)
             header_contents = header.read()
+            print(item + &#34; header found.&#34;)
         except FileNotFoundError:
             try:
                 header = open(last_month_file_path, &#39;r&#39;)
                 header_contents = header.read()
+                print(item + &#34; header found.&#34;)
             except FileNotFoundError:
                 print(&#39;shit dont be here&#39;)
                 print(&#34;ERROR: HEADER FOR AT LEAST ONE JOB CANNOT BE FOUND&#34;)
@@ -561,48 +516,21 @@ which parses these headers to the best of it's ability. It does an alright job, 
             sample_information[sample_info_counter] = item[0] + &#39;)&#39; + item[1:]
         sample_info_counter += 1
     sample_information = &#39; &#39;.join(sample_information)
-    datestring = &#34;Date: &#34; + date + &#34; (&#34; + time + &#34;)&#34;
-    a_length = len(datestring)
-    sourcestring = &#34;Source: &#34; + sample_type
-    b_length = len(sourcestring)
-    subtype_string = &#34;Type: &#34; + sample_subtype
-    c_length = len(subtype_string)
-    samplenumberstring = &#34;No. of Samples: &#34; + number_of_samples
-    d_length = len(samplenumberstring)
-    arrivaltempstring = &#34;Arrival temp: &#34; + arrival_temp
-    e_length = len(arrivaltempstring)
-    endinfo3string = end_info_3
-    f_length = len(endinfo3string)
-    lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
-    longest = max(lengthlist)
-    counter = 0
-    for item in lengthlist:
-        if item != longest:
-            offset = longest - item -1
-            offset = &#34;x&#34; * offset
-            offset = r&#39;\phantom{&#39; + offset + &#34;}&#34;
-            lengthlist[counter] = offset
-            counter += 1
-        else:
-            offset = r&#39;\phantom{}&#39;
-            lengthlist[counter] = offset
-            counter += 1
     parsed_header_contents = [name1,
                               date,
                               time,
                               w_number,
                               name2,
-                              sample_type,
                               name3,
-                              sample_subtype,
                               name4,
+                              sample_type,
+                              sample_subtype,
                               number_of_samples,
-                              telephone,
                               arrival_temp,
+                              telephone,
                               end_info_1,
                               end_info_2,
                               end_info_3,
-                              lengthlist,
                               sample_information]
     return parsed_header_contents</code></pre>
 </details>

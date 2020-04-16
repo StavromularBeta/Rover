@@ -28,15 +28,23 @@
 
 
 class HeaderMethods:
+    &#34;&#34;&#34;This class contains the methods that create the latex headers for all of the reports.&#34;&#34;&#34;
 
     def __init__(self, header_data):
+        &#34;&#34;&#34;
+        1. header_data = the header data from pre_generate with GUI modifications - specifically, any changes made on
+        the GUI have replaced the parsed attempts at the correct information, and the spacing has been added.
+        2. latex_header_dictionary = the dictionary of finished latex headers only.
+        3. latex_header_and_sample_list_dictionary = the dictionary of finished latex headers and sample lists.
+        &#34;&#34;&#34;
         self.header_data = header_data
         self.latex_header_dictionary = {}
         self.latex_header_and_sample_list_dictionary = {}
 
     def generate_job_latex_headers(self):
-        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. the 16th
+        list item is a list of padding, which gets applied to the center column of the header so that the center column
+        is properly aligned (the one downfall of this latex header package, no alignment on the center column). &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             header_string = r&#34;&#34;&#34;
 \documentclass{article}
@@ -48,12 +56,12 @@ class HeaderMethods:
 \usepackage{siunitx}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
+\usepackage[includeheadfoot, margin=1in, headheight=100pt]{geometry}
 \pagestyle{fancy}
-\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[5] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[16][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[7] + item[16][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
 \fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
 \renewcommand{\headrulewidth}{0pt}
-\setlength\headheight{60pt}
 \begin{document}&#34;&#34;&#34;
             self.latex_header_dictionary[key] = header_string
         return self.latex_header_dictionary
@@ -62,7 +70,13 @@ class HeaderMethods:
         &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             samples_string = r&#34;&#34;&#34;
-\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\phantom{a}
+\newline
+\newline
+\newline
+\newline
+\textbf{Samples:} &#34;&#34;&#34; + item[15] + r&#34;&#34;&#34;
+\phantom{a}
 \newline
 \newline
 \hline
@@ -85,21 +99,35 @@ class HeaderMethods:
 <span>(</span><span>header_data)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><p>This class contains the methods that create the latex headers for all of the reports.</p>
+<ol>
+<li>header_data = the header data from pre_generate with GUI modifications - specifically, any changes made on
+the GUI have replaced the parsed attempts at the correct information, and the spacing has been added.</li>
+<li>latex_header_dictionary = the dictionary of finished latex headers only.</li>
+<li>latex_header_and_sample_list_dictionary = the dictionary of finished latex headers and sample lists.</li>
+</ol></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class HeaderMethods:
+    &#34;&#34;&#34;This class contains the methods that create the latex headers for all of the reports.&#34;&#34;&#34;
 
     def __init__(self, header_data):
+        &#34;&#34;&#34;
+        1. header_data = the header data from pre_generate with GUI modifications - specifically, any changes made on
+        the GUI have replaced the parsed attempts at the correct information, and the spacing has been added.
+        2. latex_header_dictionary = the dictionary of finished latex headers only.
+        3. latex_header_and_sample_list_dictionary = the dictionary of finished latex headers and sample lists.
+        &#34;&#34;&#34;
         self.header_data = header_data
         self.latex_header_dictionary = {}
         self.latex_header_and_sample_list_dictionary = {}
 
     def generate_job_latex_headers(self):
-        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. the 16th
+        list item is a list of padding, which gets applied to the center column of the header so that the center column
+        is properly aligned (the one downfall of this latex header package, no alignment on the center column). &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             header_string = r&#34;&#34;&#34;
 \documentclass{article}
@@ -111,12 +139,12 @@ class HeaderMethods:
 \usepackage{siunitx}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
+\usepackage[includeheadfoot, margin=1in, headheight=100pt]{geometry}
 \pagestyle{fancy}
-\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[5] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[16][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[7] + item[16][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
 \fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
 \renewcommand{\headrulewidth}{0pt}
-\setlength\headheight{60pt}
 \begin{document}&#34;&#34;&#34;
             self.latex_header_dictionary[key] = header_string
         return self.latex_header_dictionary
@@ -125,7 +153,13 @@ class HeaderMethods:
         &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             samples_string = r&#34;&#34;&#34;
-\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\phantom{a}
+\newline
+\newline
+\newline
+\newline
+\textbf{Samples:} &#34;&#34;&#34; + item[15] + r&#34;&#34;&#34;
+\phantom{a}
 \newline
 \newline
 \hline
@@ -139,15 +173,17 @@ class HeaderMethods:
 <span>def <span class="ident">generate_job_latex_headers</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-there will be fewer headers than samples if jobs contain more than one sample.</p></section>
+<section class="desc"><p>Iterates through the parsed header contents dictionary and produces the latex header for each job. the 16th
+list item is a list of padding, which gets applied to the center column of the header so that the center column
+is properly aligned (the one downfall of this latex header package, no alignment on the center column).</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">    def generate_job_latex_headers(self):
-        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. Note that
-        there will be fewer headers than samples if jobs contain more than one sample.&#34;&#34;&#34;
+        &#34;&#34;&#34;Iterates through the parsed header contents dictionary and produces the latex header for each job. the 16th
+        list item is a list of padding, which gets applied to the center column of the header so that the center column
+        is properly aligned (the one downfall of this latex header package, no alignment on the center column). &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             header_string = r&#34;&#34;&#34;
 \documentclass{article}
@@ -159,12 +195,12 @@ there will be fewer headers than samples if jobs contain more than one sample.</
 \usepackage{siunitx}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
+\usepackage[includeheadfoot, margin=1in, headheight=100pt]{geometry}
 \pagestyle{fancy}
-\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[15][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[5] + item[15][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[7] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[15][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
+\fancyhead[L]{&#34;&#34;&#34; + item[0] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[4] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[5] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[6] + r&#34;&#34;&#34;\\ &#34;&#34;&#34; + item[11] + r&#34;&#34;&#34; \\ &#34;&#34;&#34; + item[13] + r&#34;&#34;&#34;\\ \phantom{a}\\}
+\fancyhead[C]{\textbf{Date:} &#34;&#34;&#34; + item[1] + r&#34;&#34;&#34;  (&#34;&#34;&#34; + item[2] + r&#34;&#34;&#34;)&#34;&#34;&#34; + item[16][0] + r&#34;&#34;&#34; \\\textbf{Source:} &#34;&#34;&#34; + item[7] + item[16][1] + r&#34;&#34;&#34; \\\textbf{Type:} &#34;&#34;&#34; + item[8] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][2] + r&#34;&#34;&#34; \\\textbf{No. of Samples:} &#34;&#34;&#34; + item[9] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][3] + r&#34;&#34;&#34;\\\textbf{Arrival temp:} &#34;&#34;&#34; + item[10] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][4] + r&#34;&#34;&#34;\\&#34;&#34;&#34; + item[14] + r&#34;&#34;&#34;&#34;&#34;&#34; + item[16][5] + r&#34;&#34;&#34;\\\phantom{a}\\}
 \fancyhead[R]{\textbf{No.} &#34;&#34;&#34; + item[3] + r&#34;&#34;&#34;\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
 \renewcommand{\headrulewidth}{0pt}
-\setlength\headheight{60pt}
 \begin{document}&#34;&#34;&#34;
             self.latex_header_dictionary[key] = header_string
         return self.latex_header_dictionary</code></pre>
@@ -183,7 +219,13 @@ there will be fewer headers than samples if jobs contain more than one sample.</
         &#34;&#34;&#34;iterates through the parsed header contents dictionary and produces the sample list for each job. &#34;&#34;&#34;
         for key, item in self.header_data.header_contents_dictionary.items():
             samples_string = r&#34;&#34;&#34;
-\textbf{Samples:} &#34;&#34;&#34; + item[16] + r&#34;&#34;&#34;
+\phantom{a}
+\newline
+\newline
+\newline
+\newline
+\textbf{Samples:} &#34;&#34;&#34; + item[15] + r&#34;&#34;&#34;
+\phantom{a}
 \newline
 \newline
 \hline

@@ -98,26 +98,25 @@ class ReportWriter:
                                        }
 
 #       This dictionary is for containing the LOQ&#39;s. keys match the list indices at the table writing step.
-        self.loq_dictionary = {1: &#39;0.030&#39;,
-                               2: &#39;0.003&#39;,
-                               3: &#39;0.003&#39;,
-                               4: &#39;0.003&#39;,
-                               5: &#39;0.003&#39;,
-                               6: &#39;0.003&#39;,
-                               7: &#39;0.003&#39;,
-                               8: &#39;0.003&#39;,
-                               9: &#39;0.030&#39;,
-                               10: &#39;0.003&#39;,
-                               11: &#39;0.003&#39;,
-                               12: &#39;0.003&#39;,
-                               13: &#39;0.003&#39;,
-                               14: &#39;0.003&#39;,
-                               15: &#39;0.003&#39;,
-                               16: &#39;0.003&#39;,
-                               17: &#39;0.003&#39;,
-                               18: &#39;0.003&#39;,
+        self.loq_dictionary = {1: &#39;0.001&#39;,
+                               2: &#39;0.001&#39;,
+                               3: &#39;0.001&#39;,
+                               4: &#39;0.001&#39;,
+                               5: &#39;0.001&#39;,
+                               6: &#39;0.001&#39;,
+                               7: &#39;0.001&#39;,
+                               8: &#39;0.001&#39;,
+                               9: &#39;0.001&#39;,
+                               10: &#39;0.001&#39;,
+                               11: &#39;0.001&#39;,
+                               12: &#39;0.001&#39;,
+                               13: &#39;0.001&#39;,
+                               14: &#39;0.001&#39;,
+                               15: &#39;0.001&#39;,
+                               16: &#39;0.001&#39;,
+                               17: &#39;0.001&#39;,
+                               18: &#39;0.001&#39;,
                                }
-
         # Helper classes
         self.header_methods = HeaderMethods(header_data)
         self.organize_methods = OrganizeMethods(updates, sample_data)
@@ -129,7 +128,7 @@ class ReportWriter:
         pd.set_option(&#39;display.width&#39;, None)
         pd.set_option(&#39;display.max_colwidth&#39;, -1)
 
-    def deluxe_report_percentage_controller(self):
+    def post_generate_controller(self):
         &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
         the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
         any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
@@ -261,26 +260,25 @@ and splitting the samples into single or multi is in here.</li>
                                        }
 
 #       This dictionary is for containing the LOQ&#39;s. keys match the list indices at the table writing step.
-        self.loq_dictionary = {1: &#39;0.030&#39;,
-                               2: &#39;0.003&#39;,
-                               3: &#39;0.003&#39;,
-                               4: &#39;0.003&#39;,
-                               5: &#39;0.003&#39;,
-                               6: &#39;0.003&#39;,
-                               7: &#39;0.003&#39;,
-                               8: &#39;0.003&#39;,
-                               9: &#39;0.030&#39;,
-                               10: &#39;0.003&#39;,
-                               11: &#39;0.003&#39;,
-                               12: &#39;0.003&#39;,
-                               13: &#39;0.003&#39;,
-                               14: &#39;0.003&#39;,
-                               15: &#39;0.003&#39;,
-                               16: &#39;0.003&#39;,
-                               17: &#39;0.003&#39;,
-                               18: &#39;0.003&#39;,
+        self.loq_dictionary = {1: &#39;0.001&#39;,
+                               2: &#39;0.001&#39;,
+                               3: &#39;0.001&#39;,
+                               4: &#39;0.001&#39;,
+                               5: &#39;0.001&#39;,
+                               6: &#39;0.001&#39;,
+                               7: &#39;0.001&#39;,
+                               8: &#39;0.001&#39;,
+                               9: &#39;0.001&#39;,
+                               10: &#39;0.001&#39;,
+                               11: &#39;0.001&#39;,
+                               12: &#39;0.001&#39;,
+                               13: &#39;0.001&#39;,
+                               14: &#39;0.001&#39;,
+                               15: &#39;0.001&#39;,
+                               16: &#39;0.001&#39;,
+                               17: &#39;0.001&#39;,
+                               18: &#39;0.001&#39;,
                                }
-
         # Helper classes
         self.header_methods = HeaderMethods(header_data)
         self.organize_methods = OrganizeMethods(updates, sample_data)
@@ -292,7 +290,7 @@ and splitting the samples into single or multi is in here.</li>
         pd.set_option(&#39;display.width&#39;, None)
         pd.set_option(&#39;display.max_colwidth&#39;, -1)
 
-    def deluxe_report_percentage_controller(self):
+    def post_generate_controller(self):
         &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
         the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
         any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
@@ -323,8 +321,8 @@ and splitting the samples into single or multi is in here.</li>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller"><code class="name flex">
-<span>def <span class="ident">deluxe_report_percentage_controller</span></span>(<span>self)</span>
+<dt id="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.post_generate_controller"><code class="name flex">
+<span>def <span class="ident">post_generate_controller</span></span>(<span>self)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>This is the controller function for the class. First, the latex header dictionaries are produced. Then,
@@ -336,7 +334,7 @@ in the init, because I haven't done proper class inheritance.</p></section>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def deluxe_report_percentage_controller(self):
+<pre><code class="python">def post_generate_controller(self):
     &#34;&#34;&#34;This is the controller function for the class. First, the latex header dictionaries are produced. Then,
     the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
     any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
@@ -387,7 +385,7 @@ in the init, because I haven't done proper class inheritance.</p></section>
 <li>
 <h4><code><a title="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter" href="#Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter">ReportWriter</a></code></h4>
 <ul class="">
-<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller" href="#Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.deluxe_report_percentage_controller">deluxe_report_percentage_controller</a></code></li>
+<li><code><a title="Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.post_generate_controller" href="#Rover_Source_Code.Post_Generate.post_generate_controller.ReportWriter.post_generate_controller">post_generate_controller</a></code></li>
 </ul>
 </li>
 </ul>
