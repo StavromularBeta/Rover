@@ -513,7 +513,7 @@ class SingleMethods:
                                           16] + r"""& """ + self.loq_dictionary[16] + r"""\\
     \hline
     \hline
-    \textbf{Total THC*} &  \textbf{""" + thc_total[0] + r"""} & \textbf{ """ + thc_total[1] + r"""} & & &\\
+    \textbf{Total THC*} &  \textbf{""" + thc_total[0] + r"""} & \textbf{""" + thc_total[1] + r"""} & & &\\
     \hline
     \hline
     $\Delta^{8}$THC & """ + data[12][0] + r""" &  """ + data[12][1] + r""" & ND & """ + recov_data[12] + r"""& """ + \
@@ -531,7 +531,7 @@ class SingleMethods:
                                       self.loq_dictionary[7] + r"""\\
     \hline
     \hline
-    \textbf{Total CBD**} &  \textbf{""" + cbd_total[0] + r"""} & \textbf{ """ + cbd_total[1] + r"""} & & &\\
+    \textbf{Total CBD**} &  \textbf{""" + cbd_total[0] + r"""} & \textbf{""" + cbd_total[1] + r"""} & & &\\
     \hline
     \hline
     Cannabigerol (CBG) & """ + data[6][0] + r""" &  """ + data[6][1] + r""" & ND & """ + recov_data[6] + r"""& """ + \
@@ -660,7 +660,7 @@ class SingleMethods:
                                          6] + r"""& """ + self.loq_dictionary[6] + r"""\\
     \hline
     \hline
-    \textbf{Total THC*} &  \textbf{""" + thc_total[0] + r"""} & \textbf{ """ + thc_total[1] + r"""} & & &\\
+    \textbf{Total THC*} &  \textbf{""" + thc_total[0] + r"""} & \textbf{""" + thc_total[1] + r"""} & & &\\
     \hline
     \hline
     $\Delta^{8}$ THC & """ + data[7][0] + r""" &  """ + data[7][1] + r""" &  ND & """ + recov_data[7] + r"""& """ + \
@@ -673,7 +673,7 @@ class SingleMethods:
                                      self.loq_dictionary[2] + r"""\\
     \hline
     \hline
-    \textbf{Total CBD**} &  \textbf{""" + cbd_total[0] + r"""} & \textbf{ """ + cbd_total[1] + r"""} & & &\\
+    \textbf{Total CBD**} &  \textbf{""" + cbd_total[0] + r"""} & \textbf{""" + cbd_total[1] + r"""} & & &\\
     \hline
     \hline
     Cannabinol (CBN) & """ + data[3][0] + r""" &  """ + data[3][1] + r""" &   ND & """ + recov_data[3] + r"""& """ + \
