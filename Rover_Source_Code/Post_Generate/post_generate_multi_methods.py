@@ -71,14 +71,12 @@ class MultiMethods:
         """determines whether a given report can fit one one page/ has to be written on multiple pages. If there
         are no jobs requiring multiple samples per page, the first part of the if statement prevents the code from
         crashing. If there are more than 4 samples, we need multiple pages.
-
         This is pretty close to a 'controller' function for this class. If the job only needs one page, the code in
         the elif statement executes. a header, table, and footer are produced, combined, and added to the finished
         reports dictionary. If the job requires multiple pages, a header, multiple tables, and a footer are generated.
         each table is added to the header, along with a latex command that starts a new page after each table. When the
         footer is added, the last \newpage command is removed prior to its addition to the bulk of the report. This
         is then added to the finished reports dictionary.
-
         Note that if a job with one sample is selected as a 'multi' job at the GUI step, then it will be put through the
         multiple samples per job routine by default. It specifically has to be selected as a 'single' job to go through
         the single_methods class."""
@@ -283,7 +281,7 @@ class MultiMethods:
                 data_value = str(data_value)[0:4]
             elif 1 > data_value > 0:
                 data_value = str(data_value)[0:5]
-            elif data_value > 100:
+            elif data_value >= 100:
                 data_value = str(data_value)[0:3]
             else:
                 data_value = 'ND'

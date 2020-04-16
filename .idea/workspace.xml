@@ -7,6 +7,25 @@
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/BannerWindow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/MainWindow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/MainWindows/BatchWindow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/MainWindows/HomepageWindow.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/MainWindows/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/RoverGUI.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/GUI/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_controller.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_file_writing_methods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_header_methods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_multi_methods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_organize_methods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Post_Generate/post_generate_single_methods.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_controller.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_data_manipulation.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Pre_Generate/pre_generate_header_parsing.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
