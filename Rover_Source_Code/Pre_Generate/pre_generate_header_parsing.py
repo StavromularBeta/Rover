@@ -68,6 +68,7 @@ class PreGenerateHeaderParsing:
             current_month_file_path = self.current_month_directory + 'W' + item + '.TXT'
             last_month_file_path = self.last_month_directory + 'W' + item + '.TXT'
             header_contents = ''
+            print("HEADER INFORMATION")
             print("attempting to find header for " + item)
             try:
                 header = open(current_month_file_path, 'r')
@@ -79,15 +80,18 @@ class PreGenerateHeaderParsing:
                     header_contents = header.read()
                     print(item + " header found.")
                 except FileNotFoundError:
-                    print('shit dont be here')
-                    print("ERROR: HEADER FOR AT LEAST ONE JOB CANNOT BE FOUND")
-                    print("at least one header cannot be found for the current batch of jobs.")
-                    print("SCRIPT EXITING.")
-                    sys.exit()
+                    print("ERROR: header not found. Dummy header made up in place.")
+                    header_contents = "Header not found"
+#                   sys.exit()
+#                   uncommenting will allow user to exit upon a missing header, rather than adding a dummy header.
             self.header_contents_dictionary[item] = self.header_parser(header_contents)
 
     def header_parser(self, header_contents):
         """I don't want to talk about it. It works, somehow."""
+        if header_contents == "Header not found":
+            parsed_header_contents = ['no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no',
+                                      'no', 'no', 'no']
+            return parsed_header_contents
         name1 = header_contents[0:55].strip()
         date = header_contents[55:66].strip()
         time = header_contents[66:84].strip()
