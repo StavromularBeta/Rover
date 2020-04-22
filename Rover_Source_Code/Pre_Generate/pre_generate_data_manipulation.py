@@ -97,7 +97,7 @@ class PreGenerateDataManipulation:
         self.swap_out_out_of_range_values()
         self.create_list_of_unique_samples()
         self.create_condensed_sample_list_data_frame_for_gui()
-        self.limit_sig_figs_in_dataframes()
+#       self.limit_sig_figs_in_dataframes()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
