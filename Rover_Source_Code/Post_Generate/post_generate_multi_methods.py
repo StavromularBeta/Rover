@@ -277,14 +277,7 @@ class MultiMethods:
                                 (self.sample_data.samples_data_frame['id17'] == cannabinoid_acid_id_17)
                                 & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                                 [data_column]].iloc[0][data_column] * 0.877)
-            if 100 > data_value >= 1:
-                data_value = str(data_value)[0:4]
-            elif 1 > data_value > 0:
-                data_value = str(data_value)[0:5]
-            elif data_value >= 100:
-                data_value = str(data_value)[0:3]
-            else:
-                data_value = 'ND'
+            data_value = self.sig_fig_and_rounding_for_values(data_value)
             data_value = r"\textbf{" + data_value + "} &"
             cannabinoid_latex_string += data_value
         cannabinoid_latex_string += r"""\\"""
@@ -324,30 +317,14 @@ class MultiMethods:
                             (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
                             & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
                             [data_column]].iloc[0][data_column]
-            if data_value == '-':
-                pass
-            elif 100 > data_value >= 1:
-                data_value = str(data_value)[0:4]
-            elif 1 > data_value > 0:
-                data_value = str(data_value)[0:5]
-            elif data_value >= 100:
-                data_value = str(data_value)[0:3]
-            else:
-                data_value = 'ND'
+            data_value = self.sig_fig_and_rounding_for_values(data_value)
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
         cannabinoid_recovery_value = self.sample_data.best_recovery_qc_data_frame.loc[
                                      self.sample_data.best_recovery_qc_data_frame['id17'] ==
                                      cannabinoid_id_17,
                                      ['percrecovery']].iloc[0]['percrecovery']
-        if 100 > cannabinoid_recovery_value >= 1:
-            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:4]
-        elif 1 > cannabinoid_recovery_value > 0:
-            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:5]
-        elif cannabinoid_recovery_value >= 100:
-            cannabinoid_recovery_value = str(cannabinoid_recovery_value)[0:3]
-        else:
-            cannabinoid_recovery_value = 'ND'
+        cannabinoid_recovery_value = self.sig_fig_and_rounding_for_values(cannabinoid_recovery_value)
         loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
@@ -371,3 +348,43 @@ H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilode
 \end{document}
  """
         return footer_string
+
+    def sig_fig_and_rounding_for_values(self, value):
+        """Does the following: produces values with 3 significant figures, mostly. significant figures takes a backseat
+         to how the report looks. We don't go lower than 3 decimal places on the report, so 0.001 will not be converted
+         to 0.00100, rather it will stay as is. 0.0555 would be converted to 0.056. The number 100 will also remain as
+         100, which is only one significant figure. Note that this method only works with values below 999. A value of
+         1000 would be incorrectly written as 100. This was written to replace the sig fig method in pre_generate,
+         which wasn't working properly for unknown reasons. This solution is far less elegant than that method... but
+         it works really well for what I need. """
+        if value == '-':
+            pass
+        elif 100 > value >= 1:
+            prevalue = str(value)[0:3]
+            rounded = str(value)[3]
+            rounder = str(value)[4]
+            if int(rounder) >= 5:
+                rounded = str(int(rounded) + 1)
+                value = prevalue + rounded
+            else:
+                value = prevalue + rounded
+        elif 1 > value > 0:
+            prevalue = str(value)[0:4]
+            rounded = str(value)[4]
+            rounder = str(value)[5]
+            if int(rounder) >= 5:
+                value = prevalue + rounded
+            else:
+                value = prevalue + rounded
+        elif value >= 100:
+            prevalue = str(value)[0:2]
+            rounded = str(value)[2]
+            rounder = str(value)[4]
+            if int(rounder) >= 5:
+                rounded = str(int(rounded) + 1)
+                value = prevalue + rounded
+            else:
+                value = prevalue + rounded
+        else:
+            value = 'ND'
+        return value
