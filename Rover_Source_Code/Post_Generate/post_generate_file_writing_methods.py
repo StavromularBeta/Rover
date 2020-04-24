@@ -21,7 +21,7 @@ class FileWritingMethods:
         for key, value in self.finished_reports_dictionary.items():
             try:
                 jobnumber = str(key)
-                filename = target + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
+                filename = target[:-1] + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
                 filename = filename.replace('/', '-')
                 with self.safe_open_w(filename) as f:
                     f.write(value)
@@ -30,7 +30,7 @@ class FileWritingMethods:
         for key, value in self.basic_reports_dictionary.items():
             try:
                 jobnumber = str(key)
-                filename = target + jobnumber + '\\' + jobnumber + '.txt'
+                filename = target[:-1] + jobnumber + '\\' + jobnumber + '.txt'
                 filename = filename.replace('/', '-')
                 with self.safe_open_w(filename) as f:
                     for item in value:

@@ -18,7 +18,8 @@ class BasicTextReports:
             unit_type = value[0]
             basic_deluxe_status = value[1]
             unit_density_modifier = value[2]
-            head_string = "JOB: " + jobnumber + '\n'
+            head_string = '\n\n'
+            head_string += "JOB: " + jobnumber + '\n'
             head_string += "SAMPLE: " + jobnumber_with_sample_designation + '\n'
             head_string += "UNITS REPORTED: " + unit_type + '\n'
             if unit_type == 'mg/mL':
@@ -27,7 +28,7 @@ class BasicTextReports:
                 head_string += 'ONE UNIT: ' + str(unit_density_modifier) + " g" + '\n'
             head_string += "BASIC/DELUXE STATUS: " + basic_deluxe_status + '\n'
             if dictionary_type == 'Multi':
-                head_string += "SINGLE/MULTIPLE SAMPLES PER REPORT: Multiple" + '\n'
+                head_string += "SINGLE/MULTIPLE SAMPLES PER REPORT: Multiple" + '\n\n'
             else:
                 head_string += "SINGLE/MULTIPLE SAMPLES PER REPORT: Single" + '\n\n'
             temporary_data_frame = self.sample_data.samples_data_frame[self.sample_data.samples_data_frame['sampleid']
@@ -59,6 +60,7 @@ class BasicTextReports:
                                                                        'name20',
                                                                        'percentage_concentration',
                                                                        'over_curve']]
+            condensed_temporary_data_frame.rename(columns={'percentage_concentration': r'%'}, inplace=True)
             if jobnumber in self.basic_text_reports_dictionary:
                 self.basic_text_reports_dictionary[jobnumber].append([head_string, condensed_temporary_data_frame])
             else:

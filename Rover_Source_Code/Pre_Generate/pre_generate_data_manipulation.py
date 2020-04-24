@@ -214,7 +214,8 @@ class PreGenerateDataManipulation:
                                                                 & (self.sample_dilutions_data_frame['sampleid'].str.contains(row['sampleid']))]
                 try:
                     self.samples_data_frame.loc[index, 'percentage_concentration'] = dilution.iloc[0, 9]
-                    self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
+                    #self.samples_data_frame.loc[index, 'over_curve'] = 'Corrected: new area = ' + str(dilution.iloc[0, 5])
+                    self.samples_data_frame.loc[index, 'over_curve'] = 'dil. Cor.'
                 except IndexError:
                     self.samples_data_frame.loc[index, 'over_curve'] = 'Out of range, no dil. '
         self.samples_data_frame.fillna(0, inplace=True)
