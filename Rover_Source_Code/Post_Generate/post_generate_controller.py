@@ -11,6 +11,7 @@ from post_generate_organize_methods import OrganizeMethods
 from post_generate_single_methods import SingleMethods
 from post_generate_multi_methods import MultiMethods
 from post_generate_file_writing_methods import FileWritingMethods
+from post_generate_basic_text_report_methods import BasicTextReports
 
 
 class ReportWriter:
@@ -128,6 +129,11 @@ class ReportWriter:
                                        self.latex_header_and_sample_list_dictionary,
                                        self.loq_dictionary)
         self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
-        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary)
+        basic_reports = BasicTextReports(self.multiple_reports_dictionary,
+                                         self.single_reports_dictionary,
+                                         self.sample_data)
+        basic_reports_dictionary = basic_reports.basic_text_reports()
+        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary, basic_reports_dictionary)
         file_writing_methods.generate_report_directories_and_files()
+
 
