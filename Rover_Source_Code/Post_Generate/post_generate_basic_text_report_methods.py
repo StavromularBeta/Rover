@@ -40,7 +40,7 @@ class BasicTextReports:
                 condensed_temporary_data_frame = temporary_data_frame[['sampleid',
                                                                        'name20',
                                                                        'percentage_concentration',
-                                                                       'mg_mL',
+                                                                       'mg_ml',
                                                                        'over_curve']]
             elif unit_type == 'per unit':
                 condensed_temporary_data_frame = temporary_data_frame[['sampleid',
