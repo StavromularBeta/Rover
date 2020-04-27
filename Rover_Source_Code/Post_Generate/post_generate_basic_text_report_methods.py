@@ -18,8 +18,7 @@ class BasicTextReports:
             unit_type = value[0]
             basic_deluxe_status = value[1]
             unit_density_modifier = value[2]
-            head_string = '\n\n'
-            head_string += "JOB: " + jobnumber + '\n'
+            head_string = "JOB: " + jobnumber + '\n'
             head_string += "SAMPLE: " + jobnumber_with_sample_designation + '\n'
             head_string += "UNITS REPORTED: " + unit_type + '\n'
             if unit_type == 'mg/mL':
