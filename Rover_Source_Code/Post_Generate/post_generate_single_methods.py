@@ -443,8 +443,8 @@ class SingleMethods:
     $\Delta^{8}$THC & """ + data[12] + r""" & ND & """ + recov_data[12] + r"""& """ + self.loq_dictionary[12] + r"""\\
     $\Delta^{8}$THC Acid & ND & ND & N/A & N/A \\
     \hline
-    Cannabidiol (CBC) & """ + data[14] + r"""  & ND& """ + recov_data[14] + r"""& """ + self.loq_dictionary[14] + r"""\\
-    Cannabidiol Acid & """ + data[18] + r"""  & ND & """ + recov_data[18] + r"""& """ + self.loq_dictionary[18] + r"""\\
+    Cannabichromene (CBC) & """ + data[14] + r"""  & ND& """ + recov_data[14] + r"""& """ + self.loq_dictionary[14] + r"""\\
+    Cannabichromene Acid & """ + data[18] + r"""  & ND & """ + recov_data[18] + r"""& """ + self.loq_dictionary[18] + r"""\\
     \hline
     Cannabidiol (CBD) &""" + data[5] + r""" &  ND & """ + recov_data[5] + r"""& """ + self.loq_dictionary[5] + r"""\\
     Cannabidiol Acid & """ + data[7] + r""" &  ND & """ + recov_data[7] + r"""& """ + self.loq_dictionary[7] + r"""\\
@@ -520,9 +520,9 @@ class SingleMethods:
                                       self.loq_dictionary[12] + r"""\\
     $\Delta^{8}$THC Acid & ND & ND & ND & N/A & N/A\\
     \hline
-    Cannabidiol (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & """ + recov_data[14] + r"""& """ + \
+    Cannabichromene (CBC) & """ + data[14][0] + r""" &  """ + data[14][1] + r"""  & ND & """ + recov_data[14] + r"""& """ + \
                                       self.loq_dictionary[14] + r"""\\
-    Cannabidiol Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & """ + recov_data[18] + r"""& """ + \
+    Cannabichromene Acid & """ + data[18][0] + r""" &  """ + data[18][1] + r"""  & ND & """ + recov_data[18] + r"""& """ + \
                                       self.loq_dictionary[18] + r"""\\
     \hline
     Cannabidiol (CBD) &""" + data[5][0] + r""" &  """ + data[5][1] + r""" &  ND & """ + recov_data[5] + r"""& """ + \
