@@ -32,7 +32,7 @@ class HeaderMethods:
 \usepackage{fancyhdr}
 \usepackage[includeheadfoot, margin=1in, headheight=100pt]{geometry}
 \pagestyle{fancy}
-\fancyhead[L]{""" + item[0] + r""" \\ """ + item[4] + r""" \\ """ + item[5] + r"""\\ """ + item[6] + r"""\\ """ + item[11] + r""" \\ """ + item[13] + r"""\\ \phantom{a}\\}
+\fancyhead[L]{""" + item[0] + r""" \\ """ + item[4] + r""" \\ """ + item[5] + ', ' + item[6] + r"""\\ \phantom{a} \\ """ + item[11] + r""" \\ """ + item[13] + r"""\\ \phantom{a}\\}
 \fancyhead[C]{\textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[16][0] + r""" \\\textbf{Source:} """ + item[7] + item[16][1] + r""" \\\textbf{Type:} """ + item[8] + r"""""" + item[16][2] + r""" \\\textbf{No. of Samples:} """ + item[9] + r"""""" + item[16][3] + r"""\\\textbf{Arrival temp:} """ + item[10] + r"""""" + item[16][4] + r"""\\""" + item[14] + r"""""" + item[16][5] + r"""\\\phantom{a}\\}
 \fancyhead[R]{\textbf{No.} """ + item[3] + r"""\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
 \renewcommand{\headrulewidth}{0pt}
