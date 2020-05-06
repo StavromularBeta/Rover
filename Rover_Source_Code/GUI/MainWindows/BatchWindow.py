@@ -37,8 +37,11 @@ class BatchWindow(Tk.Frame):
         self.sample_information_list = []
         self.updated_sample_information_list = []
         self.density_unit_weight_list = []
+        self.updated_density_unit_weight_list = []
         self.density_unit_weight_option_list = []
+        self.updated_density_unit_weight_option_list = []
         self.updated_dictionary = {}
+        self.lengthlist = []
 
     def batch(self, data):
         self.create_scrollable_window()
@@ -275,15 +278,16 @@ class BatchWindow(Tk.Frame):
         self.update_header_information_list = [var.get()
                                                for key, variables in self.header_information_list for var in variables]
         self.updated_sample_information_list = [var.get("1.0", Tk.END) for item, var in self.sample_information_list]
-        self.density_unit_weight_list = [float(var.get()) for item, var in self.density_unit_weight_list]
-        self.density_unit_weight_option_list = [var.get() for item, menu, var in self.density_unit_weight_option_list]
+        self.updated_density_unit_weight_list = [float(var.get()) for item, var in self.density_unit_weight_list]
+        self.updated_density_unit_weight_option_list =\
+            [var.get() for item, menu, var in self.density_unit_weight_option_list]
         self.updated_dictionary['sample type'] = self.updated_sample_type_option_list
         self.updated_dictionary['report type'] = self.updated_report_type_option_list
         self.updated_dictionary['single multi'] = self.updated_single_or_multi_list
         self.updated_dictionary['headers'] = self.update_header_information_list
         self.updated_dictionary['samples'] = self.updated_sample_information_list
-        self.updated_dictionary['density_unit'] = self.density_unit_weight_list
-        self.updated_dictionary['density_unit_option'] = self.density_unit_weight_option_list
+        self.updated_dictionary['density_unit'] = self.updated_density_unit_weight_list
+        self.updated_dictionary['density_unit_option'] = self.updated_density_unit_weight_option_list
         self.post_generate_controller(data.dm, data.hp)
 
     def post_generate_controller(self, sample_data, header_data):
@@ -294,32 +298,37 @@ class BatchWindow(Tk.Frame):
                     self.updated_dictionary['headers'][counter]
                 counter += 1
             datestring = "Date: " + header_data.header_contents_dictionary[key][1] + " (" + header_data.header_contents_dictionary[key][2] + ")"
-            a_length = len(datestring)
             sourcestring = "Source: " + header_data.header_contents_dictionary[key][7]
-            b_length = len(sourcestring)
             subtype_string = "Type: " + header_data.header_contents_dictionary[key][8]
-            c_length = len(subtype_string)
             samplenumberstring = "No. of Samples: " + header_data.header_contents_dictionary[key][9]
-            d_length = len(samplenumberstring)
             arrivaltempstring = "Arrival temp: " + header_data.header_contents_dictionary[key][10]
-            e_length = len(arrivaltempstring)
             endinfo3string = header_data.header_contents_dictionary[key][14]
-            f_length = len(endinfo3string)
-            lengthlist = [a_length, b_length, c_length, d_length, e_length, f_length]
-            longest = max(lengthlist)
+            self.lengthlist = [len(datestring),
+                               len(sourcestring),
+                               len(subtype_string),
+                               len(samplenumberstring),
+                               len(arrivaltempstring),
+                               len(endinfo3string)]
+            print(self.lengthlist)
+            longest = max(self.lengthlist)
             lengthlist_counter = 0
-            for item in lengthlist:
+            for item in self.lengthlist:
                 if item != longest:
                     offset = longest - item - 1
                     offset = "x" * offset
                     offset = r'\phantom{' + offset + "}"
-                    lengthlist[lengthlist_counter] = offset
+                    self.lengthlist[lengthlist_counter] = offset
                     lengthlist_counter += 1
                 else:
                     offset = r'\phantom{}'
-                    lengthlist[lengthlist_counter] = offset
+                    self.lengthlist[lengthlist_counter] = offset
                     lengthlist_counter += 1
-            header_data.header_contents_dictionary[key].append(lengthlist)
+            print(len(header_data.header_contents_dictionary[key]))
+            if len(header_data.header_contents_dictionary[key]) == 16:
+                header_data.header_contents_dictionary[key].append(self.lengthlist)
+            else:
+                header_data.header_contents_dictionary[key].pop(-1)
+                header_data.header_contents_dictionary[key].append(self.lengthlist)
         header_counter = 15
         counter = 0
         for key, value in header_data.header_contents_dictionary.items():

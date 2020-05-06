@@ -83,7 +83,7 @@ class MultiMethods:
         number_of_samples = len(tuple_list)
         if number_of_samples == 0:
             pass
-        elif 4 >= number_of_samples > 0:
+        elif 3 >= number_of_samples > 0:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
@@ -127,7 +127,7 @@ class MultiMethods:
         tuple_list_list = []
         add_list = []
         for item in tuple_list:
-            if counter >= 4:
+            if counter >= 3:
                 counter = 0
                 tuple_list_list.append(add_list)
                 add_list = []
@@ -162,8 +162,8 @@ class MultiMethods:
 \renewcommand{\arraystretch}{1.2}
 \begin{table}[h!]\centering
 \small
-\begin{tabular}{p{\dimexpr0.270\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""
-        header_slot_modifier = 0.490 / len(tuple_list)
+\begin{tabular}{p{\dimexpr0.250\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""
+        header_slot_modifier = 0.510 / len(tuple_list)
         header_slot_line = r"""p{\dimexpr""" +\
                            str(header_slot_modifier) +\
                            r"""\textwidth-2\tabcolsep-\arrayrulewidth\relax}|"""

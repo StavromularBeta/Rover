@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +30,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="T:\ANALYST WORK FILES\Peter\Rover\Rover_Source_Code\GUI" />
       <recent name="T:\ANALYST WORK FILES\Peter\Rover\docs" />
       <recent name="T:\ANALYST WORK FILES\Peter\Rover\docs\Rover_Source_Code" />
       <recent name="T:\ANALYST WORK FILES\Peter\Rover\rce\Rover_Source_Code" />
       <recent name="T:\ANALYST WORK FILES\Peter\Rover" />
-      <recent name="T:\ANALYST WORK FILES\Peter\Rover\Rover_Source_Code" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -62,6 +63,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/GUI/RoverGUI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="nerds_gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Rover" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/GUI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/GUI/nerds_gui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,34 +155,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pre_generate_header_parsing" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Rover" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.RoverGUI" />
+        <item itemvalue="Python.nerds_gui" />
         <item itemvalue="Python.pre_generate_controller" />
         <item itemvalue="Python.post_generate_report_writer" />
         <item itemvalue="Python.post_generate_basic_report_percentage" />
-        <item itemvalue="Python.pre_generate_header_parsing" />
       </list>
     </recent_temporary>
   </component>
