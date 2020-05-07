@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Thumbs.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

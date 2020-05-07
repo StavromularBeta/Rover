@@ -21,7 +21,10 @@ class HeaderMethods:
         is properly aligned (the one downfall of this latex header package, no alignment on the center column). """
         for key, item in self.header_data.header_contents_dictionary.items():
             header_string = r"""
+% CLASS OF DOCUMENT
 \documentclass{article}
+
+% PACKAGES USED IN DOCUMENT
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
 \usepackage{graphicx}
@@ -30,12 +33,47 @@ class HeaderMethods:
 \usepackage{siunitx}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
-\usepackage[includeheadfoot, margin=1in, headheight=100pt]{geometry}
+\usepackage[includeheadfoot, margin=1in]{geometry}
 \pagestyle{fancy}
-\fancyhead[L]{""" + item[0] + r""" \\ """ + item[4] + r""" \\ """ + item[5] + ', ' + item[6] + r"""\\ \phantom{a} \\ """ + item[11] + r""" \\ """ + item[13] + r"""\\ \phantom{a}\\}
-\fancyhead[C]{\textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[16][0] + r""" \\\textbf{Source:} """ + item[7] + item[16][1] + r""" \\\textbf{Type:} """ + item[8] + r"""""" + item[16][2] + r""" \\\textbf{No. of Samples:} """ + item[9] + r"""""" + item[16][3] + r"""\\\textbf{Arrival temp:} """ + item[10] + r"""""" + item[16][4] + r"""\\""" + item[14] + r"""""" + item[16][5] + r"""\\\phantom{a}\\}
-\fancyhead[R]{\textbf{No.} """ + item[3] + r"""\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\\phantom{a}\\ }
+
+% HEADER
+\fancyhead[L]{
+              """ + item[0] + r""" \\
+              """ + item[4] + r""" \\
+              """ + item[5] + ', ' + item[6] + r"""\\
+              \phantom{a} \\
+              """ + item[11] + r""" \\
+              """ + item[13] + r""" \\
+              \phantom{a} \\
+              }
+\fancyhead[C]{
+              \textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[16][0] + r""" \\
+              \textbf{Source:} """ + item[7] + item[16][1] + r""" \\
+              \textbf{Type:} """ + item[8] + r"""""" + item[16][2] + r""" \\
+              \textbf{No. of Samples:} """ + item[9] + r"""""" + item[16][3] + r"""\\
+              \textbf{Arrival temp:} """ + item[10] + r"""""" + item[16][4] + r"""\\
+              """ + item[14] + r"""""" + item[16][5] + r"""\\
+              \phantom{a}\\
+              }
+\fancyhead[R]{
+              \textbf{No.} """ + item[3] + r"""\\
+              \phantom{a}\\
+              \phantom{a}\\
+              \phantom{a}\\
+              \phantom{a}\\
+              \phantom{a}\\
+              \phantom{a}\\
+               }
+
+% FOOTER
+\fancyfoot[C]{\textbf{MB Laboratories Ltd.}\\ \textbf{Web:} www.mblabs.com}
+\fancyfoot[R]{\textbf{Mail:} PO Box 2103\\ Sidney, B.C., V8L 356}
+\fancyfoot[L]{\textbf{T:} 250 656 1334\\ \textbf{E:} info@mblabs.com}
+
+% SETS THE HEIGHT OF THE HEADER, INCLUDES HEADER AND FOOTER, REMOVES A LINE BELOW HEADER
+\geometry{head=90pt, includehead=true, includefoot=true}
 \renewcommand{\headrulewidth}{0pt}
+
 \begin{document}"""
             self.latex_header_dictionary[key] = header_string
         return self.latex_header_dictionary
@@ -44,11 +82,8 @@ class HeaderMethods:
         """iterates through the parsed header contents dictionary and produces the sample list for each job. """
         for key, item in self.header_data.header_contents_dictionary.items():
             samples_string = r"""
-\phantom{a}
-\newline
-\newline
-\newline
-\newline
+
+% SAMPLE LIST
 \textbf{Samples:} """ + item[15] + r"""
 \phantom{a}
 \newline
