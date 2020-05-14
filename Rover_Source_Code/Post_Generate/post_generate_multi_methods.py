@@ -83,7 +83,7 @@ class MultiMethods:
         number_of_samples = len(tuple_list)
         if number_of_samples == 0:
             pass
-        elif 3 >= number_of_samples > 0:
+        elif 4 >= number_of_samples > 0:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list)
@@ -127,7 +127,7 @@ class MultiMethods:
         tuple_list_list = []
         add_list = []
         for item in tuple_list:
-            if counter >= 3:
+            if counter >= 4:
                 counter = 0
                 tuple_list_list.append(add_list)
                 add_list = []
@@ -346,43 +346,69 @@ H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilode
  """
         return footer_string
 
+#    def sig_fig_and_rounding_for_values(self, value):
+#        """Does the following: produces values with 3 significant figures, mostly. significant figures takes a backseat
+#         to how the report looks. We don't go lower than 3 decimal places on the report, so 0.001 will not be converted
+#        to 0.00100, rather it will stay as is. 0.0555 would be converted to 0.056. The number 100 will also remain as
+#         100, which is only one significant figure. Note that this method only works with values below 999. A value of
+#         1000 would be incorrectly written as 100. This was written to replace the sig fig method in pre_generate,
+#         which wasn't working properly for unknown reasons. This solution is far less elegant than that method... but
+#         it works really well for what I need. """
+#        if value == '-':
+#            pass
+#        elif 100 > value >= 1:
+#            prevalue = str(value)[0:3]
+#            rounded = str(value)[3]
+#            rounder = str(value)[4]
+#            if int(rounder) >= 5:
+#                rounded = str(int(rounded) + 1)
+#                value = prevalue + rounded
+#            else:
+#                value = prevalue + rounded
+#        elif 1 > value > 0:
+#            prevalue = str(value)[0:4]
+#            rounded = str(value)[4]
+#            rounder = str(value)[5]
+#            if int(rounder) >= 5:
+#                value = prevalue + rounded
+#            else:
+#                value = prevalue + rounded
+#        elif value >= 100:
+#            prevalue = str(value)[0:2]
+#            rounded = str(value)[2]
+#            rounder = str(value)[4]
+#            if int(rounder) >= 5:
+#                rounded = str(int(rounded) + 1)
+#                value = prevalue + rounded
+#            else:
+#                value = prevalue + rounded
+#        else:
+#            value = 'ND'
+#        return value
+
     def sig_fig_and_rounding_for_values(self, value):
-        """Does the following: produces values with 3 significant figures, mostly. significant figures takes a backseat
-         to how the report looks. We don't go lower than 3 decimal places on the report, so 0.001 will not be converted
-         to 0.00100, rather it will stay as is. 0.0555 would be converted to 0.056. The number 100 will also remain as
-         100, which is only one significant figure. Note that this method only works with values below 999. A value of
-         1000 would be incorrectly written as 100. This was written to replace the sig fig method in pre_generate,
-         which wasn't working properly for unknown reasons. This solution is far less elegant than that method... but
-         it works really well for what I need. """
         if value == '-':
-            pass
-        elif 100 > value >= 1:
-            prevalue = str(value)[0:3]
-            rounded = str(value)[3]
-            rounder = str(value)[4]
-            if int(rounder) >= 5:
-                rounded = str(int(rounded) + 1)
-                value = prevalue + rounded
+            return value
+        string_value = str(value)
+        split_string = string_value.split('.')
+        pre_decimal = split_string[0]
+        if len(pre_decimal) >= 3:
+            value = int(round(value))
+        elif len(pre_decimal) >= 2:
+            value = round(value, 1)
+        elif len(pre_decimal) == 1:
+            if int(pre_decimal[0]) == 0:
+                value = round(value, 3)
+                if len(str(value)) == 4:
+                    value = str(value) + '0'
             else:
-                value = prevalue + rounded
-        elif 1 > value > 0:
-            prevalue = str(value)[0:4]
-            rounded = str(value)[4]
-            rounder = str(value)[5]
-            if int(rounder) >= 5:
-                value = prevalue + rounded
-            else:
-                value = prevalue + rounded
-        elif value >= 100:
-            prevalue = str(value)[0:2]
-            rounded = str(value)[2]
-            rounder = str(value)[4]
-            if int(rounder) >= 5:
-                rounded = str(int(rounded) + 1)
-                value = prevalue + rounded
-            else:
-                value = prevalue + rounded
-        else:
+                value = round(value, 2)
+                if len(str(value)) == 3:
+                    value = str(value) + '0'
+        if value == 0.0:
             value = 'ND'
-        return value
+        return str(value)
+
+
+
 
