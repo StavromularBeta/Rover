@@ -40,6 +40,8 @@ class BatchWindow(Tk.Frame):
         self.updated_density_unit_weight_list = []
         self.density_unit_weight_option_list = []
         self.updated_density_unit_weight_option_list = []
+        self.sample_name_list = []
+        self.updated_sample_name_list = []
         self.updated_dictionary = {}
         self.lengthlist = []
 
@@ -47,10 +49,11 @@ class BatchWindow(Tk.Frame):
         self.create_scrollable_window()
         self.blank_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
         self.recovery_data_frame.grid(row=0, column=1, sticky=Tk.W, padx=10, pady=10)
-        self.headers_data_frame.grid(row=1, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.samples_list_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.display_sample_data_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.samples_checklist_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.headers_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+#       self.samples_list_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+#       above line is now obsolete. Will keep for a bit.
+        self.display_sample_data_frame.grid(row=1, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.samples_checklist_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
         self.create_blank_frame(data)
         self.create_recovery_frame(data)
         self.create_header_frames(data)
@@ -252,6 +255,10 @@ class BatchWindow(Tk.Frame):
                                               *density_or_unit_choices)
             density_unit_menu.grid(row=counter, column=5)
             self.density_unit_weight_option_list.append((item, density_unit_menu, density_or_unit_variable))
+            sample_name_entry = Tk.Entry(self.samples_checklist_frame)
+            Tk.Label(self.samples_checklist_frame, text="   Sample name: ").grid(row=counter, column=6)
+            sample_name_entry.grid(row=counter, column=7)
+            self.sample_name_list.append((item, sample_name_entry))
             counter += 1
         Tk.Button(self.samples_checklist_frame,
                   text="Generate Batch",
@@ -281,6 +288,7 @@ class BatchWindow(Tk.Frame):
         self.updated_density_unit_weight_list = [float(var.get()) for item, var in self.density_unit_weight_list]
         self.updated_density_unit_weight_option_list =\
             [var.get() for item, menu, var in self.density_unit_weight_option_list]
+        self.updated_sample_name_list = [[item, var.get()] for item, var in self.sample_name_list]
         self.updated_dictionary['sample type'] = self.updated_sample_type_option_list
         self.updated_dictionary['report type'] = self.updated_report_type_option_list
         self.updated_dictionary['single multi'] = self.updated_single_or_multi_list
@@ -288,6 +296,7 @@ class BatchWindow(Tk.Frame):
         self.updated_dictionary['samples'] = self.updated_sample_information_list
         self.updated_dictionary['density_unit'] = self.updated_density_unit_weight_list
         self.updated_dictionary['density_unit_option'] = self.updated_density_unit_weight_option_list
+        self.updated_dictionary['sample names'] = self.updated_sample_name_list
         self.post_generate_controller(data.dm, data.hp)
 
     def post_generate_controller(self, sample_data, header_data):
@@ -309,7 +318,6 @@ class BatchWindow(Tk.Frame):
                                len(samplenumberstring),
                                len(arrivaltempstring),
                                len(endinfo3string)]
-            print(self.lengthlist)
             longest = max(self.lengthlist)
             lengthlist_counter = 0
             for item in self.lengthlist:
@@ -323,7 +331,6 @@ class BatchWindow(Tk.Frame):
                     offset = r'\phantom{}'
                     self.lengthlist[lengthlist_counter] = offset
                     lengthlist_counter += 1
-            print(len(header_data.header_contents_dictionary[key]))
             if len(header_data.header_contents_dictionary[key]) == 16:
                 header_data.header_contents_dictionary[key].append(self.lengthlist)
             else:
@@ -331,8 +338,23 @@ class BatchWindow(Tk.Frame):
                 header_data.header_contents_dictionary[key].append(self.lengthlist)
         header_counter = 15
         counter = 0
+        sample_names_master_list = []
         for key, value in header_data.header_contents_dictionary.items():
-            header_data.header_contents_dictionary[key][header_counter] = self.updated_dictionary['samples'][counter]
+            jobnumber_to_match = value[3][1:]
+            empty_list_for_matching = []
+            for item in self.updated_dictionary['sample names']:
+                if int(item[0][0:6]) == int(jobnumber_to_match):
+                    if len(str(item[0])) == 8:
+                        string = r'\textbf{' + item[0][-1] + r')} ' + item[1]
+                        empty_list_for_matching.append(string)
+                    else:
+                        string = r'\textbf{' + item[0][-2:] + r')} ' + item[1]
+                        empty_list_for_matching.append(string)
+                else:
+                    pass
+            sample_names_master_list.append(' '.join([i for i in empty_list_for_matching]))
+        for key, value in header_data.header_contents_dictionary.items():
+            header_data.header_contents_dictionary[key][header_counter] = sample_names_master_list[counter]
             counter += 1
         batch_report = report(sample_data, header_data, self.updated_dictionary)
         batch_report.post_generate_controller()
