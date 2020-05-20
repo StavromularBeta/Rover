@@ -71,7 +71,7 @@ class HeaderMethods:
 \fancyfoot[L]{\textbf{T:} 250 656 1334\\ \textbf{E:} info@mblabs.com}
 
 % SETS THE HEIGHT OF THE HEADER, INCLUDES HEADER AND FOOTER, REMOVES A LINE BELOW HEADER
-\geometry{head=90pt, includehead=true, includefoot=true}
+\geometry{head=60pt, includehead=true, includefoot=true}
 \renewcommand{\headrulewidth}{0pt}
 
 \begin{document}"""
@@ -86,7 +86,6 @@ class HeaderMethods:
 % SAMPLE LIST
 \textbf{Samples:} """ + item[15] + r"""
 \phantom{a}
-\newline
 \newline
 \hline
 """

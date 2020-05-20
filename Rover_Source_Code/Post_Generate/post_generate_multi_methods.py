@@ -97,8 +97,8 @@ class MultiMethods:
             footer = self.generate_footer()
             for item in table_strings:
                 header += item
-                header += r'\newpage'
-            header = header[:-8]
+                header += r'\newpage\newgeometry{head=60pt, includehead=true, includefoot=true, margin=1in}'
+            header = header[:-79]
             report = header + footer
             self.finished_reports_dictionary[sample_id] = report
 
@@ -158,7 +158,6 @@ class MultiMethods:
         as many of these lines as there are samples. The second half of this function puts the units of each column
         below the name of each column. """
         table_header_1 = r"""
-\newline
 \renewcommand{\arraystretch}{1.2}
 \begin{table}[h!]\centering
 \small
@@ -336,7 +335,7 @@ class MultiMethods:
         on the reports. """
         footer_string = r"""
 Methods: solvent extraction; measured by UPLC-UV, tandem MS, P.I. 1.14 \& based on USP monograph 29 \newline
-$\si{S_{o}}$ = standard deviation at zero analyte concentration. MDL generally considered to be 3x $\si{S_{o}}$ value. \newline\newline
+$\si{S_{o}}$ = standard deviation at zero analyte concentration. MDL generally considered to be 3x $\si{S_{o}}$ value. \newline
 ND = none detected. N/A = not applicable. THC = tetrahydrocannabinol.\newline 
 \textbf{*Total THC} = $\Delta^{9}$-THC + (THCA x 0.877 ). \textbf{**Total CBD} = CBD + (CBDA x 0.877).\newline\newline
 Material will be held for up to 3 weeks unless alternative arrangements have been made. Sample holding time may vary and is dependant on MBL license restrictions.
@@ -345,46 +344,6 @@ H. Hartmann \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}R. Bilode
 \end{document}
  """
         return footer_string
-
-#    def sig_fig_and_rounding_for_values(self, value):
-#        """Does the following: produces values with 3 significant figures, mostly. significant figures takes a backseat
-#         to how the report looks. We don't go lower than 3 decimal places on the report, so 0.001 will not be converted
-#        to 0.00100, rather it will stay as is. 0.0555 would be converted to 0.056. The number 100 will also remain as
-#         100, which is only one significant figure. Note that this method only works with values below 999. A value of
-#         1000 would be incorrectly written as 100. This was written to replace the sig fig method in pre_generate,
-#         which wasn't working properly for unknown reasons. This solution is far less elegant than that method... but
-#         it works really well for what I need. """
-#        if value == '-':
-#            pass
-#        elif 100 > value >= 1:
-#            prevalue = str(value)[0:3]
-#            rounded = str(value)[3]
-#            rounder = str(value)[4]
-#            if int(rounder) >= 5:
-#                rounded = str(int(rounded) + 1)
-#                value = prevalue + rounded
-#            else:
-#                value = prevalue + rounded
-#        elif 1 > value > 0:
-#            prevalue = str(value)[0:4]
-#            rounded = str(value)[4]
-#            rounder = str(value)[5]
-#            if int(rounder) >= 5:
-#                value = prevalue + rounded
-#            else:
-#                value = prevalue + rounded
-#        elif value >= 100:
-#            prevalue = str(value)[0:2]
-#            rounded = str(value)[2]
-#            rounder = str(value)[4]
-#            if int(rounder) >= 5:
-#                rounded = str(int(rounded) + 1)
-#                value = prevalue + rounded
-#            else:
-#                value = prevalue + rounded
-#        else:
-#            value = 'ND'
-#        return value
 
     def sig_fig_and_rounding_for_values(self, value):
         if value == '-':
