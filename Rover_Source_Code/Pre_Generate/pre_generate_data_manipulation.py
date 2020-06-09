@@ -49,24 +49,24 @@ class PreGenerateDataManipulation:
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
 #       the corresponding value from the dilution.
         self.range_checker_dictionary = {1: [3065, 44880, 'ibuprofen'],
-                                         2: [127, 94400, 'CBDV'],
-                                         3: [64, 16896, 'CBDVA'],
-                                         4: [259, 103785, 'THCV'],
-                                         5: [259, 103785, 'CBGVA'],  # copying THCV for now
-                                         6: [100, 160995, 'CBD'],
-                                         7: [117, 80956, 'CBG'],
-                                         8: [100, 170668, 'CBDA'],
-                                         9: [100, 27050, 'CBN'],
-                                         10: [100, 22440, 'CBGA'],
+                                         2: [160, 170000, 'CBDV'],
+                                         3: [150, 10000, 'CBDVA'],
+                                         4: [259, 40000, 'THCV'],
+                                         5: [25, 5000, 'CBGVA'],  # copying THCV for now
+                                         6: [200, 200995, 'CBD'],
+                                         7: [200, 100000, 'CBG'],
+                                         8: [100, 50000, 'CBDA'],
+                                         9: [100, 68050, 'CBN'],
+                                         10: [100, 50000, 'CBGA'],
                                          11: [100, 15440, 'THCVA'],
-                                         12: [133.9, 203125, 'd9_THC'],
-                                         13: [163, 84959, 'd8_THC'],
-                                         14: [86.4, 82725, 'CBL'],
-                                         15: [100, 14365, 'CBC'],
-                                         16: [131, 24365, 'CBNA'],
-                                         17: [100, 170391, 'THCA'],
-                                         18: [110, 20391, 'CBLA'],
-                                         19: [100, 12482, 'CBCA']}
+                                         12: [200, 200000, 'd9_THC'],
+                                         13: [200, 200000, 'd8_THC'],
+                                         14: [250, 25000, 'CBL'],
+                                         15: [100, 28000, 'CBC'],
+                                         16: [100, 50000, 'CBNA'],
+                                         17: [100, 200000, 'THCA'],
+                                         18: [50, 5000, 'CBLA'],
+                                         19: [50, 6000, 'CBCA']}
 
 #       This DataFrame is so we can join the calibration curve data to the samples DataFrame in order to flag the
 #       samples for being over the curve.
