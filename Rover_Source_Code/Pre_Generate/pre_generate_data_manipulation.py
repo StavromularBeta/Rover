@@ -1,6 +1,7 @@
 import pandas as pd
 import os, sys, inspect
-from math import floor, log10
+import xlsxwriter
+from math import floor, log10, isnan
 # below 3 lines add the parent directory to the path, so that SQL_functions can be found.
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
@@ -43,6 +44,7 @@ class PreGenerateDataManipulation:
         self.samples_data_frame = pd.DataFrame()
         self.condensed_samples_data_frame = pd.DataFrame()
         self.samples_list_data_frame = pd.DataFrame()
+        self.duplicate_dataframe = pd.DataFrame()
         self.unique_sample_id_list = []
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
@@ -98,6 +100,7 @@ class PreGenerateDataManipulation:
         self.create_list_of_unique_samples()
         self.create_condensed_sample_list_data_frame_for_gui()
 #       self.limit_sig_figs_in_dataframes()
+        self.add_dup_data_to_excel_for_tracking()
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -199,7 +202,7 @@ class PreGenerateDataManipulation:
         """Splits the samples DataFrame into two - one containing the dilutions, and one containing the undiluted
         samples. This allows us to swap out the out of calibration range values by joining the two DataFrames together
         conditional on the over_curve field. Works by assuming that any sample id with a length larger than 9 is a dil,
-        (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample"""
+        (xxxxxx-xx x/xx) and any with a length less than or equal to nine (xxxxxx-xx) is a sample."""
         self.sample_dilutions_data_frame = self.samples_and_dilutions_data_frame[self.samples_and_dilutions_data_frame.sampleid.str.len() > 9]
         self.samples_data_frame = self.samples_and_dilutions_data_frame[self.samples_and_dilutions_data_frame.sampleid.str.len() <= 9]
 
@@ -243,3 +246,43 @@ class PreGenerateDataManipulation:
             lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 > x > 0) else int(round(x)))
         self.samples_data_frame['percentage_concentration'] = self.samples_data_frame.percentage_concentration.apply(
             lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 > x > 0) else int(round(x)))
+
+    def add_dup_data_to_excel_for_tracking(self):
+        self.duplicate_dataframe = self.percentage_data_frame[self.percentage_data_frame['sampleid'].str.contains('DUP', na=False)]
+        duplist = []
+        for index, row in self.samples_data_frame.iterrows():
+            duplicate_value = self.duplicate_dataframe.loc[(self.duplicate_dataframe['id17'] == row['id17'])
+                                                           & (self.duplicate_dataframe['sampleid'].str.contains(row['sampleid'], na=False))]
+            if duplicate_value.empty:
+                pass
+            else:
+                if len(duplist) == 0:
+                    duplist.append(duplicate_value.iloc[0, 1])
+                duplist.append([duplicate_value.iloc[0, 3],
+                                self.samples_data_frame.loc[index, 'percentage_concentration'],
+                                duplicate_value.iloc[0, 9]])
+        workbook = xlsxwriter.Workbook(r'T:\ANALYST WORK FILES\Peter\Rover\reports\duptracker.xlsx', {'nan_inf_to_errors': True})
+        worksheet = workbook.add_worksheet()
+        row = 0
+        col = 0
+        for item in duplist:
+            if row == 0:
+                worksheet.write(row, col, item)
+                worksheet.write(row+1, col, 'analyte')
+                worksheet.write(row+1, col+1, 'DUP A')
+                worksheet.write(row+1, col+2, 'DUP B')
+                row += 2
+            else:
+                worksheet.write(row, col, item[0])
+                if isnan(item[1]):
+                    worksheet.write(row, col+1, 0)
+                else:
+                    worksheet.write(row, col+1, item[1])
+                if isnan(item[2]):
+                    worksheet.write(row, col+2, 0)
+                else:
+                    worksheet.write(row, col+2, item[2])
+                row += 1
+        workbook.close()
+
+
