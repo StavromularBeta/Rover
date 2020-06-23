@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+import re
 import sys
 
 
@@ -84,7 +85,7 @@ class PreGenerateHeaderParsing:
                     header_contents = "Header not found"
 #                   sys.exit()
 #                   uncommenting will allow user to exit upon a missing header, rather than adding a dummy header.
-            self.header_contents_dictionary[item] = self.header_parser(header_contents)
+            self.header_contents_dictionary[item] = self.header_parser_V2(header_contents)
 
     def header_parser(self, header_contents):
         """I don't want to talk about it. It works, somehow."""
@@ -166,3 +167,64 @@ class PreGenerateHeaderParsing:
                                   sample_information]
         return parsed_header_contents
 
+    def header_parser_V2(self, header_contents):
+        if header_contents == "Header not found":
+            parsed_header_contents = ['no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no', 'no',
+                                      'no', 'no', 'no']
+            return parsed_header_contents
+        name1 = header_contents[0:55].strip()
+        date = header_contents[55:66].strip()
+        time = header_contents[66:84].strip()
+        w_number = header_contents[84:98].strip()
+        remainder_of_header = header_contents[98:].strip().split("   ")
+        remainder_of_header = [word for word in remainder_of_header if len(word) > 1]
+        if remainder_of_header[0][0] == "*":
+            attn = remainder_of_header[0].strip()
+            sample_type = re.sub('[\n]', '', remainder_of_header[1]).strip()
+            address_1 = remainder_of_header[2].strip()
+            sample_subtype = re.sub('[\n]', '', remainder_of_header[3]).strip()
+            address_2 = remainder_of_header[4].strip()
+            number_of_samples = re.sub('[\n]', '', remainder_of_header[5]).strip()
+            postal_code = re.sub('[\n]', '', remainder_of_header[6]).strip()
+        else:
+            attn = "*"
+            address_1 = remainder_of_header[0].strip()
+            sample_type = re.sub('[\n]', '', remainder_of_header[1]).strip()
+            address_2 = remainder_of_header[2].strip()
+            sample_subtype = re.sub('[\n]', '', remainder_of_header[3]).strip()
+            postal_code = re.sub('[\n]', '', remainder_of_header[4]).strip()
+            number_of_samples = re.sub('[\n]', '', remainder_of_header[5]).strip()
+        email = "can't find email"
+        payment_information = "can't find payment information"
+        arrival_temp = "can't find arrival temperature"
+        sampler = "can't find sampler information"
+        phone_number = "can't find phone number"
+        for item in remainder_of_header:
+            if "TEL:" in item:
+                phone_number = re.sub('[\n]', '', item).strip()
+            elif "@" in item:
+                email = re.sub('[\n]', '', item).strip()
+            elif "group" in item:
+                email = re.sub('[\n]', '', item).strip()
+            elif "Arrival temp" in item:
+                arrival_temp = re.sub('[\n]', '', item).strip()[16:]
+            elif "Pd" in item:
+                payment_information = re.sub('[\n]', '', item).strip()
+        parsed_header_contents = [name1,
+                                  date,
+                                  time,
+                                  w_number,
+                                  address_1,
+                                  address_2,
+                                  postal_code,
+                                  sample_type,
+                                  sample_subtype,
+                                  number_of_samples,
+                                  arrival_temp,
+                                  phone_number,
+                                  email,
+                                  'phantom{a}',
+                                  payment_information,
+                                  attn,
+                                  'phantom{a}']
+        return parsed_header_contents

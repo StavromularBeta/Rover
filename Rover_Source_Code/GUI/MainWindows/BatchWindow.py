@@ -102,17 +102,18 @@ class BatchWindow(Tk.Frame):
         Tk.Label(self.headers_data_frame, text="Date", font=self.header_font).grid(row=2, column=0, sticky=Tk.W)
         Tk.Label(self.headers_data_frame, text="Time", font=self.header_font).grid(row=3, column=0, sticky=Tk.W)
         Tk.Label(self.headers_data_frame, text="Job Number", font=self.header_font).grid(row=4, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 1", font=self.header_font).grid(row=5, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 2", font=self.header_font).grid(row=6, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 3", font=self.header_font).grid(row=7, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Sample Type 1", font=self.header_font).grid(row=8, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Sample Type 2", font=self.header_font).grid(row=9, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Number of Samples", font=self.header_font).grid(row=10, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Receive Temp.", font=self.header_font).grid(row=11, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 1", font=self.header_font).grid(row=12, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 2", font=self.header_font).grid(row=13, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 3", font=self.header_font).grid(row=14, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Payment Info", font=self.header_font).grid(row=15, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Attention", font=self.header_font).grid(row=5, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 1", font=self.header_font).grid(row=6, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 2", font=self.header_font).grid(row=7, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 3", font=self.header_font).grid(row=8, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 1", font=self.header_font).grid(row=9, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 2", font=self.header_font).grid(row=10, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Number of Samples", font=self.header_font).grid(row=11, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Receive Temp.", font=self.header_font).grid(row=12, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 1", font=self.header_font).grid(row=13, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 2", font=self.header_font).grid(row=14, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 3", font=self.header_font).grid(row=15, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Payment Info", font=self.header_font).grid(row=16, column=0, sticky=Tk.W)
         for key, value in data.hp.header_contents_dictionary.items():
             header_frame_label = Tk.Label(self.headers_data_frame, text=key, font=self.header_font)
             header_frame_label.grid(row=counter, column=column_counter)
@@ -132,6 +133,10 @@ class BatchWindow(Tk.Frame):
             job_entry = Tk.Entry(self.headers_data_frame)
             job_entry.insert(Tk.END, value[3])
             job_entry.grid(row=counter, column=column_counter)
+            counter += 1
+            attention_entry = Tk.Entry(self.headers_data_frame)
+            attention_entry.insert(Tk.END, value[15])
+            attention_entry.grid(row=counter, column=column_counter)
             counter += 1
             address_entry = Tk.Entry(self.headers_data_frame)
             address_entry.insert(Tk.END, value[4])
@@ -193,7 +198,9 @@ class BatchWindow(Tk.Frame):
                                                        additional_info_1,
                                                        additional_info_2,
                                                        additional_info_3,
-                                                       payment_info]))
+                                                       payment_info,
+                                                       attention_entry,
+                                                       attention_entry,]))
 
     def create_sample_list_frame(self, data):
         counter = 0
@@ -302,7 +309,7 @@ class BatchWindow(Tk.Frame):
     def post_generate_controller(self, sample_data, header_data):
         counter = 0
         for key, value in header_data.header_contents_dictionary.items():
-            for item in range(0, 15):
+            for item in range(0, 17):
                 header_data.header_contents_dictionary[key][item] = \
                     self.updated_dictionary['headers'][counter]
                 counter += 1
@@ -331,17 +338,15 @@ class BatchWindow(Tk.Frame):
                     offset = r'\phantom{}'
                     self.lengthlist[lengthlist_counter] = offset
                     lengthlist_counter += 1
-            if len(header_data.header_contents_dictionary[key]) == 16:
-                header_data.header_contents_dictionary[key].append(self.lengthlist)
-            else:
-                header_data.header_contents_dictionary[key].pop(-1)
-                header_data.header_contents_dictionary[key].append(self.lengthlist)
+            header_data.header_contents_dictionary[key].append(self.lengthlist)
         header_counter = 15
         counter = 0
         sample_names_master_list = []
         for key, value in header_data.header_contents_dictionary.items():
             jobnumber_to_match = value[3][1:]
+            print(jobnumber_to_match)
             empty_list_for_matching = []
+            print(self.updated_dictionary['sample names'])
             for item in self.updated_dictionary['sample names']:
                 if int(item[0][0:6]) == int(jobnumber_to_match):
                     if len(str(item[0])) == 8:

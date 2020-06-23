@@ -20,6 +20,7 @@ class HeaderMethods:
         list item is a list of padding, which gets applied to the center column of the header so that the center column
         is properly aligned (the one downfall of this latex header package, no alignment on the center column). """
         for key, item in self.header_data.header_contents_dictionary.items():
+            print(item)
             header_string = r"""
 % CLASS OF DOCUMENT
 \documentclass{article}
@@ -39,20 +40,20 @@ class HeaderMethods:
 % HEADER
 \fancyhead[L]{
               """ + item[0] + r""" \\
+              """ + item[16] + r""" \\
               """ + item[4] + r""" \\
               """ + item[5] + ', ' + item[6] + r"""\\
               \phantom{a} \\
               """ + item[11] + r""" \\
-              """ + item[13] + r""" \\
-              \phantom{a} \\
+              """ + item[12] + r""" \\
               }
 \fancyhead[C]{
-              \textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[16][0] + r""" \\
-              \textbf{Source:} """ + item[7] + item[16][1] + r""" \\
-              \textbf{Type:} """ + item[8] + r"""""" + item[16][2] + r""" \\
-              \textbf{No. of Samples:} """ + item[9] + r"""""" + item[16][3] + r"""\\
-              \textbf{Arrival temp:} """ + item[10] + r"""""" + item[16][4] + r"""\\
-              """ + item[14] + r"""""" + item[16][5] + r"""\\
+              \textbf{Date:} """ + item[1] + r"""  (""" + item[2] + r""")""" + item[17][0] + r""" \\
+              \textbf{Source:} """ + item[7] + item[17][1] + r""" \\
+              \textbf{Type:} """ + item[8] + r"""""" + item[17][2] + r""" \\
+              \textbf{No. of Samples:} """ + item[9] + r"""""" + item[17][3] + r"""\\
+              \textbf{Arrival temp:} """ + item[10] + r"""""" + item[17][4] + r"""\\
+              """ + item[14] + r"""""" + item[17][5] + r"""\\
               \phantom{a}\\
               }
 \fancyhead[R]{
@@ -71,7 +72,7 @@ class HeaderMethods:
 \fancyfoot[L]{\textbf{T:} 250 656 1334\\ \textbf{E:} info@mblabs.com}
 
 % SETS THE HEIGHT OF THE HEADER, INCLUDES HEADER AND FOOTER, REMOVES A LINE BELOW HEADER
-\geometry{head=60pt, includehead=true, includefoot=true}
+\geometry{head=65pt, includehead=true, includefoot=true}
 \renewcommand{\headrulewidth}{0pt}
 
 \begin{document}"""
