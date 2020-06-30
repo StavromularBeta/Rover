@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/MS_pre_generate_data_manipulation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/HomepageWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/HomepageWindow.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_controller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,10 +29,14 @@
   <component name="ProjectId" id="1WXRYquf7nmJ8xPqVvYcK7avSXV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="T:\ANALYST WORK FILES\Peter\Rover\Rover_Source_Code\Pre_Generate" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="T:\ANALYST WORK FILES\Peter\Rover\Rover_Source_Code\GUI" />
       <recent name="T:\ANALYST WORK FILES\Peter\Rover\docs" />

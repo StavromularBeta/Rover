@@ -21,16 +21,22 @@ class HomepageWindow(Tk.Frame):
         self.select_button_font = tkFont.Font(size=18, weight='bold')
 
     def homepage(self):
-        select_button = Tk.Button(self, text="Select data file", command=self.browse_button, font=self.select_button_font)
-        select_button.grid(sticky=Tk.W, padx=10, pady=10)
+        select_button_uv = Tk.Button(self, text="UPLC/UV Data File",
+                                     command=lambda: self.browse_button("UPLCUV"),
+                                     font=self.select_button_font)
+        select_button_ms = Tk.Button(self, text="UPLC/MS Data File",
+                                     command=lambda: self.browse_button("UPLCMS"),
+                                     font=self.select_button_font)
+        select_button_uv.grid(sticky=Tk.W, padx=10, pady=10)
+        select_button_ms.grid(sticky=Tk.W, padx=10, pady=10)
 
-    def start_data_processing(self, file_name):
-        batch = cont(file_name)
+    def start_data_processing(self, file_name, instrument_type):
+        batch = cont(file_name, instrument_type)
         self.parent.display_batchpage(batch)
 
-    def browse_button(self):
+    def browse_button(self, instrument_type):
         filename = filedialog.askopenfilename(initialdir= r"T:\ANALYST WORK FILES\Peter\Rover\xml_data_files")
-        self.start_data_processing(filename)
+        self.start_data_processing(filename, instrument_type)
 
 
 

@@ -10,7 +10,7 @@ parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 
 
-class PreGenerateDataManipulation:
+class MSPreGenerateDataManipulation:
     """This file controls the data manipulation processes occurring prior to generating latex files.
      Raw data -> Processed data."""
 
@@ -31,7 +31,7 @@ class PreGenerateDataManipulation:
         blank_data_frame.
         10. sample_dilutions_data_frame = changes: only information from dilutions
         11. samples_data_frame = changes: samples with out of range values switched out with the appropriate dil."""
-        print('UV selected')
+        print('MS selected')
         self.data_xml_file = data_xml_file
         self.raw_xml_data_frame = pd.DataFrame()
         self.percentage_data_frame = pd.DataFrame()
@@ -87,7 +87,6 @@ class PreGenerateDataManipulation:
 
     def data_manipulation_controller(self):
         """The main controller function. To run the methods that make up this class, this function is called."""
-
         self.collect_data_from_xml_file()
         self.convert_analytical_concentration_to_percentage_concentration()
         self.split_into_blank_qc_and_sample_data_frame()
@@ -174,6 +173,9 @@ class PreGenerateDataManipulation:
                                                                              'name20',
                                                                              'area',
                                                                              'percrecovery']].copy()
+        self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame[
+            (self.best_recovery_qc_data_frame[['percrecovery']] != 0).all(axis=1)]
+        self.best_recovery_qc_data_frame = self.best_recovery_qc_data_frame.sort_values(by=['id17'], ascending=True)
 
     def combine_blanks_into_one_data_set_with_lowest_percentage_concentration_values(self):
         """ produces a single axis data frame with one min value for each analyte, with the analytes being identified by

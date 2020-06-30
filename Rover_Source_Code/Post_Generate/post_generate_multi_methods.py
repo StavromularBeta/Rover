@@ -97,7 +97,7 @@ class MultiMethods:
             footer = self.generate_footer()
             for item in table_strings:
                 header += item
-                header += r'\newpage\newgeometry{head=60pt, includehead=true, includefoot=true, margin=1in}'
+                header += r'\newpage\newgeometry{head=65pt, includehead=true, includefoot=true, margin=1in}'
             header = header[:-79]
             report = header + footer
             self.finished_reports_dictionary[sample_id] = report

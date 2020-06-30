@@ -7,6 +7,7 @@ parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 sys.path.insert(0, currentdir)
 from pre_generate_data_manipulation import PreGenerateDataManipulation
+from MS_pre_generate_data_manipulation import MSPreGenerateDataManipulation
 from pre_generate_header_parsing import PreGenerateHeaderParsing
 
 
@@ -14,10 +15,15 @@ class PreGenerateController:
     """This class controls the methods in the pre_generate folder. It runs the data_manipulation routines, and then runs
      the header_parsing routines."""
 
-    def __init__(self, target_file):
+    def __init__(self, target_file, batch_type):
         self.target_file = target_file
-        self.dm = PreGenerateDataManipulation(self.target_file)
-        self.dm.data_manipulation_controller()
+        self.batch_type = batch_type
+        if self.batch_type == 'UPLCUV':
+            self.dm = PreGenerateDataManipulation(self.target_file)
+            self.dm.data_manipulation_controller()
+        elif self.batch_type == 'UPLCMS':
+            self.dm = MSPreGenerateDataManipulation(self.target_file)
+            self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
         self.hp.header_parsing_controller()
 

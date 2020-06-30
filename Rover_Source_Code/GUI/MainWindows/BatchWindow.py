@@ -48,12 +48,12 @@ class BatchWindow(Tk.Frame):
     def batch(self, data):
         self.create_scrollable_window()
         self.blank_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
-        self.recovery_data_frame.grid(row=0, column=1, sticky=Tk.W, padx=10, pady=10)
-        self.headers_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.recovery_data_frame.grid(row=1, column=0, sticky=Tk.W, padx=10, pady=10)
+        self.headers_data_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
 #       self.samples_list_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
 #       above line is now obsolete. Will keep for a bit.
-        self.display_sample_data_frame.grid(row=1, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.samples_checklist_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.display_sample_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+        self.samples_checklist_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
         self.create_blank_frame(data)
         self.create_recovery_frame(data)
         self.create_header_frames(data)
@@ -82,7 +82,7 @@ class BatchWindow(Tk.Frame):
     def create_blank_frame(self, data):
         blank_label = Tk.Label(self.blank_data_frame, text="Blank Data", font=self.header_font)
         blank_label.grid(row=0, column=0, sticky=Tk.W)
-        blank_text = Tk.Text(self.blank_data_frame, width=18, height=20)
+        blank_text = Tk.Text(self.blank_data_frame, width=40, height=20)
         blank_text.insert(Tk.END, data.dm.min_value_blank_data_frame.to_string())
         blank_text.config(state="disabled")
         blank_text.grid(row=1, column=0)
@@ -90,7 +90,7 @@ class BatchWindow(Tk.Frame):
     def create_recovery_frame(self, data):
         recovery_label = Tk.Label(self.recovery_data_frame, text="Standard Recovery Data", font=self.header_font)
         recovery_label.grid(row=0, column=0, sticky=Tk.W)
-        recovery_text = Tk.Text(self.recovery_data_frame, width=70, height=20)
+        recovery_text = Tk.Text(self.recovery_data_frame, width=120, height=20)
         recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
         recovery_text.config(state="disabled")
         recovery_text.grid(row=1, column=0)
@@ -98,22 +98,7 @@ class BatchWindow(Tk.Frame):
     def create_header_frames(self, data):
         counter = 0
         column_counter = 1
-        Tk.Label(self.headers_data_frame, text="Client Name", font=self.header_font).grid(row=1, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Date", font=self.header_font).grid(row=2, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Time", font=self.header_font).grid(row=3, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Job Number", font=self.header_font).grid(row=4, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Attention", font=self.header_font).grid(row=5, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 1", font=self.header_font).grid(row=6, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 2", font=self.header_font).grid(row=7, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Address 3", font=self.header_font).grid(row=8, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Sample Type 1", font=self.header_font).grid(row=9, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Sample Type 2", font=self.header_font).grid(row=10, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Number of Samples", font=self.header_font).grid(row=11, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Receive Temp.", font=self.header_font).grid(row=12, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 1", font=self.header_font).grid(row=13, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 2", font=self.header_font).grid(row=14, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Additional Info 3", font=self.header_font).grid(row=15, column=0, sticky=Tk.W)
-        Tk.Label(self.headers_data_frame, text="Payment Info", font=self.header_font).grid(row=16, column=0, sticky=Tk.W)
+        self.create_header_frame_labels(counter)
         for key, value in data.hp.header_contents_dictionary.items():
             header_frame_label = Tk.Label(self.headers_data_frame, text=key, font=self.header_font)
             header_frame_label.grid(row=counter, column=column_counter)
@@ -182,8 +167,13 @@ class BatchWindow(Tk.Frame):
             payment_info.insert(Tk.END, value[14])
             payment_info.grid(row=counter, column=column_counter)
             counter += 1
-            counter = 0
-            column_counter += 1
+            counter -= 17
+            if column_counter >= 5:
+                counter += 17
+                self.create_header_frame_labels(counter)
+                column_counter = 1
+            else:
+                column_counter += 1
             self.header_information_list.append((key, [header_name_entry,
                                                        date_entry,
                                                        time_entry,
@@ -201,6 +191,24 @@ class BatchWindow(Tk.Frame):
                                                        payment_info,
                                                        attention_entry,
                                                        attention_entry,]))
+
+    def create_header_frame_labels(self, row):
+        Tk.Label(self.headers_data_frame, text="Client Name", font=self.header_font).grid(row=row+1, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Date", font=self.header_font).grid(row=row+2, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Time", font=self.header_font).grid(row=row+3, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Job Number", font=self.header_font).grid(row=row+4, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Attention", font=self.header_font).grid(row=row+5, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 1", font=self.header_font).grid(row=row+6, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 2", font=self.header_font).grid(row=row+7, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Address 3", font=self.header_font).grid(row=row+8, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 1", font=self.header_font).grid(row=row+9, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Sample Type 2", font=self.header_font).grid(row=row+10, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Number of Samples", font=self.header_font).grid(row=row+11, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Receive Temp.", font=self.header_font).grid(row=row+12, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 1", font=self.header_font).grid(row=row+13, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 2", font=self.header_font).grid(row=row+14, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Additional Info 3", font=self.header_font).grid(row=row+15, column=0, sticky=Tk.W)
+        Tk.Label(self.headers_data_frame, text="Payment Info", font=self.header_font).grid(row=row+16, column=0, sticky=Tk.W)
 
     def create_sample_list_frame(self, data):
         counter = 0
@@ -283,7 +291,7 @@ class BatchWindow(Tk.Frame):
         samples_text = Tk.Text(self.display_sample_data_frame, width=100, height=100)
         samples_text.insert(Tk.END, data.dm.condensed_samples_data_frame.to_string())
         samples_text.config(state="disabled")
-        samples_text.grid(row=1, column=0)
+        samples_text.grid(row=3, column=0)
 
     def generate_batch(self, data):
         self.updated_sample_type_option_list = [var.get() for item, menu, var in self.sample_type_option_list]
