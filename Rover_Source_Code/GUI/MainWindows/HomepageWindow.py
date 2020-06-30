@@ -32,7 +32,7 @@ class HomepageWindow(Tk.Frame):
 
     def start_data_processing(self, file_name, instrument_type):
         batch = cont(file_name, instrument_type)
-        self.parent.display_batchpage(batch)
+        self.parent.display_batchpage(batch, instrument_type)
 
     def browse_button(self, instrument_type):
         filename = filedialog.askopenfilename(initialdir= r"T:\ANALYST WORK FILES\Peter\Rover\xml_data_files")

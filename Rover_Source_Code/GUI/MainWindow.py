@@ -29,7 +29,7 @@ class MainWindow(Tk.Frame):
         self.HomepageWindow.homepage()
         self.HomepageWindow.grid()
 
-    def display_batchpage(self, data):
+    def display_batchpage(self, data, instrument_type):
         self.clear_main_window()
-        self.BatchWindow.batch(data)
+        self.BatchWindow.batch(data, instrument_type)
         self.BatchWindow.grid()
