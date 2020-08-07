@@ -367,7 +367,10 @@ class BatchWindow(Tk.Frame):
             print(self.updated_dictionary['sample names'])
             for item in self.updated_dictionary['sample names']:
                 if int(item[0][0:6]) == int(jobnumber_to_match):
-                    if len(str(item[0])) == 8:
+                    if len(str(item[0])) == 6:
+                        string = r'\textbf{1)} ' + item[1]
+                        empty_list_for_matching.append(string)
+                    elif len(str(item[0])) == 8:
                         string = r'\textbf{' + item[0][-1] + r')} ' + item[1]
                         empty_list_for_matching.append(string)
                     else:

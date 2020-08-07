@@ -21,14 +21,14 @@ class HomepageWindow(Tk.Frame):
         self.select_button_font = tkFont.Font(size=18, weight='bold')
 
     def homepage(self):
-        select_button_uv = Tk.Button(self, text="UPLC/UV Data File",
+        select_button_uv = Tk.Button(self, text="Cannabis Potency Batch",
                                      command=lambda: self.browse_button("UPLCUV"),
                                      font=self.select_button_font)
-        select_button_ms = Tk.Button(self, text="UPLC/MS Data File",
+        select_button_ms = Tk.Button(self, text="Pesticides/Toxins Batch",
                                      command=lambda: self.browse_button("UPLCMS"),
                                      font=self.select_button_font)
-        select_button_uv.grid(sticky=Tk.W, padx=10, pady=10)
-        select_button_ms.grid(sticky=Tk.W, padx=10, pady=10)
+        select_button_uv.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
+        select_button_ms.grid(row=0, column=1, sticky=Tk.W, padx=10, pady=10)
 
     def start_data_processing(self, file_name, instrument_type):
         batch = cont(file_name, instrument_type)

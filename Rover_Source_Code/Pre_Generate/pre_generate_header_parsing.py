@@ -177,7 +177,7 @@ class PreGenerateHeaderParsing:
         time = header_contents[66:84].strip()
         w_number = header_contents[84:98].strip()
         remainder_of_header = header_contents[98:].strip().split("   ")
-        remainder_of_header = [word for word in remainder_of_header if len(word) > 1]
+        remainder_of_header = [word for word in remainder_of_header if len(word) >= 1]
         if remainder_of_header[0][0] == "*":
             attn = remainder_of_header[0].strip()
             sample_type = re.sub('[\n]', '', remainder_of_header[1]).strip()

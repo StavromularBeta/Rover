@@ -73,9 +73,9 @@ class MSPreGenerateDataManipulation:
 #       This DataFrame is so we can join the calibration curve data to the samples DataFrame in order to flag the
 #       samples for being over the curve.
         self.over_curve_data = {'id17': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-                                'max_value': [44880, 94400, 16896, 103785, 103785, 160995, 80956, 170668,
-                                              27050, 22440, 15440, 203125, 84959, 82725, 14365, 24365,
-                                              170391, 20391, 12482]}
+                                'max_value': [44880, 170000, 10000, 40000, 5000, 200995, 100000, 50000, 68050,
+                                              50000, 15440, 200000, 200000, 25000, 28000, 50000, 200000,
+                                              5000, 6000]}
         self.over_curve_data_frame = pd.DataFrame(self.over_curve_data, columns=['id17', 'max_value'])
 
 #       This is for development - allows me to see the full DataFrame when i print to the console, rather than a

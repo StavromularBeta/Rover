@@ -20,7 +20,12 @@ class HeaderMethods:
         list item is a list of padding, which gets applied to the center column of the header so that the center column
         is properly aligned (the one downfall of this latex header package, no alignment on the center column). """
         for key, item in self.header_data.header_contents_dictionary.items():
-            print(item)
+            print(item[15])
+            if len(item[15]) <= 6:
+                item[15] = '1'
+                print(item[15])
+            else:
+                pass
             header_string = r"""
 % CLASS OF DOCUMENT
 \documentclass{article}
@@ -29,12 +34,12 @@ class HeaderMethods:
 \usepackage[utf8]{inputenc}
 \usepackage{natbib}
 \usepackage{graphicx}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.5in]{geometry}
 \usepackage{parskip}
 \usepackage{siunitx}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{fancyhdr}
-\usepackage[includeheadfoot, margin=1in]{geometry}
+\usepackage[includeheadfoot, margin=0.5in]{geometry}
 \pagestyle{fancy}
 
 % HEADER
