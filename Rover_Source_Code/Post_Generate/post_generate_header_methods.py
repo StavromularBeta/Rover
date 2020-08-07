@@ -63,7 +63,8 @@ class HeaderMethods:
               }
 \fancyhead[R]{
               \textbf{No.} """ + item[3] + r"""\\
-              \phantom{a}\\
+              % add in the # of pages total on the line below. 
+              Page \thepage{} of \\
               \phantom{a}\\
               \phantom{a}\\
               \phantom{a}\\
