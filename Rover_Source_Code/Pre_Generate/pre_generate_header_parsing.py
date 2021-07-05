@@ -59,7 +59,11 @@ class PreGenerateHeaderParsing:
         """This method produces the address of the header folder for the current month and the previous month. Both are
         checked for relevant headers."""
         self.current_month_directory = 'U:\\TXT-' + self.date_dict[datetime.datetime.now().month] + "\\"
-        self.last_month_directory = 'U:\\TXT-' + self.date_dict[int(datetime.datetime.now().month)-1] + "\\"
+        try:
+            self.last_month_directory = 'U:\\TXT-' + self.date_dict[int(datetime.datetime.now().month)-1] + "\\"
+        except KeyError:
+            self.last_month_directory = 'U:\\TXT-' + self.date_dict[12] + "\\"
+            
 
     def get_header_information_from_unique_jobs_list(self):
         """This method gets the header information in its raw form (weirdly formatted text file from the LIMS system)
@@ -209,6 +213,8 @@ class PreGenerateHeaderParsing:
             elif "Arrival temp" in item:
                 arrival_temp = re.sub('[\n]', '', item).strip()[16:]
             elif "Pd" in item:
+                payment_information = re.sub('[\n]', '', item).strip()
+            elif "PD" in item:
                 payment_information = re.sub('[\n]', '', item).strip()
         parsed_header_contents = [name1,
                                   date,

@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_header_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Rover.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Rover.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/HomepageWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/HomepageWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_file_writing_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_file_writing_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_header_parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/Thumbs.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
@@ -46,8 +51,8 @@
       <recent name="T:\ANALYST WORK FILES\Peter\Rover" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.RoverGUI">
-    <configuration name="RoverGUI" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager">
+    <configuration name="RoverGUI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Rover" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -68,100 +73,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="nerds_gui" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Rover" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/GUI" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/GUI/nerds_gui.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="post_generate_basic_report_percentage" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Rover" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/Post_Generate" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_basic_report_percentage.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="post_generate_report_writer" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Rover" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/Post_Generate" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="T:\ANALYST WORK FILES\Peter\Rover\Rover_Source_Code\Post_Generate\post_generate_controller.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pre_generate_controller" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Rover" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_controller.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.RoverGUI" />
-        <item itemvalue="Python.nerds_gui" />
-        <item itemvalue="Python.pre_generate_controller" />
-        <item itemvalue="Python.post_generate_report_writer" />
-        <item itemvalue="Python.post_generate_basic_report_percentage" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -186,23 +104,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state width="1578" height="218" key="GridCell.Tab.0.bottom" timestamp="1596815676901">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1578" height="218" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1596815676901" />
-    <state width="1578" height="218" key="GridCell.Tab.0.center" timestamp="1596815676901">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1578" height="218" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1596815676901" />
-    <state width="1578" height="218" key="GridCell.Tab.0.left" timestamp="1596815676901">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1578" height="218" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1596815676901" />
-    <state width="1578" height="218" key="GridCell.Tab.0.right" timestamp="1596815676901">
-      <screen x="0" y="0" width="1600" height="860" />
-    </state>
-    <state width="1578" height="218" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1596815676901" />
   </component>
 </project>

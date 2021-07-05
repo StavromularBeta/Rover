@@ -261,7 +261,7 @@ class PreGenerateDataManipulation:
                 duplist.append([duplicate_value.iloc[0, 3],
                                 self.samples_data_frame.loc[index, 'percentage_concentration'],
                                 duplicate_value.iloc[0, 9]])
-        workbook = xlsxwriter.Workbook(r'T:\ANALYST WORK FILES\Peter\Rover\reports\duptracker.xlsx', {'nan_inf_to_errors': True})
+        workbook = xlsxwriter.Workbook(r'X:\ANALYST WORK FILES\Peter\Rover\reports\duptracker.xlsx', {'nan_inf_to_errors': True})
         worksheet = workbook.add_worksheet()
         row = 0
         col = 0
