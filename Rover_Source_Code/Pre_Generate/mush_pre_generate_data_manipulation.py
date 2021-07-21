@@ -37,7 +37,9 @@ class MushPreGenerateDataManipulation:
         self.unique_sample_id_list = []
         # Mushrooms
         self.trimmed_data_frame = pd.DataFrame()
+        self.recovery_data_frame = pd.DataFrame()
         self.samples_data_frame = pd.DataFrame()
+        self.condensed_samples_data_frame = pd.DataFrame()
 
 #       Range check dictionary - these are the high and low values for our curve. If area is smaller than the first
 #       number, or larger than the second one, it is out of range. If that happens, the value needs to be swapped with
@@ -83,7 +85,8 @@ class MushPreGenerateDataManipulation:
         self.remove_unwanted_analytes_from_data_file()
         self.create_list_of_unique_samples()
         self.limit_sig_figs_in_dataframes()
-        print(self.trimmed_data_frame)
+        self.create_condensed_sample_list_data_frame_for_gui()
+        print(self.samples_data_frame)
 
     def collect_data_from_xml_file(self):
         """Reads the xml data, saves it to a Pandas DataFrame.
@@ -117,30 +120,50 @@ class MushPreGenerateDataManipulation:
                                                         'area',
                                                         'analconc',
                                                         'percrecovery',
-                                                        'type']
+                                                        'type',]
                                                )
 
     def remove_unwanted_analytes_from_data_file(self):
         """Selects only the id17's that correspond to Psilocin, Psilocybin, and Baeocystin. Other analytes
          unnecessary."""
+        # removes unwanted analytes
         self.trimmed_data_frame = self.raw_xml_data_frame[self.raw_xml_data_frame['id17'].isin([1.0, 2.0, 3.0])]
-        search_for = ["CS4", "161", "162"]
-        self.trimmed_data_frame = self.trimmed_data_frame[
-            self.raw_xml_data_frame['sampleid'].str.contains('|'.join(search_for), na=False)]
-        self.samples_data_frame = self.trimmed_data_frame[self.trimmed_data_frame.type != "QC"]
+        # pulls samples out
+        search_for = ["161", "162"]
+        self.samples_data_frame = self.trimmed_data_frame[
+            self.trimmed_data_frame['sampleid'].str.contains('|'.join(search_for), na=False)]
+        # converts baeocystin
+        self.samples_data_frame['baeocystin_conc'] = self.samples_data_frame['area'] *\
+                                                     self.samples_data_frame['initamount']
+        self.samples_data_frame.loc[self.samples_data_frame['id17'] == 3.0, 'analconc'] =\
+            self.samples_data_frame['baeocystin_conc']
+        # gets recovery values
+        self.recovery_data_frame = self.trimmed_data_frame[
+            self.trimmed_data_frame['sampleid'].str.contains("CS4", na=False)
+        ]
+        self.recovery_data_frame = self.recovery_data_frame[self.trimmed_data_frame.type != "QC"]
+
+
 
     def create_list_of_unique_samples(self):
         """This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
         at the GUI level."""
-        self.unique_sample_id_list = self.samples_data_frame.sampleid.unique()
+        self.unique_sample_id_list = self.samples_data_frame.sampleid.str[0:8].unique()
 
     def limit_sig_figs_in_dataframes(self):
         """This function rounds the values in the percentage recovery and percentage concentration columns of the
         standard recovery data frame and the samples data frame, respectively. """
-        sig_figs = 4
+        sig_figs = 2
         self.samples_data_frame['analconc'] = self.samples_data_frame.analconc.apply(
             lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 > x > 0) else int(round(x)))
-        self.samples_data_frame['percrecovery'] = self.samples_data_frame.percrecovery.apply(
-            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (1 > x > 0) else int(round(x)))
+        self.recovery_data_frame['percrecovery'] = self.recovery_data_frame.percrecovery.apply(
+            lambda x: round(x, sig_figs - int(floor(log10(abs(x))))) if (100 > x > 0) else int(round(x)))
+
+    def create_condensed_sample_list_data_frame_for_gui(self):
+        """creates the data frame that gets presented in the GUI on the batch window page below the sample name boxes
+        (All samples - raw)."""
+        self.condensed_samples_data_frame = self.samples_data_frame[['sampleid',
+                                                                     'name20',
+                                                                     'analconc']]
 
 

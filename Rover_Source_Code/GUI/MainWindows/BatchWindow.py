@@ -46,20 +46,30 @@ class BatchWindow(Tk.Frame):
         self.lengthlist = []
 
     def batch(self, data, instrument_type):
-        self.create_scrollable_window()
-        self.blank_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
-        self.recovery_data_frame.grid(row=1, column=0, sticky=Tk.W, padx=10, pady=10)
-        self.headers_data_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-#       self.samples_list_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-#       above line is now obsolete. Will keep for a bit.
-        self.display_sample_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.samples_checklist_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
-        self.create_blank_frame(data)
-        self.create_recovery_frame(data)
-        self.create_header_frames(data)
-        self.create_sample_list_frame(data)
-        self.create_samples_checklist_option_frame(data, instrument_type)
-        self.display_sample_data(data)
+        if instrument_type == "UPLCUV":
+            self.create_scrollable_window()
+            self.blank_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
+            self.recovery_data_frame.grid(row=1, column=0, sticky=Tk.W, padx=10, pady=10)
+            self.headers_data_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+#           above line is now obsolete. Will keep for a bit.
+            self.display_sample_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+            self.samples_checklist_frame.grid(row=4, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+            self.create_blank_frame(data)
+            self.create_recovery_frame(data)
+            self.create_header_frames(data)
+            self.create_sample_list_frame(data)
+            self.create_samples_checklist_option_frame(data, instrument_type)
+            self.display_sample_data(data)
+        elif instrument_type == "UPLCMS":
+            self.create_scrollable_window()
+            self.recovery_data_frame.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)
+            self.display_sample_data_frame.grid(row=1, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+            self.headers_data_frame.grid(row=2, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+            self.samples_checklist_frame.grid(row=3, column=0, columnspan=2, sticky=Tk.W, padx=10, pady=10)
+            self.create_mush_recovery_frame(data)
+            self.display_sample_data(data)
+            self.create_header_frames(data)
+            self.create_samples_checklist_option_frame(data, instrument_type)
 
     def create_scrollable_window(self):
         display_all_jobs_canvas = Tk.Canvas(self.master_display_frame,
@@ -94,6 +104,19 @@ class BatchWindow(Tk.Frame):
         recovery_text.insert(Tk.END, data.dm.best_recovery_qc_data_frame.to_string())
         recovery_text.config(state="disabled")
         recovery_text.grid(row=1, column=0)
+
+    def create_mush_recovery_frame(self, data):
+        recovery_values = data.dm.recovery_data_frame
+        psilocybin_recovery = recovery_values.loc[recovery_values['id17'] == 2.0].percrecovery.iloc[0]
+        psilocin_recovery = recovery_values.loc[recovery_values['id17'] == 1.0].percrecovery.iloc[0]
+        psilocin_recovery_label = Tk.Label(self.recovery_data_frame,
+                                           text="Psilocin Recovery = " + str(psilocin_recovery),
+                                           font=self.header_font)
+        psilocybin_recovery_level = Tk.Label(self.recovery_data_frame,
+                                             text="Psilocybin Recovery = " + str(psilocybin_recovery),
+                                             font=self.header_font)
+        psilocin_recovery_label.grid(row=0, column=0, sticky=Tk.W)
+        psilocybin_recovery_level.grid(row=1, column=0, sticky=Tk.W)
 
     def create_header_frames(self, data):
         counter = 0
@@ -226,73 +249,64 @@ class BatchWindow(Tk.Frame):
     def create_samples_checklist_option_frame(self, data, instrument_type):
         counter = 1
         Tk.Label(self.samples_checklist_frame, text="Samples", font=self.header_font).grid(row=0, column=0)
-        if instrument_type == "UPLCUV":
-            Tk.Label(self.samples_checklist_frame, text="Units", font=self.header_font).grid(row=0, column=1)
-            Tk.Label(self.samples_checklist_frame, text="Basic/Deluxe", font=self.header_font).grid(row=0, column=2)
-            Tk.Label(self.samples_checklist_frame, text="single/multi", font=self.header_font).grid(row=0, column=3)
-            Tk.Label(self.samples_checklist_frame,
-                     text="density or unit mass input",
-                     font=self.header_font).grid(row=0, column=4, columnspan=2)
-        else:
-            pass
+        Tk.Label(self.samples_checklist_frame, text="Units", font=self.header_font).grid(row=0, column=1)
+        Tk.Label(self.samples_checklist_frame, text="Basic/Deluxe", font=self.header_font).grid(row=0, column=2)
+        Tk.Label(self.samples_checklist_frame, text="single/multi", font=self.header_font).grid(row=0, column=3)
+        Tk.Label(self.samples_checklist_frame,
+                 text="density or unit mass input",
+                 font=self.header_font).grid(row=0, column=4, columnspan=2)
         for item in data.dm.unique_sample_id_list:
             Tk.Label(self.samples_checklist_frame, text=item).grid(row=counter, column=0)
-            if instrument_type == "UPLCUV":
-                sample_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
-                sample_type_choices = {'Percent', 'mg/mL', 'mg/g', 'per unit'}
-                sample_type_string_variable.set('Percent')
-                sample_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
-                                                 sample_type_string_variable,
-                                                 *sample_type_choices)
-                sample_type_menu.grid(row=counter, column=1)
-                self.sample_type_option_list.append((item, sample_type_menu, sample_type_string_variable))
-                report_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
-                report_type_choices = {'Basic', 'Deluxe'}
-                report_type_string_variable.set('Basic')
-                report_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
-                                                 report_type_string_variable,
-                                                 *report_type_choices)
-                report_type_menu.grid(row=counter, column=2)
-                self.report_type_option_list.append((item, report_type_menu, report_type_string_variable))
-                multi_or_single_variable = Tk.StringVar(self.samples_checklist_frame)
-                multi_or_single_choices = {'Multi', 'Single'}
-                multi_or_single_variable.set('Multi')
-                multi_single_menu = Tk.OptionMenu(self.samples_checklist_frame,
-                                                  multi_or_single_variable,
-                                                  *multi_or_single_choices)
-                multi_single_menu.grid(row=counter, column=3)
-                self.single_or_multi_list.append((item, multi_single_menu, multi_or_single_variable))
-                unit_or_density_entry = Tk.Entry(self.samples_checklist_frame)
-                unit_or_density_entry.insert(Tk.END, 1.0)
-                unit_or_density_entry.grid(row=counter, column=4)
-                self.density_unit_weight_list.append((item, unit_or_density_entry))
-                density_or_unit_variable = Tk.StringVar(self.samples_checklist_frame)
-                density_or_unit_choices = {'density', 'unit'}
-                density_or_unit_variable.set('density')
-                density_unit_menu = Tk.OptionMenu(self.samples_checklist_frame,
-                                                  density_or_unit_variable,
-                                                  *density_or_unit_choices)
-                density_unit_menu.grid(row=counter, column=5)
-                self.density_unit_weight_option_list.append((item, density_unit_menu, density_or_unit_variable))
-                sample_name_entry = Tk.Entry(self.samples_checklist_frame)
-                Tk.Label(self.samples_checklist_frame, text="   Sample name: ").grid(row=counter, column=6)
-                sample_name_entry.grid(row=counter, column=7)
-                self.sample_name_list.append((item, sample_name_entry))
-                counter += 1
-            elif instrument_type == "UPLCMS":
-                sample_name_entry = Tk.Entry(self.samples_checklist_frame)
-                Tk.Label(self.samples_checklist_frame, text="   Sample name: ").grid(row=counter, column=1)
-                sample_name_entry.grid(row=counter, column=2)
-                self.sample_name_list.append((item, sample_name_entry))
-                counter += 1
+            sample_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
+            sample_type_choices = {'Percent', 'mg/mL', 'mg/g', 'per unit'}
+            sample_type_string_variable.set('Percent')
+            sample_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                             sample_type_string_variable,
+                                             *sample_type_choices)
+            sample_type_menu.grid(row=counter, column=1)
+            self.sample_type_option_list.append((item, sample_type_menu, sample_type_string_variable))
+            report_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
+            report_type_choices = {'Basic', 'Deluxe'}
+            report_type_string_variable.set('Basic')
+            report_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                             report_type_string_variable,
+                                             *report_type_choices)
+            report_type_menu.grid(row=counter, column=2)
+            self.report_type_option_list.append((item, report_type_menu, report_type_string_variable))
+            multi_or_single_variable = Tk.StringVar(self.samples_checklist_frame)
+            multi_or_single_choices = {'Multi', 'Single'}
+            multi_or_single_variable.set('Multi')
+            multi_single_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                              multi_or_single_variable,
+                                              *multi_or_single_choices)
+            multi_single_menu.grid(row=counter, column=3)
+            self.single_or_multi_list.append((item, multi_single_menu, multi_or_single_variable))
+            unit_or_density_entry = Tk.Entry(self.samples_checklist_frame)
+            unit_or_density_entry.insert(Tk.END, 1.0)
+            unit_or_density_entry.grid(row=counter, column=4)
+            self.density_unit_weight_list.append((item, unit_or_density_entry))
+            density_or_unit_variable = Tk.StringVar(self.samples_checklist_frame)
+            density_or_unit_choices = {'density', 'unit'}
+            density_or_unit_variable.set('density')
+            density_unit_menu = Tk.OptionMenu(self.samples_checklist_frame,
+                                              density_or_unit_variable,
+                                              *density_or_unit_choices)
+            density_unit_menu.grid(row=counter, column=5)
+            self.density_unit_weight_option_list.append((item, density_unit_menu, density_or_unit_variable))
+            sample_name_entry = Tk.Entry(self.samples_checklist_frame)
+            Tk.Label(self.samples_checklist_frame, text="   Sample name: ").grid(row=counter, column=6)
+            sample_name_entry.grid(row=counter, column=7)
+            self.sample_name_list.append((item, sample_name_entry))
+            counter += 1
         Tk.Button(self.samples_checklist_frame,
                   text="Generate Batch",
-                  command=lambda x=data: self.generate_batch(x), font=self.header_font).grid(row=counter,
-                                                                                             column=0,
-                                                                                             padx=10,
-                                                                                             pady=20,
-                                                                                             sticky=Tk.W,
-                                                                                             columnspan=2)
+                  command=lambda x=data: self.generate_batch(x, instrument_type),
+                  font=self.header_font).grid(row=counter,
+                                              column=0,
+                                              padx=10,
+                                              pady=20,
+                                              sticky=Tk.W,
+                                              columnspan=2)
 
     def display_sample_data(self, data):
         samples_label = Tk.Label(self.display_sample_data_frame, text="Raw Data - All Samples",
@@ -303,7 +317,7 @@ class BatchWindow(Tk.Frame):
         samples_text.config(state="disabled")
         samples_text.grid(row=3, column=0)
 
-    def generate_batch(self, data):
+    def generate_batch(self, data, instrument_type):
         self.updated_sample_type_option_list = [var.get() for item, menu, var in self.sample_type_option_list]
         self.updated_report_type_option_list = [var.get() for item, menu, var in self.report_type_option_list]
         self.updated_single_or_multi_list = [var.get() for item, menu, var in self.single_or_multi_list]
@@ -322,9 +336,9 @@ class BatchWindow(Tk.Frame):
         self.updated_dictionary['density_unit'] = self.updated_density_unit_weight_list
         self.updated_dictionary['density_unit_option'] = self.updated_density_unit_weight_option_list
         self.updated_dictionary['sample names'] = self.updated_sample_name_list
-        self.post_generate_controller(data.dm, data.hp)
+        self.post_generate_controller(data.dm, data.hp, instrument_type)
 
-    def post_generate_controller(self, sample_data, header_data):
+    def post_generate_controller(self, sample_data, header_data, instrument_type):
         counter = 0
         for key, value in header_data.header_contents_dictionary.items():
             for item in range(0, 17):
@@ -383,6 +397,6 @@ class BatchWindow(Tk.Frame):
             header_data.header_contents_dictionary[key][header_counter] = sample_names_master_list[counter]
             counter += 1
         batch_report = report(sample_data, header_data, self.updated_dictionary)
-        batch_report.post_generate_controller()
+        batch_report.post_generate_controller(instrument_type)
 
 

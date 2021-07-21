@@ -71,6 +71,9 @@ class ReportWriter:
                                        17: (r"Cannabinol Acid &", 16.0),
                                        18: (r"Cannabigerivarin Acid &", 5.0)
                                        }
+        self.mushroom_dictionary = {1: (r"Psilocin &", 1.0),
+                                    2: (r"Psilocybin &", 2.0),
+                                    3: (r"Baeocystin &", 3.0)}
 
 #       This dictionary is for containing the LOQ's. keys match the list indices at the table writing step.
         self.loq_dictionary = {1: '0.001',
@@ -103,7 +106,7 @@ class ReportWriter:
         pd.set_option('display.width', None)
         pd.set_option('display.max_colwidth', -1)
 
-    def post_generate_controller(self):
+    def post_generate_controller(self, instrument_type):
         """This is the controller function for the class. First, the latex header dictionaries are produced. Then,
         the organizer methods are called. Multiple sample reports are handled first, because these methods will catch
         any solo reports that are mistakenly labeled multi and will add them to the dictionary of single reports.
@@ -113,27 +116,32 @@ class ReportWriter:
         self.latex_header_and_sample_list_dictionary = self.header_methods.generate_samples_list()
         self.single_reports_dictionary, self.multiple_reports_dictionary = \
             self.organize_methods.split_samples_into_single_or_multi()
-        self.sample_data = self.organize_methods.create_alternate_sample_type_columns()
+        self.sample_data = self.organize_methods.create_alternate_sample_type_columns(instrument_type)
         multi_methods = MultiMethods(self.header_data.header_contents_dictionary,
                                      self.multiple_reports_dictionary,
                                      self.single_reports_dictionary,
                                      self.latex_header_and_sample_list_dictionary,
                                      self.sample_data,
                                      self.cannabinoid_dictionary,
+                                     self.mushroom_dictionary,
                                      self.loq_dictionary)
         self.single_reports_dictionary, self.finished_reports_dictionary = \
-            multi_methods.generate_multi_sample_reports()
+            multi_methods.generate_multi_sample_reports(instrument_type)
         single_methods = SingleMethods(self.finished_reports_dictionary,
                                        self.single_reports_dictionary,
                                        self.sample_data,
                                        self.latex_header_and_sample_list_dictionary,
                                        self.loq_dictionary)
         self.finished_reports_dictionary = single_methods.generate_single_sample_reports()
-        basic_reports = BasicTextReports(self.multiple_reports_dictionary,
-                                         self.single_reports_dictionary,
-                                         self.sample_data)
-        basic_reports_dictionary = basic_reports.basic_text_reports()
-        file_writing_methods = FileWritingMethods(self.finished_reports_dictionary, basic_reports_dictionary)
-        file_writing_methods.generate_report_directories_and_files()
+        if instrument_type == 'UPLCUV':
+            basic_reports = BasicTextReports(self.multiple_reports_dictionary,
+                                             self.single_reports_dictionary,
+                                             self.sample_data)
+            basic_reports_dictionary = basic_reports.basic_text_reports()
+            file_writing_methods = FileWritingMethods(self.finished_reports_dictionary, basic_reports_dictionary)
+            file_writing_methods.generate_report_directories_and_files()
+        elif instrument_type == 'UPLCMS':
+            file_writing_methods = FileWritingMethods(self.finished_reports_dictionary, 'MUSH')
+            file_writing_methods.generate_report_directories_and_files()
 
 

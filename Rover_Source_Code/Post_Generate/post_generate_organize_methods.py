@@ -27,9 +27,13 @@ class OrganizeMethods:
             counter += 1
         return self.single_reports_dictionary, self.multiple_reports_dictionary
 
-    def create_alternate_sample_type_columns(self):
-        self.sample_data.samples_data_frame['mg_g'] =\
-            self.sample_data.samples_data_frame['percentage_concentration'] * 10
+    def create_alternate_sample_type_columns(self, instrument_type):
+        if instrument_type == "UPLCUV":
+            self.sample_data.samples_data_frame['mg_g'] =\
+                self.sample_data.samples_data_frame['percentage_concentration'] * 10
+        elif instrument_type == "UPLCMS":
+            self.sample_data.samples_data_frame['mg_g'] =\
+                self.sample_data.samples_data_frame['analconc'] * 0.0001
         for key, value in self.single_reports_dictionary.items():
             sample_id = key
             if value[3] == 'density':

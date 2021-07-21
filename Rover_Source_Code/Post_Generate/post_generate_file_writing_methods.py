@@ -27,18 +27,21 @@ class FileWritingMethods:
                     f.write(value)
             except OSError:
                 pass
-        for key, value in self.basic_reports_dictionary.items():
-            try:
-                jobnumber = str(key)
-                filename = target[:-1] + jobnumber + '\\' + jobnumber + '.txt'
-                filename = filename.replace('/', '-')
-                with self.safe_open_w(filename) as f:
-                    for item in value:
-                        f.write(item[0])
-                        f.write(item[1].to_string())
-                        f.write('\n\n')
-            except OSError:
-                pass
+        if self.basic_reports_dictionary == "MUSH":
+            pass
+        else:
+            for key, value in self.basic_reports_dictionary.items():
+                try:
+                    jobnumber = str(key)
+                    filename = target[:-1] + jobnumber + '\\' + jobnumber + '.txt'
+                    filename = filename.replace('/', '-')
+                    with self.safe_open_w(filename) as f:
+                        for item in value:
+                            f.write(item[0])
+                            f.write(item[1].to_string())
+                            f.write('\n\n')
+                except OSError:
+                    pass
 
     def mkdir_p(self, path):
         """tries to make the directory."""

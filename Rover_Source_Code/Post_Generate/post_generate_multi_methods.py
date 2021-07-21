@@ -9,6 +9,7 @@ class MultiMethods:
                  latex_header_and_sample_list_dictionary,
                  sample_data,
                  cannabinoid_dictionary,
+                 mushrooms_dictionary,
                  loq_dictionary):
         """
         1. header_contents_dictionary = header contents for all of the jobs in the batch, updated and finalized.
@@ -30,10 +31,11 @@ class MultiMethods:
         self.latex_header_and_sample_list_dictionary = latex_header_and_sample_list_dictionary
         self.sample_data = sample_data
         self.cannabinoid_dictionary = cannabinoid_dictionary
+        self.mushrooms_dictionary = mushrooms_dictionary
         self.loq_dictionary = loq_dictionary
         self.finished_reports_dictionary = {}
 
-    def generate_multi_sample_reports(self):
+    def generate_multi_sample_reports(self, instrument_type):
         """groups all of the various subjobs together. the first for loop collects the various samples for a given job
         into a list and then appends that list to the multi_tuple_list. The second for loop adds the extra column in the
         table required if samples are to be reported in two different units. For example, a cannabis cookie needs to
@@ -64,10 +66,10 @@ class MultiMethods:
                     new_sub_list.append(subitem)
             new_multi_tuple_list.append(new_sub_list)
         for item in new_multi_tuple_list:
-            self.determine_number_of_pages_for_multi_reports(item)
+            self.determine_number_of_pages_for_multi_reports(item, instrument_type)
         return self.single_reports_dictionary, self.finished_reports_dictionary
 
-    def determine_number_of_pages_for_multi_reports(self, tuple_list):
+    def determine_number_of_pages_for_multi_reports(self, tuple_list, instrument_type):
         """determines whether a given report can fit one one page/ has to be written on multiple pages. If there
         are no jobs requiring multiple samples per page, the first part of the if statement prevents the code from
         crashing. If there are more than 4 samples, we need multiple pages.
@@ -86,14 +88,14 @@ class MultiMethods:
         elif 4 >= number_of_samples > 0:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
-            table_string = self.single_page_multi_table(tuple_list)
+            table_string = self.single_page_multi_table(tuple_list, instrument_type)
             footer = self.generate_footer()
             report = header + table_string + footer
             self.finished_reports_dictionary[sample_id] = report
         else:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
-            table_strings = self.multiple_page_multi_table(tuple_list)
+            table_strings = self.multiple_page_multi_table(tuple_list, instrument_type)
             footer = self.generate_footer()
             for item in table_strings:
                 header += item
@@ -102,11 +104,11 @@ class MultiMethods:
             report = header + footer
             self.finished_reports_dictionary[sample_id] = report
 
-    def single_page_multi_table(self, tuple_list):
+    def single_page_multi_table(self, tuple_list, instrument_type):
         """combines the header of a table, to the main part of the table containing data. Then adds on the end string.
         returns the completed table."""
         table_header_string = self.generate_single_page_multi_table_header(tuple_list)
-        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string)
+        main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string, instrument_type)
         end_string = r"""
 \hline
 \hline
@@ -118,7 +120,7 @@ class MultiMethods:
         main_table_string += end_string
         return main_table_string
 
-    def multiple_page_multi_table(self, tuple_list):
+    def multiple_page_multi_table(self, tuple_list, instrument_type):
         """creates multiple tables. adds items in the tuple_list to the add_list. Every 4 items, it adds the add_list
         to the tuple_list_list and clears the add_list. Each add_list represents the samples going into one table. It
         then iterates through the tuple_list_list, and each list gets converted into a table, and added to
@@ -137,7 +139,7 @@ class MultiMethods:
         latex_tables_list = []
         for item in tuple_list_list:
             table_header_string = self.generate_single_page_multi_table_header(item)
-            main_table_string = self.generate_single_page_multi_table(item, table_header_string)
+            main_table_string = self.generate_single_page_multi_table(item, table_header_string, instrument_type)
             end_string = r"""
 \hline
 \hline
@@ -199,45 +201,50 @@ class MultiMethods:
 \hline"""
         return table_header_1
 
-    def generate_single_page_multi_table(self, tuple_list, table_header_string):
+    def generate_single_page_multi_table(self, tuple_list, table_header_string, instrument_type):
         """creates the bulk of the table. The tables appearance is analogous to the way this function is laid out.
         each line is either a regular line, or total THC/CBD. Each of the two types of lines has its own function."""
-        table_header_string += self.generate_single_page_multi_table_line(1, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(2, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_total_line(1, 2, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(3, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line("Delta8Acid", tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(4, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(5, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(6, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(7, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_total_line(6, 7, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(8, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(9, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(10, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(11, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(12, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(13, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(14, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(15, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(16, tuple_list) + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(17, tuple_list) + '\n'
-        table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line("Cannabigerivarin_Acid", tuple_list) + '\n'
+        if instrument_type == "UPLCMS":
+            table_header_string += self.generate_single_page_multi_table_line(1, tuple_list, True) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(2, tuple_list, True) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(3, tuple_list, True) + '\n'
+        else:
+            table_header_string += self.generate_single_page_multi_table_line(1, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(2, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_total_line(1, 2, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(3, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line("Delta8Acid", tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(4, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(5, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(6, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(7, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_total_line(6, 7, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(8, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(9, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(10, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(11, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(12, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(13, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(14, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(15, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(16, tuple_list) + '\n'
+            table_header_string += self.generate_single_page_multi_table_line(17, tuple_list) + '\n'
+            table_header_string += r' \hline ' + '\n'
+            table_header_string += self.generate_single_page_multi_table_line("Cannabigerivarin_Acid", tuple_list) + '\n'
         return table_header_string
 
     def generate_total_line(self, cannabinoid, cannabinoid_acid, tuple_list):
@@ -282,7 +289,7 @@ class MultiMethods:
         cannabinoid_latex_string += r"""\\"""
         return cannabinoid_latex_string
 
-    def generate_single_page_multi_table_line(self, cannabinoid, tuple_list):
+    def generate_single_page_multi_table_line(self, cannabinoid, tuple_list, mushroom_report=False):
         """The first if statement deals with Delta8Acid, which we don't have a standard for. After that, the function
         essentially mirrors generate_total_line. Differences are that basic/deluxe has to be handled - on line 318,
         any cannabinoids that aren't required for a given sample are represented as a dash. The data value required is
@@ -301,12 +308,19 @@ class MultiMethods:
                 start += r"""ND &"""
             start += r"""ND & N/A & N/A \\ """
             return start
-        cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
-        cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
+        if mushroom_report:
+            cannabinoid_latex_string = self.mushrooms_dictionary[cannabinoid][0]
+            cannabinoid_id_17 = self.mushrooms_dictionary[cannabinoid][1]
+        else:
+            cannabinoid_latex_string = self.cannabinoid_dictionary[cannabinoid][0]
+            cannabinoid_id_17 = self.cannabinoid_dictionary[cannabinoid][1]
         for item in tuple_list:
             sampleid = item[0]
             if item[1][0] == 'Percent':
-                data_column = 'percentage_concentration'
+                if mushroom_report:
+                    data_column = 'analconc'
+                else:
+                    data_column = 'percentage_concentration'
             elif item[1][0] == 'mg/g':
                 data_column = r"""mg_g"""
             elif item[1][0] == 'mg/mL':
@@ -325,12 +339,21 @@ class MultiMethods:
             data_value = self.sig_fig_and_rounding_for_values(data_value)
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
-        cannabinoid_recovery_value = self.sample_data.best_recovery_qc_data_frame.loc[
-                                     self.sample_data.best_recovery_qc_data_frame['id17'] ==
-                                     cannabinoid_id_17,
-                                     ['percrecovery']].iloc[0]['percrecovery']
+        if mushroom_report:
+            cannabinoid_recovery_value = self.sample_data.recovery_data_frame.loc[
+                                         self.sample_data.recovery_data_frame['id17'] ==
+                                         cannabinoid_id_17,
+                                         ['percrecovery']].iloc[0]['percrecovery']
+        else:
+            cannabinoid_recovery_value = self.sample_data.best_recovery_qc_data_frame.loc[
+                                         self.sample_data.best_recovery_qc_data_frame['id17'] ==
+                                         cannabinoid_id_17,
+                                         ['percrecovery']].iloc[0]['percrecovery']
         cannabinoid_recovery_value = self.sig_fig_and_rounding_for_values(cannabinoid_recovery_value)
-        loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
+        if mushroom_report:
+            loq_value = "0.0003"
+        else:
+            loq_value = self.loq_dictionary[int(cannabinoid_id_17-1)]
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
 
