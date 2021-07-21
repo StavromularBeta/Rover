@@ -237,7 +237,7 @@ class MultiMethods:
         table_header_string += self.generate_single_page_multi_table_line(16, tuple_list) + '\n'
         table_header_string += self.generate_single_page_multi_table_line(17, tuple_list) + '\n'
         table_header_string += r' \hline ' + '\n'
-        table_header_string += self.generate_single_page_multi_table_line(18, tuple_list) + '\n'
+        table_header_string += self.generate_single_page_multi_table_line("Cannabigerivarin_Acid", tuple_list) + '\n'
         return table_header_string
 
     def generate_total_line(self, cannabinoid, cannabinoid_acid, tuple_list):
@@ -291,6 +291,12 @@ class MultiMethods:
         the batch. """
         if cannabinoid == "Delta8Acid":
             start = r"""$\Delta^{8}$THC Acid & """
+            for item in tuple_list:
+                start += r"""ND &"""
+            start += r"""ND & N/A & N/A \\ """
+            return start
+        elif cannabinoid == "Cannabigerivarin_Acid":
+            start = r"""Cannabigerivarin Acid & """
             for item in tuple_list:
                 start += r"""ND &"""
             start += r"""ND & N/A & N/A \\ """

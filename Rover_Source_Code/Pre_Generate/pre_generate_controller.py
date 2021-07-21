@@ -7,7 +7,7 @@ parentdir = os.path.dirname(parentdir)
 sys.path.insert(0, parentdir)
 sys.path.insert(0, currentdir)
 from pre_generate_data_manipulation import PreGenerateDataManipulation
-from MS_pre_generate_data_manipulation import MSPreGenerateDataManipulation
+from mush_pre_generate_data_manipulation import MushPreGenerateDataManipulation
 from pre_generate_header_parsing import PreGenerateHeaderParsing
 
 
@@ -22,7 +22,7 @@ class PreGenerateController:
             self.dm = PreGenerateDataManipulation(self.target_file)
             self.dm.data_manipulation_controller()
         elif self.batch_type == 'UPLCMS':
-            self.dm = MSPreGenerateDataManipulation(self.target_file)
+            self.dm = MushPreGenerateDataManipulation(self.target_file)
             self.dm.data_manipulation_controller()
         self.hp = PreGenerateHeaderParsing(self.dm.samples_data_frame)
         self.hp.header_parsing_controller()
@@ -35,14 +35,14 @@ class PreGenerateController:
         pd.set_option('display.max_colwidth', -1)
 #       self.print_pre_generate_data_and_headers()  # uncomment for print to terminal view of the data.
 
-    def print_pre_generate_data_and_headers(self):
-        print('RECOVERY')
-        print(self.dm.best_recovery_qc_data_frame)
-        print('BLANK')
-        print(self.dm.min_value_blank_data_frame)
-        print('HEADERS')
-        for item in self.hp.header_contents_dictionary.values():
-            print(item)
-        print('SAMPLES')
-        print(self.dm.samples_data_frame)
+#    def print_pre_generate_data_and_headers(self):
+#        print('RECOVERY')
+#        print(self.dm.best_recovery_qc_data_frame)
+#        print('BLANK')
+#        print(self.dm.min_value_blank_data_frame)
+#        print('HEADERS')
+#        for item in self.hp.header_contents_dictionary.values():
+#            print(item)
+#        print('SAMPLES')
+#        print(self.dm.samples_data_frame)
 

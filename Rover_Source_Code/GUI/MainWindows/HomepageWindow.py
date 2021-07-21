@@ -24,7 +24,7 @@ class HomepageWindow(Tk.Frame):
         select_button_uv = Tk.Button(self, text="Cannabis Potency Batch",
                                      command=lambda: self.browse_button("UPLCUV"),
                                      font=self.select_button_font)
-        select_button_ms = Tk.Button(self, text="Pesticides/Toxins Batch",
+        select_button_ms = Tk.Button(self, text="Psilocybin/Psilocin Batch",
                                      command=lambda: self.browse_button("UPLCMS"),
                                      font=self.select_button_font)
         select_button_uv.grid(row=0, column=0, sticky=Tk.W, padx=10, pady=10)

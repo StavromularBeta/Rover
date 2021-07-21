@@ -468,7 +468,7 @@ class SingleMethods:
     Cannabinol (CBN) & """ + data[8] + r""" &   ND & """ + recov_data[8] + r"""& """ + self.loq_dictionary[8] + r"""\\
     Cannabinol Acid & """ + data[15] + r""" &  ND & """ + recov_data[15] + r"""& """ + self.loq_dictionary[15] + r""" \\
     \hline
-    Cannabigerivarin Acid & """ + data[4] + r""" &  ND & """ + recov_data[4] + r"""& """ + self.loq_dictionary[4] + r""" \\
+    Cannabigerivarin Acid & ND & ND & N/A & N/A \\
     \hline
     \hline
     \textbf{Moisture} & 0.00  &   &  &\\
@@ -559,8 +559,7 @@ class SingleMethods:
     Cannabinol Acid & """ + data[15][0] + r""" &  """ + data[15][1] + r""" &  ND & """ + recov_data[15] + r"""& """ + \
                                       self.loq_dictionary[15] + r""" \\
     \hline
-    Cannabigerivarin Acid & """ + data[4][0] + r""" &  """ + data[4][1] + r""" &  ND & """ + recov_data[4] + r"""& """ + \
-                                      self.loq_dictionary[4] + r""" \\
+    Cannabigerivarin Acid & ND & ND & N/A & N/A \\
     \hline
     \hline
     \textbf{Moisture} & 0.00  &   &  & \\
