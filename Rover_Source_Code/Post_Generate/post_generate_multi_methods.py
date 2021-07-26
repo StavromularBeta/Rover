@@ -205,6 +205,7 @@ class MultiMethods:
         """creates the bulk of the table. The tables appearance is analogous to the way this function is laid out.
         each line is either a regular line, or total THC/CBD. Each of the two types of lines has its own function."""
         if instrument_type == "UPLCMS":
+            table_header_string += '\n'
             table_header_string += self.generate_single_page_multi_table_line(1, tuple_list, True) + '\n'
             table_header_string += self.generate_single_page_multi_table_line(2, tuple_list, True) + '\n'
             table_header_string += self.generate_single_page_multi_table_line(3, tuple_list, True) + '\n'
@@ -332,10 +333,13 @@ class MultiMethods:
             if item[1][1] == 'Basic' and cannabinoid in [4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 18]:
                 data_value = '-'
             else:
-                data_value = self.sample_data.samples_data_frame.loc[
-                            (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
-                            & (self.sample_data.samples_data_frame['sampleid'] == sampleid),
-                            [data_column]].iloc[0][data_column]
+                try:
+                    data_value = self.sample_data.samples_data_frame.loc[
+                                (self.sample_data.samples_data_frame['id17'] == cannabinoid_id_17)
+                                & (self.sample_data.samples_data_frame['sampleid'].str.contains(sampleid)),
+                                [data_column]].iloc[0][data_column]
+                except IndexError:
+                    data_value = "ND"
             data_value = self.sig_fig_and_rounding_for_values(data_value)
             data_value = data_value + " &"
             cannabinoid_latex_string += data_value
@@ -376,6 +380,8 @@ R. Bilodeau \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}H. Hartmann
 
     def sig_fig_and_rounding_for_values(self, value):
         if value == '-':
+            return value
+        elif value == "ND":
             return value
         string_value = str(value)
         split_string = string_value.split('.')

@@ -83,9 +83,14 @@ class MushPreGenerateDataManipulation:
         """The main controller function. To run the methods that make up this class, this function is called."""
         self.collect_data_from_xml_file()
         self.remove_unwanted_analytes_from_data_file()
+        self.get_recovery_values_from_trimmed_data_frame()
+        self.extract_samples_from_trimmed_data_frame()
+        self.covert_baeocystin_values_from_area_to_approx_conc()
         self.create_list_of_unique_samples()
         self.limit_sig_figs_in_dataframes()
         self.create_condensed_sample_list_data_frame_for_gui()
+        self.remove_zero_values_from_dataframe()
+        self.remove_diluted_baeocystin_values()
         print(self.samples_data_frame)
 
     def collect_data_from_xml_file(self):
@@ -128,22 +133,45 @@ class MushPreGenerateDataManipulation:
          unnecessary."""
         # removes unwanted analytes
         self.trimmed_data_frame = self.raw_xml_data_frame[self.raw_xml_data_frame['id17'].isin([1.0, 2.0, 3.0])]
-        # pulls samples out
-        search_for = ["161", "162"]
-        self.samples_data_frame = self.trimmed_data_frame[
-            self.trimmed_data_frame['sampleid'].str.contains('|'.join(search_for), na=False)]
-        # converts baeocystin
-        self.samples_data_frame['baeocystin_conc'] = self.samples_data_frame['area'] *\
-                                                     self.samples_data_frame['initamount']
-        self.samples_data_frame.loc[self.samples_data_frame['id17'] == 3.0, 'analconc'] =\
-            self.samples_data_frame['baeocystin_conc']
+
+    def get_recovery_values_from_trimmed_data_frame(self):
         # gets recovery values
         self.recovery_data_frame = self.trimmed_data_frame[
             self.trimmed_data_frame['sampleid'].str.contains("CS4", na=False)
         ]
         self.recovery_data_frame = self.recovery_data_frame[self.trimmed_data_frame.type != "QC"]
 
+    def extract_samples_from_trimmed_data_frame(self):
+        # pulls samples out
+        search_for = ["161", "162"]
+        self.samples_data_frame = self.trimmed_data_frame[
+            self.trimmed_data_frame['sampleid'].str.contains('|'.join(search_for), na=False)]
 
+    def covert_baeocystin_values_from_area_to_approx_conc(self):
+        # converts baeocystin
+        psilo_cs4_area = self.recovery_data_frame.loc[self.recovery_data_frame['id17'] == 2.0].area.iloc[0]
+        self.samples_data_frame['baeocystin_conc'] = (self.samples_data_frame['area'] / psilo_cs4_area) *\
+                                                     (0.25 * 10.0 * 1.0 / self.samples_data_frame['initamount'])
+        self.samples_data_frame.loc[self.samples_data_frame['id17'] == 3.0, 'analconc'] =\
+            self.samples_data_frame['baeocystin_conc']
+
+    def remove_zero_values_from_dataframe(self):
+        # removes all the dilute values that equal 0.
+        self.samples_data_frame = self.samples_data_frame[self.samples_data_frame.analconc != 0.0]
+
+    def remove_diluted_baeocystin_values(self):
+        # removes all the 250x baeocystin values.
+        self.samples_data_frame = self.samples_data_frame.drop(
+            self.samples_data_frame[
+                (self.samples_data_frame.sampleid.str.contains('250x'))
+                &
+                (self.samples_data_frame.name20.str.contains("Baeocystin"))].index)
+
+    def remove_unecessary_columns_for_reporting(self):
+        self.samples_data_frame = self.samples_data_frame.drop(labels=["baeocystin_conc",
+                                                                       "percrecovery",
+                                                                       "type",
+                                                                       "id15"])
 
     def create_list_of_unique_samples(self):
         """This is a simple one line function that generates a list of unique samples in the samples_data_frame, for use
