@@ -1,3 +1,5 @@
+import math
+
 class MultiMethods:
     """This class contains the methods that make multi-sample reports - that is, jobs with more than one sample on the
     report. """
@@ -49,21 +51,34 @@ class MultiMethods:
         new_multi_tuple_list = []
         for item in multi_tuple_list:
             new_sub_list = []
-            for subitem in item:
-                if subitem[1][0] == 'per unit':
-                    new_tuple_entry = (subitem[0], ['mg/g', subitem[1][1], subitem[1][2], subitem[1][3]])
-                    new_sub_list.append(new_tuple_entry)
-                    new_sub_list.append(subitem)
-                elif subitem[1][0] == 'mg/mL':
-                    new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
-                    new_sub_list.append(subitem)
-                    new_sub_list.append(new_tuple_entry)
-                elif subitem[1][0] == 'mg/g':
-                    new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
-                    new_sub_list.append(subitem)
-                    new_sub_list.append(new_tuple_entry)
-                else:
-                    new_sub_list.append(subitem)
+            if instrument_type == "UPLCUV":
+                for subitem in item:
+                    if subitem[1][0] == 'per unit':
+                        new_tuple_entry = (subitem[0], ['mg/g', subitem[1][1], subitem[1][2], subitem[1][3]])
+                        new_sub_list.append(new_tuple_entry)
+                        new_sub_list.append(subitem)
+                    elif subitem[1][0] == 'mg/mL':
+                        new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
+                        new_sub_list.append(subitem)
+                        new_sub_list.append(new_tuple_entry)
+                    elif subitem[1][0] == 'mg/g':
+                        new_tuple_entry = (subitem[0], ['Percent', subitem[1][1], subitem[1][2], subitem[1][3]])
+                        new_sub_list.append(subitem)
+                        new_sub_list.append(new_tuple_entry)
+                    else:
+                        new_sub_list.append(subitem)
+            else:
+                for subitem in item:
+                    if subitem[1][0] == 'per unit':
+                        new_tuple_entry = (subitem[0], ['mg/g', subitem[1][1], subitem[1][2], subitem[1][3]])
+                        new_sub_list.append(new_tuple_entry)
+                        new_sub_list.append(subitem)
+                    elif subitem[1][0] == 'mg/mL':
+                        new_sub_list.append(subitem)
+                    elif subitem[1][0] == 'mg/g':
+                        new_sub_list.append(subitem)
+                    else:
+                        new_sub_list.append(subitem)
             new_multi_tuple_list.append(new_sub_list)
         for item in new_multi_tuple_list:
             self.determine_number_of_pages_for_multi_reports(item, instrument_type)
@@ -107,7 +122,7 @@ class MultiMethods:
     def single_page_multi_table(self, tuple_list, instrument_type):
         """combines the header of a table, to the main part of the table containing data. Then adds on the end string.
         returns the completed table."""
-        table_header_string = self.generate_single_page_multi_table_header(tuple_list)
+        table_header_string = self.generate_single_page_multi_table_header(tuple_list, instrument_type)
         main_table_string = self.generate_single_page_multi_table(tuple_list, table_header_string, instrument_type)
         end_string = r"""
 \hline
@@ -138,7 +153,7 @@ class MultiMethods:
         tuple_list_list.append(add_list)
         latex_tables_list = []
         for item in tuple_list_list:
-            table_header_string = self.generate_single_page_multi_table_header(item)
+            table_header_string = self.generate_single_page_multi_table_header(item, instrument_type)
             main_table_string = self.generate_single_page_multi_table(item, table_header_string, instrument_type)
             end_string = r"""
 \hline
@@ -152,7 +167,7 @@ class MultiMethods:
             latex_tables_list.append(main_table_string)
         return latex_tables_list
 
-    def generate_single_page_multi_table_header(self, tuple_list):
+    def generate_single_page_multi_table_header(self, tuple_list, instrument_type):
         """creates the table headers. table_header_1 is the first part of the latex table, sets up the tabular
         environment. The width of the columns for cannabinoid names, blank, Recovery, and So are fixed. the remainder
         of the space of the table (49%) is divided between up to four sample columns. This is accomplished by dividing
@@ -194,9 +209,12 @@ class MultiMethods:
             table_header_1 += sampleid_slot_line
             unit_line = r""" (""" + unit + r""")  &"""
             unit_line_start += unit_line
-        table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & $\mathbf{\small S_{0}}$ \\"""
+        if instrument_type == "UPLCUV":
+            table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & $\mathbf{\small S_{0}}$ \\"""
+        else:
+            table_header_3 = r"""\textbf{\small Blank} & \textbf{\small Recovery} & $\mathbf{\small MDL}$ \\"""
         table_header_1 += table_header_3
-        table_header_1 += unit_line_start + r""" (\%) & (\%) & (\%) \\
+        table_header_1 += unit_line_start + r""" (mg/g) & (\%) & (mg/g) \\
 \hline
 \hline"""
         return table_header_1
@@ -379,10 +397,13 @@ R. Bilodeau \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}H. Hartmann
         return footer_string
 
     def sig_fig_and_rounding_for_values(self, value):
+        print(value)
         if value == '-':
             return value
         elif value == "ND":
             return value
+        elif math.isnan(value):
+            return "ND"
         string_value = str(value)
         split_string = string_value.split('.')
         pre_decimal = split_string[0]

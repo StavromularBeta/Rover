@@ -73,7 +73,7 @@ class ReportWriter:
                                        }
         self.mushroom_dictionary = {1: (r"Psilocin &", 1.0),
                                     2: (r"Psilocybin &", 2.0),
-                                    3: (r"Baeocystin &", 3.0)}
+                                    3: (r"Baeocystin * &", 3.0)}
 
 #       This dictionary is for containing the LOQ's. keys match the list indices at the table writing step.
         self.loq_dictionary = {1: '0.001',

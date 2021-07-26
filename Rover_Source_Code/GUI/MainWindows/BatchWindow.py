@@ -258,8 +258,12 @@ class BatchWindow(Tk.Frame):
         for item in data.dm.unique_sample_id_list:
             Tk.Label(self.samples_checklist_frame, text=item).grid(row=counter, column=0)
             sample_type_string_variable = Tk.StringVar(self.samples_checklist_frame)
-            sample_type_choices = {'Percent', 'mg/mL', 'mg/g', 'per unit'}
-            sample_type_string_variable.set('Percent')
+            if instrument_type == "UPLCUV":
+                sample_type_choices = {'Percent', 'mg/mL', 'mg/g', 'per unit'}
+                sample_type_string_variable.set('Percent')
+            else:
+                sample_type_choices = {'mg/g', 'mg/mL', 'per unit'}
+                sample_type_string_variable.set('mg/g')
             sample_type_menu = Tk.OptionMenu(self.samples_checklist_frame,
                                              sample_type_string_variable,
                                              *sample_type_choices)

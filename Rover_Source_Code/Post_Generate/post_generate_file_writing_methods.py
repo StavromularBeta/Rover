@@ -18,15 +18,17 @@ class FileWritingMethods:
         be the 6 digit job number for multi sample reports, and the -XX number for single reports. The directory is
         always named using the 6 digit job number. """
         target = r'X:\ANALYST WORK FILES\Peter\Rover\reports\ '
+        mushroom_target = r'X:\ANALYST WORK FILES\Peter\Rover\reports\mushroom_reports\ '
         for key, value in self.finished_reports_dictionary.items():
-            try:
-                jobnumber = str(key)
-                filename = target[:-1] + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
-                filename = filename.replace('/', '-')
-                with self.safe_open_w(filename) as f:
-                    f.write(value)
-            except OSError:
-                pass
+            if self.basic_reports_dictionary == "MUSH":
+                try:
+                    jobnumber = str(key)
+                    filename = mushroom_target[:-1] + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
+                    filename = filename.replace('/', '-')
+                    with self.safe_open_w(filename) as f:
+                        f.write(value)
+                except OSError:
+                    pass
         if self.basic_reports_dictionary == "MUSH":
             pass
         else:
