@@ -29,6 +29,15 @@ class FileWritingMethods:
                         f.write(value)
                 except OSError:
                     pass
+            else:
+                try:
+                    jobnumber = str(key)
+                    filename = target[:-1] + jobnumber[0:6] + '\\' + jobnumber + '_raw.tex'
+                    filename = filename.replace('/', '-')
+                    with self.safe_open_w(filename) as f:
+                        f.write(value)
+                except OSError:
+                    pass
         if self.basic_reports_dictionary == "MUSH":
             pass
         else:

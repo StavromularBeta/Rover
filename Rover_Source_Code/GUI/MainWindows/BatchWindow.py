@@ -80,9 +80,9 @@ class BatchWindow(Tk.Frame):
                                           orient="vertical",
                                           command=display_all_jobs_canvas.yview)
         display_all_jobs_canvas.configure(yscrollcommand=all_entries_scroll.set)
-        all_entries_scroll.pack(side='right',
+        all_entries_scroll.pack(side='left',
                                 fill='y')
-        display_all_jobs_canvas.pack(side="left",
+        display_all_jobs_canvas.pack(side="right",
                                      fill='y')
         display_all_jobs_canvas.create_window((0, 0),
                                               window=self.sub_display_frame,

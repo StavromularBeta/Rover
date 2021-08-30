@@ -104,14 +104,14 @@ class MultiMethods:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_string = self.single_page_multi_table(tuple_list, instrument_type)
-            footer = self.generate_footer()
+            footer = self.generate_footer(instrument_type)
             report = header + table_string + footer
             self.finished_reports_dictionary[sample_id] = report
         else:
             sample_id = tuple_list[0][0][0:6]
             header = self.latex_header_and_sample_list_dictionary[sample_id]
             table_strings = self.multiple_page_multi_table(tuple_list, instrument_type)
-            footer = self.generate_footer()
+            footer = self.generate_footer(instrument_type)
             for item in table_strings:
                 header += item
                 header += r'\newpage\newgeometry{head=65pt, includehead=true, includefoot=true, margin=0.5in}'
@@ -327,6 +327,12 @@ class MultiMethods:
                 start += r"""ND &"""
             start += r"""ND & N/A & N/A \\ """
             return start
+        elif cannabinoid == "Baeocystin":
+            start = r"""Baeocystin * & """
+            for item in tuple_list:
+                start += r"""ND &"""
+            start += r"""ND & N/A & 0.0003 \\ """
+            return start
         if mushroom_report:
             cannabinoid_latex_string = self.mushrooms_dictionary[cannabinoid][0]
             cannabinoid_id_17 = self.mushrooms_dictionary[cannabinoid][1]
@@ -379,12 +385,13 @@ class MultiMethods:
         cannabinoid_latex_string += r"""ND & """ + cannabinoid_recovery_value + r"""&""" + loq_value + r"""\\"""
         return cannabinoid_latex_string
 
-    def generate_footer(self):
+    def generate_footer(self, instrument_type):
         """This function generates the latex footer that goes on the bottom of the reports. Contains information about
         the procedure and the variables in the table, liability stuff for the company, the footer for the company
         with the business name and the contact information, and also the spots for the senior chemist signatures
         on the reports. """
-        footer_string = r"""
+        if instrument_type == "UPLCUV":
+            footer_string = r"""
 Methods: solvent extraction; measured by UPLC-UV, tandem MS, P.I. 1.14 \& based on USP monograph 29 \newline
 $\si{S_{o}}$ = standard deviation at zero analyte concentration. MDL generally considered to be 3x $\si{S_{o}}$ value. \newline\newline
 ND = none detected. N/A = not applicable. THC = tetrahydrocannabinol.\newline 
@@ -393,6 +400,15 @@ Material will be held for up to 3 weeks unless alternative arrangements have bee
 \newline\newline\newline
 R. Bilodeau \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}H. Hartmann\\ Analytical Chemist: \underline{\hspace{3cm}}{ \hspace{3.2cm} Sr. Analytical Chemist: \underline{\hspace{3cm}}       
 \end{document}
+ """
+        else:
+            footer_string = r"""* Compound estimated based on psilocybin response; no standard available.\newline
+Methods: solvent extraction; measured by UHPLC-ESI - tandem MSMS\newline\newline
+\textbf{MDL} = Method Detection Limit.\phantom{aaaaaaaaaaaaaaaaaaaaalaaaaaa}\textbf{ND} = None Detected.\newline
+\textbf{mg/g} = milligrams per gram (10 mg/g = 1.0\%)\phantom{aaaaaaaaaaaaaaa}\textbf{N/A} = Not Applicable.\newline\newline
+Material will be held for up to 3 weeks unless alternate arrangements have been made.
+\newline\newline\newline
+R. Bilodeau \phantom{aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasssssssssssss}H. Hartmann\\ Analytical Chemist: \underline{\hspace{3cm}}{ \hspace{3.2cm} Sr. Analytical Chemist: \underline{\hspace{3cm}}    \end{document}
  """
         return footer_string
 

@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6350519b-82c6-4843-9ca1-093225a8f3be" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Rover.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Rover.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/GUI/MainWindows/BatchWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_controller.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_controller.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_file_writing_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_file_writing_methods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_organize_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_organize_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/mush_pre_generate_data_manipulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/mush_pre_generate_data_manipulation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +26,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_multi_methods.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_single_methods.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_file_writing_methods.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_controller.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Post_Generate/post_generate_basic_text_report_methods.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/pre_generate_data_manipulation.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Rover_Source_Code/Pre_Generate/mush_pre_generate_data_manipulation.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1WXRYquf7nmJ8xPqVvYcK7avSXV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -33,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../EasyTrax" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RoverReporting" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>

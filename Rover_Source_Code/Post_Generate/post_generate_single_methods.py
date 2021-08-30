@@ -145,9 +145,9 @@ class SingleMethods:
         thcv_value = temporary_data_frame.loc[temporary_data_frame['id17'] == 4.0,
                                               ['percrecovery']].iloc[0]['percrecovery']
         thcv_value = self.round_down_to_correct_decimal_point(thcv_value)
-        cbgva_value = temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
-                                               ['percrecovery']].iloc[0]['percrecovery']
-        cbgva_value = self.round_down_to_correct_decimal_point(cbgva_value)
+ #       cbgva_value = temporary_data_frame.loc[temporary_data_frame['id17'] == 5.0,
+ #                                              ['percrecovery']].iloc[0]['percrecovery']
+ #       cbgva_value = self.round_down_to_correct_decimal_point(cbgva_value)
         cbd_value = temporary_data_frame.loc[temporary_data_frame['id17'] == 6.0,
                                              ['percrecovery']].iloc[0]['percrecovery']
         cbd_value = self.round_down_to_correct_decimal_point(cbd_value)
@@ -191,7 +191,7 @@ class SingleMethods:
                                               ['percrecovery']].iloc[0]['percrecovery']
         cbca_value = self.round_down_to_correct_decimal_point(cbca_value)
         if report_type == 'Deluxe':
-            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, cbgva_value, cbd_value, cbg_value,
+            return [ibu_recovery_value, cbdv_value, cbdva_value, thcv_value, "N/A", cbd_value, cbg_value,
                     cbda_value, cbn_value, cbga_value, thcva_value, d9_thc_value, d8_thc_value, cbl_value, cbc_value,
                     cbna_value, thca_value, cbla_value, cbca_value]
         else:

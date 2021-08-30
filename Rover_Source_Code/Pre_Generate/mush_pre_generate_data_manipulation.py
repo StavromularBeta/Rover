@@ -143,9 +143,10 @@ class MushPreGenerateDataManipulation:
 
     def extract_samples_from_trimmed_data_frame(self):
         # pulls samples out
-        search_for = ["161", "162"]
+        search_for = ["161", "162", "163"]
         self.samples_data_frame = self.trimmed_data_frame[
             self.trimmed_data_frame['sampleid'].str.contains('|'.join(search_for), na=False)]
+        self.samples_data_frame = self.samples_data_frame.fillna(0)
 
     def covert_baeocystin_values_from_area_to_approx_conc(self):
         # converts baeocystin
